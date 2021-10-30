@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Item:</strong>
+  <%= @transaction.item_id_id %>
+</p>
+
+<p>
+  <strong>Seller:</strong>
+  <%= @transaction.seller_id_id %>
+</p>
+
+<p>
+  <strong>Buyer:</strong>
+  <%= @transaction.buyer_id_id %>
+</p>
+
+<p>
+  <strong>Created at:</strong>
+  <%= @transaction.created_at %>
+</p>
+
+<p>
+  <strong>Updated at:</strong>
+  <%= @transaction.updated_at %>
+</p>
+
+<p>
+  <strong>Expected deal time:</strong>
+  <%= @transaction.expected_deal_time %>
+</p>
+
+<p>
+  <strong>Real deal time:</strong>
+  <%= @transaction.real_deal_time %>
+</p>
+
+<p>
+  <strong>Deal address:</strong>
+  <%= @transaction.deal_address %>
+</p>
+
+<p>
+  <strong>Deal price:</strong>
+  <%= @transaction.deal_price %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @transaction.status %>
+</p>
+
+<p>
+  <strong>Seller rating:</strong>
+  <%= @transaction.seller_rating %>
+</p>
+
+<p>
+  <strong>Buyer rating:</strong>
+  <%= @transaction.buyer_rating %>
+</p>
+
+<%= link_to 'Edit', edit_transaction_path(@transaction) %> |
+<%= link_to 'Back', transactions_path %>

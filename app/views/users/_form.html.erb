@@ -1,0 +1,67 @@
+<%= form_with(model: user) do |form| %>
+  <% if user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+        <% user.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :username %>
+    <%= form.text_field :username %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password_digest %>
+    <%= form.text_field :password_digest %>
+  </div>
+
+  <div class="field">
+    <%= form.label :created_at %>
+    <%= form.datetime_select :created_at %>
+  </div>
+
+  <div class="field">
+    <%= form.label :updated_at %>
+    <%= form.datetime_select :updated_at %>
+  </div>
+
+  <div class="field">
+    <%= form.label :avatar_url %>
+    <%= form.text_field :avatar_url %>
+  </div>
+
+  <div class="field">
+    <%= form.label :address %>
+    <%= form.text_field :address %>
+  </div>
+
+  <div class="field">
+    <%= form.label :rating_seller %>
+    <%= form.text_field :rating_seller %>
+  </div>
+
+  <div class="field">
+    <%= form.label :rating_buyer %>
+    <%= form.text_field :rating_buyer %>
+  </div>
+
+  <div class="field">
+    <%= form.label :permission %>
+    <%= form.number_field :permission %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

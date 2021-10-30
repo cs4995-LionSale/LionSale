@@ -33,7 +33,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3', '~> 1.4'
-  gem 'spring'， '~> 3.0.0'
+  gem 'spring', '~> 3.0.0'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 
@@ -67,6 +67,5 @@ group :test do
 end
 
 group :production do
-  gem 'pg',             '~> 1.2.3'
-  gem 'rails_12factor', '0.0.2'
+  gem 'pg' ,'~> 1.2.3'
 end

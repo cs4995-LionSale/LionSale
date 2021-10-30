@@ -1,0 +1,27 @@
+require 'rails_helper'
+
+RSpec.describe "messages/edit", type: :view do
+  before(:each) do
+    @message = assign(:message, Message.create!(
+      sender_id: nil,
+      to_id: nil,
+      item_id: nil,
+      content: "MyText"
+    ))
+  end
+
+  it "renders the edit message form" do
+    render
+
+    assert_select "form[action=?][method=?]", message_path(@message), "post" do
+
+      assert_select "input[name=?]", "message[sender_id_id]"
+
+      assert_select "input[name=?]", "message[to_id_id]"
+
+      assert_select "input[name=?]", "message[item_id_id]"
+
+      assert_select "textarea[name=?]", "message[content]"
+    end
+  end
+end
