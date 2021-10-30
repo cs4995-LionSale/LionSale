@@ -84,14 +84,14 @@ ActiveRecord::Schema.define(version: 2021_10_30_194917) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "categories", "parent_categories"
+  add_foreign_key "categories", "categories", column: "parent_category_id"
   add_foreign_key "items", "categories"
-  add_foreign_key "items", "sellers"
-  add_foreign_key "messages", "froms"
+  add_foreign_key "items", "users", column: "seller_id"
   add_foreign_key "messages", "items"
-  add_foreign_key "messages", "tos"
+  add_foreign_key "messages", "users", column: "from_id"
+  add_foreign_key "messages", "users", column: "to_id"
   add_foreign_key "photos", "items"
-  add_foreign_key "transactions", "buyers"
   add_foreign_key "transactions", "items"
-  add_foreign_key "transactions", "sellers"
+  add_foreign_key "transactions", "users", column: "buyer_id"
+  add_foreign_key "transactions", "users", column: "seller_id"
 end
