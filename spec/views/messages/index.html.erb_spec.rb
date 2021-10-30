@@ -4,15 +4,15 @@ RSpec.describe "messages/index", type: :view do
   before(:each) do
     assign(:messages, [
       Message.create!(
-        sender_id: nil,
-        to_id: nil,
-        item_id: nil,
+        from: nil,
+        to: nil,
+        item: nil,
         content: "MyText"
       ),
       Message.create!(
-        sender_id: nil,
-        to_id: nil,
-        item_id: nil,
+        from: nil,
+        to: nil,
+        item: nil,
         content: "MyText"
       )
     ])

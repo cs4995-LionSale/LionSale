@@ -5,11 +5,11 @@ RSpec.describe "categories/index", type: :view do
     assign(:categories, [
       Category.create!(
         name: "Name",
-        parent_category_id: nil
+        parent_category: nil
       ),
       Category.create!(
         name: "Name",
-        parent_category_id: nil
+        parent_category: nil
       )
     ])
   end

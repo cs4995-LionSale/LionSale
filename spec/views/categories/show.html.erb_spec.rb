@@ -4,7 +4,7 @@ RSpec.describe "categories/show", type: :view do
   before(:each) do
     @category = assign(:category, Category.create!(
       name: "Name",
-      parent_category_id: nil
+      parent_categor: nil
     ))
   end
 

@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe "transactions/new", type: :view do
   before(:each) do
     assign(:transaction, Transaction.new(
-      item_id: nil,
-      seller_id: nil,
-      buyer_id: nil,
+      item: nil,
+      seller: nil,
+      buyer: nil,
       deal_address: "MyString",
       deal_price: "9.99",
       status: 1,
@@ -19,11 +19,11 @@ RSpec.describe "transactions/new", type: :view do
 
     assert_select "form[action=?][method=?]", transactions_path, "post" do
 
-      assert_select "input[name=?]", "transaction[item_id_id]"
+      assert_select "input[name=?]", "transaction[item_id]"
 
-      assert_select "input[name=?]", "transaction[seller_id_id]"
+      assert_select "input[name=?]", "transaction[seller_id]"
 
-      assert_select "input[name=?]", "transaction[buyer_id_id]"
+      assert_select "input[name=?]", "transaction[buyer_id]"
 
       assert_select "input[name=?]", "transaction[deal_address]"
 

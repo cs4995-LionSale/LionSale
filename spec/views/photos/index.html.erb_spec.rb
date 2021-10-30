@@ -5,11 +5,11 @@ RSpec.describe "photos/index", type: :view do
     assign(:photos, [
       Photo.create!(
         photo_url: "Photo Url",
-        item_id: nil
+        item: nil
       ),
       Photo.create!(
         photo_url: "Photo Url",
-        item_id: nil
+        item: nil
       )
     ])
   end

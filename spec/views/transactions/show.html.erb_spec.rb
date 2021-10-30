@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe "transactions/show", type: :view do
   before(:each) do
     @transaction = assign(:transaction, Transaction.create!(
-      item_id: nil,
-      seller_id: nil,
-      buyer_id: nil,
+      item: nil,
+      seller: nil,
+      buyer: nil,
       deal_address: "Deal Address",
       deal_price: "9.99",
       status: 2,

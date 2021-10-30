@@ -4,9 +4,9 @@ RSpec.describe "transactions/index", type: :view do
   before(:each) do
     assign(:transactions, [
       Transaction.create!(
-        item_id: nil,
-        seller_id: nil,
-        buyer_id: nil,
+        item: nil,
+        seller: nil,
+        buyer: nil,
         deal_address: "Deal Address",
         deal_price: "9.99",
         status: 2,
@@ -14,9 +14,9 @@ RSpec.describe "transactions/index", type: :view do
         buyer_rating: 4
       ),
       Transaction.create!(
-        item_id: nil,
-        seller_id: nil,
-        buyer_id: nil,
+        item: nil,
+        seller: nil,
+        buyer: nil,
         deal_address: "Deal Address",
         deal_price: "9.99",
         status: 2,

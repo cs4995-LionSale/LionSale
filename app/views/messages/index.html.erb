@@ -5,7 +5,7 @@
 <table>
   <thead>
     <tr>
-      <th>Sender</th>
+      <th>from</th>
       <th>To</th>
       <th>Item</th>
       <th>Created at</th>
@@ -17,9 +17,9 @@
   <tbody>
     <% @messages.each do |message| %>
       <tr>
-        <td><%= message.sender_id_id %></td>
-        <td><%= message.to_id_id %></td>
-        <td><%= message.item_id_id %></td>
+        <td><%= message.sende_id %></td>
+        <td><%= message.to_id %></td>
+        <td><%= message.item_id %></td>
         <td><%= message.created_at %></td>
         <td><%= message.content %></td>
         <td><%= link_to 'Show', message %></td>

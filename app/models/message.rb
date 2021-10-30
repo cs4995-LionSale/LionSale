@@ -1,5 +1,5 @@
 class Message < ApplicationRecord
-  belongs_to :sender_id
-  belongs_to :to_id
-  belongs_to :item_id
+  belongs_to :from
+  belongs_to :to
+  belongs_to :item
 end

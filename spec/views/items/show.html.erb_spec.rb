@@ -5,10 +5,10 @@ RSpec.describe "items/show", type: :view do
     @item = assign(:item, Item.create!(
       title: "Title",
       description: "MyText",
-      seller_id: nil,
+      seller: nil,
       price: "9.99",
       status: 2,
-      category_id: nil
+      category: nil
     ))
   end
 

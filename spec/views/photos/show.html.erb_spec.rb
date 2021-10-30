@@ -4,7 +4,7 @@ RSpec.describe "photos/show", type: :view do
   before(:each) do
     @photo = assign(:photo, Photo.create!(
       photo_url: "Photo Url",
-      item_id: nil
+      item: nil
     ))
   end
 

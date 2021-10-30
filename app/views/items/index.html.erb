@@ -22,12 +22,12 @@
       <tr>
         <td><%= item.title %></td>
         <td><%= item.description %></td>
-        <td><%= item.seller_id_id %></td>
+        <td><%= item.seller_id %></td>
         <td><%= item.price %></td>
         <td><%= item.created_at %></td>
         <td><%= item.updated_at %></td>
         <td><%= item.status %></td>
-        <td><%= item.category_id_id %></td>
+        <td><%= item.category_id %></td>
         <td><%= link_to 'Show', item %></td>
         <td><%= link_to 'Edit', edit_item_path(item) %></td>
         <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>

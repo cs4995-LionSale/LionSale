@@ -6,18 +6,18 @@ RSpec.describe "items/index", type: :view do
       Item.create!(
         title: "Title",
         description: "MyText",
-        seller_id: nil,
+        seller: nil,
         price: "9.99",
         status: 2,
-        category_id: nil
+        category: nil
       ),
       Item.create!(
         title: "Title",
         description: "MyText",
-        seller_id: nil,
+        seller: nil,
         price: "9.99",
         status: 2,
-        category_id: nil
+        category: nil
       )
     ])
   end

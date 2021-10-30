@@ -4,7 +4,7 @@ RSpec.describe "photos/edit", type: :view do
   before(:each) do
     @photo = assign(:photo, Photo.create!(
       photo_url: "MyString",
-      item_id: nil
+      item: nil
     ))
   end
 
@@ -15,7 +15,7 @@ RSpec.describe "photos/edit", type: :view do
 
       assert_select "input[name=?]", "photo[photo_url]"
 
-      assert_select "input[name=?]", "photo[item_id_id]"
+      assert_select "input[name=?]", "photo[item_id]"
     end
   end
 end

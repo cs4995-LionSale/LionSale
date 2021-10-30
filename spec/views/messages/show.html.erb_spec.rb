@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe "messages/show", type: :view do
   before(:each) do
     @message = assign(:message, Message.create!(
-      sender_id: nil,
-      to_id: nil,
-      item_id: nil,
+      from: nil,
+      to: nil,
+      item: nil,
       content: "MyText"
     ))
   end

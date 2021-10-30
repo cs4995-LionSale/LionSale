@@ -24,9 +24,9 @@
   <tbody>
     <% @transactions.each do |transaction| %>
       <tr>
-        <td><%= transaction.item_id_id %></td>
-        <td><%= transaction.seller_id_id %></td>
-        <td><%= transaction.buyer_id_id %></td>
+        <td><%= transaction.item_id %></td>
+        <td><%= transaction.seller_id %></td>
+        <td><%= transaction.buyer_id %></td>
         <td><%= transaction.created_at %></td>
         <td><%= transaction.updated_at %></td>
         <td><%= transaction.expected_deal_time %></td>
