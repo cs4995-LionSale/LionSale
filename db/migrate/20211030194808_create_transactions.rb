@@ -4,8 +4,6 @@ class CreateTransactions < ActiveRecord::Migration[6.1]
       t.references :item_id, null: false, foreign_key: true
       t.references :seller_id, null: false, foreign_key: true
       t.references :buyer_id, null: false, foreign_key: true
-      t.datetime :created_at
-      t.datetime :updated_at
       t.datetime :expected_deal_time
       t.datetime :real_deal_time
       t.string :deal_address
