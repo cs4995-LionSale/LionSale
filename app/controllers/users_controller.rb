@@ -22,9 +22,16 @@ class UsersController < ApplicationController
   # POST /users or /users.json
   def create
     @user = User.new(user_params)
-    if verify_recaptcha(model: @user) && @user.save
-      redirect_to @user
+    recaptcha_valid = verify_recaptcha(model: @user, action: 'registration')
+    if recaptcha_valid
+      if @user.save
+        redirect_to @user
+      else
+        render 'new'
+      end
     else
+      # Score is below threshold, so user may be a bot. Show a challenge, require multi-factor
+      # authentication, or do something else.
       render 'new'
     end
     respond_to do |format|
