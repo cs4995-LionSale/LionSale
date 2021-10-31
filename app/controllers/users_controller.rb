@@ -22,7 +22,11 @@ class UsersController < ApplicationController
   # POST /users or /users.json
   def create
     @user = User.new(user_params)
-
+    if verify_recaptcha(model: @user) && @user.save
+      redirect_to @user
+    else
+      render 'new'
+    end
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: "User was successfully created." }
@@ -64,6 +68,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:email, :username, :password_digest, :address, :rating_seller, :rating_buyer, :permission)
+      params.require(:user).permit(:email, :username, :password_digest, :address, :rating_seller, :rating_buyer, :permission, :avatar)
     end
 end
