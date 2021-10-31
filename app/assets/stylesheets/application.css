@@ -12,6 +12,6 @@
  *
  *= require new_ckeditor/ckeditor.css
  *= require normalize-rails
- *= require_tree .
  *= require_self
+ *= require_tree .
  */

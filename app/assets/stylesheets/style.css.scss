@@ -1,7 +1,5 @@
-@import "bootstrap";
+@import "bulma";
 @import "tachyons";
-@import "animate";
-// @import "bulma";
 @import "font-awesome";
 
 body {
@@ -41,7 +39,7 @@ body {
   /* background-color: #F7F7F7; */
   /* background-image: linear-gradient(to top, #ff0846ad 0%, #ffb199 100%); */
   /* background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%); */
-  background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%) !important ;
+  background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
   /* background-image: linear-gradient(to top, #f77062 0%, #fe5196 100%); */
   /* background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%); */
   /* background-image: linear-gradient(to right, rgba(247, 140, 160, 0.5) 0%, rgba(249, 116, 143, 0.5) 19%, rgba(253, 134, 140, 0.5) 60%, rgba(254, 154, 139, 0.5) 100%); */

@@ -16,50 +16,45 @@
     <style><%= yield :stylesheets %></style>
   </head>
 
-<body class="has-navbar-fixed-top">
-  <div class="bg bg-gradient "></div>
+<body class="has-navbar-fixed-top bg bg-gradient">
 
   <header>
-    <nav id="topNav" class="navbar navbar-expand-lg shadow-5 f5 is-fixed-top">
-      <div class="navbar-brand ms-2">
-        <%= link_to "LionSale", home_path, :class => "navbar-brand" %>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <nav id="topNav" class="navbar shadow-5 f5 is-fixed-top">
+      <div class="navbar-brand">
+        <%= link_to "LionSale", home_path, :class => "navbar-item" %>
+        <a role="button" class="navbar-burger">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
       </div>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <div class="navbar-nav me-auto mb-2 mb-lg-0">
-          <div class="nav-item">
-          <%= link_to "Home", home_path, :class => "nav-link" %>
-          </div>
-          <div class="nav-item">
-          <%= link_to "Items", items_path, :class => "nav-link" %>
-          </div>
-          <div class="nav-item">
-          <%= link_to "Categroies", categories_path, :class => "nav-link" %>
-          </div>
-          <div class="nav-item">
-          <%= link_to "About", about_path, :class => "nav-link" %>
-          </div>
+      <div class="navbar-menu">
+        <div class="navbar-start">
+          <%= link_to "Home", home_path, :class => "navbar-item" %>
+          <%= link_to "Items", items_path, :class => "navbar-item" %>
+          <%= link_to "Categroies", categories_path, :class => "navbar-item" %>
+          <%= link_to "About", about_path, :class => "navbar-item" %>
         </div>
-        <div class="d-flex">
-          <% if @user %>
-          <div id="nav-dropdown" class="nav-item dropdown" id="account">
-            <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= @user.username %></a>
-            <div class="dropdown-menu is-right">
-              <%= link_to "Profile", user_path(@user), :class => "dropdown-item" %>
-              <%= link_to "My Items", items_path(user:@user.id), :class => "dropdown-item" %>
-              <%= link_to "My Transactions", transactions_path, :class => "dropdown-item" %>
-              <%= link_to "My Mailbox", messages_path, :class => "dropdown-item" %>
-              <hr class="dropdown-divider">
-              <%= link_to "Edit My Profile", edit_user_path(@user), :class => "dropdown-item" %>
-              <%= link_to "Logout", logout_path, :class => "dropdown-item" %>
+        <div class="navbar-end">
+          <% if @user.id %>
+          <div id="nav-dropdown" class="navbar-item has-dropdown" id="account">
+            <a class="navbar-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= @user.username %></a>
+            <div class="navbar-dropdown is-right">
+              <%= link_to "Profile", user_path(@user.id), :class => "navbar-item" %>
+              <%= link_to "My Items", items_path(user:@user.id), :class => "navbar-item" %>
+              <%= link_to "My Transactions", transactions_path, :class => "navbar-item" %>
+              <%= link_to "My Mailbox", messages_path, :class => "navbar-item" %>
+              <hr class="navbar-divider">
+              <%= link_to "Edit My Profile", edit_user_path(@user), :class => "navbar-item" %>
+              <%= link_to "Logout", logout_path, :class => "navbar-item" %>
             </div>
           </div>
           <% else %>
-          <div class="buttons">
-            <%= link_to "Register", new_user_path(next:request.original_fullpath), :class => "btn btn-primary ph4" %>
-            <%= link_to "Login", login_path(next:request.original_fullpath), :class => "btn btn-outline-link ph4" %>
+          <div class="navbar-item">
+            <div class="buttons">
+              <%= link_to "Signup", signup_path(next:request.original_fullpath), :class => "button is-primary ph4" %>
+              <%= link_to "Login", login_path(next:request.original_fullpath), :class => "button is-link is-outlined ph4" %>
+            </div>
           </div>
           <% end %>
         </div>
@@ -73,14 +68,15 @@
       // Check for click events on the navbar burger icon
       $(".navbar-burger").click(function () {
         // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-        $(".navbar-burger").toggleClass("active");
-        $(".navbar-nav").toggleClass("active");
+        $(".navbar-burger").toggleClass("is-active");
+        $(".navbar-menu").toggleClass("is-active");
       });
-      $("#navbar-nav").click(function () {
-        $("#nav-dropdown").toggleClass("active");
+      $("#nav-dropdown").click(function () {
+        $("#nav-dropdown").toggleClass("is-active");
       });
     });
   </script>
+  <% if !flash.empty? %>
   <main class="dark-gray mb4 relative">
     <ul class="notification is-info absolute right-0 z-9999 animated delay-6s fadeOut f5 tc">
     <% flash.each do |name, msg| %>
@@ -88,6 +84,7 @@
     <% end %>
     </ul>
   </main>
+  <% end %>
   <%= yield :content %>
   <footer class="bg-white black-70 pv2 pv3-l ph4 absolute left-0 right-0 bottom-0">
     <p class="f7">Copyright &copy; 2021 LionSale Team. All Rights Reserved.</p>
