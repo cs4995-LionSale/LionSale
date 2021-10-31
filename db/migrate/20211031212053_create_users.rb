@@ -4,7 +4,6 @@ class CreateUsers < ActiveRecord::Migration[6.1]
       t.string :email
       t.string :username
       t.string :password_digest
-      t.string :avatar_url
       t.string :address
       t.float :rating_seller
       t.float :rating_buyer

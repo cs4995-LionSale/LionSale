@@ -6,7 +6,6 @@ RSpec.describe "users/new", type: :view do
       email: "MyString",
       username: "MyString",
       password_digest: "MyString",
-      avatar_url: "MyString",
       address: "MyString",
       rating_seller: 1.5,
       rating_buyer: 1.5,
@@ -24,8 +23,6 @@ RSpec.describe "users/new", type: :view do
       assert_select "input[name=?]", "user[username]"
 
       assert_select "input[name=?]", "user[password_digest]"
-
-      assert_select "input[name=?]", "user[avatar_url]"
 
       assert_select "input[name=?]", "user[address]"
 

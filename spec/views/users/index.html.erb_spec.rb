@@ -7,7 +7,6 @@ RSpec.describe "users/index", type: :view do
         email: "Email",
         username: "Username",
         password_digest: "Password Digest",
-        avatar_url: "Avatar Url",
         address: "Address",
         rating_seller: 2.5,
         rating_buyer: 3.5,
@@ -17,7 +16,6 @@ RSpec.describe "users/index", type: :view do
         email: "Email",
         username: "Username",
         password_digest: "Password Digest",
-        avatar_url: "Avatar Url",
         address: "Address",
         rating_seller: 2.5,
         rating_buyer: 3.5,
@@ -31,7 +29,6 @@ RSpec.describe "users/index", type: :view do
     assert_select "tr>td", text: "Email".to_s, count: 2
     assert_select "tr>td", text: "Username".to_s, count: 2
     assert_select "tr>td", text: "Password Digest".to_s, count: 2
-    assert_select "tr>td", text: "Avatar Url".to_s, count: 2
     assert_select "tr>td", text: "Address".to_s, count: 2
     assert_select "tr>td", text: 2.5.to_s, count: 2
     assert_select "tr>td", text: 3.5.to_s, count: 2
