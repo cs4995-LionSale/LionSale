@@ -8,7 +8,7 @@ module NavigationHelpers
     def path_to(page_name)
       case page_name
   
-      when /^the (RottenPotatoes )?home\s?page$/ then '/users'
+      when /^the home\s?page$/ then '/users'
   
       # Add more mappings here.
       # Here is an example that pulls values out of the Regexp:
@@ -19,7 +19,9 @@ module NavigationHelpers
   
        when /^the login page$/i then login_path()
   
-       when /^the profile page for "(.*)"$/i then profile_path(Movie.all.select{ |u| u.name == $1 })
+       when /^the profile page for "(.*)"$/i then profile_path(Users.all.select{ |u| u.username == $1 })
+
+       when /^the updateprofile page for "(.*)"$/i then update_profile_path(Users.all.select{ |u| u.username == $1 })
   
   
       else
