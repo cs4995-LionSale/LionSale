@@ -1,0 +1,144 @@
+@import "bootstrap";
+@import "tachyons";
+@import "animate";
+// @import "bulma";
+@import "font-awesome";
+
+body {
+  position: relative;
+  height: 100%;
+  font-family: "Cerebri Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
+    "Helvetica Neue", "Microsoft Yahei", sans-serif;
+  font-feature-settings: "liga" 1, "dlig" 1, "lnum" 1, "ordn" 1, "halt" 1,
+    "kern" 1, "kern";
+  text-rendering: optimizeLegibility;
+  word-break: break-word;
+  word-wrap: break-word;
+  -webkit-font-kerning: normal;
+  font-kerning: normal;
+  -moz-font-feature-settings: "kern";
+  -webkit-font-feature-settings: "kern";
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  font-size: 16px;
+  min-height: 100vh;
+  color: white;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+}
+
+.bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: -1;
+}
+
+.bg-gradient {
+  /* background-color: #F7F7F7; */
+  /* background-image: linear-gradient(to top, #ff0846ad 0%, #ffb199 100%); */
+  /* background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%); */
+  background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%) !important ;
+  /* background-image: linear-gradient(to top, #f77062 0%, #fe5196 100%); */
+  /* background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%); */
+  /* background-image: linear-gradient(to right, rgba(247, 140, 160, 0.5) 0%, rgba(249, 116, 143, 0.5) 19%, rgba(253, 134, 140, 0.5) 60%, rgba(254, 154, 139, 0.5) 100%); */
+  /* background-image: linear-gradient(to top, #007adf 0%, #00ecbc 100%); */
+} 
+.delay-6s {
+  animation-duration: 6s;
+}
+
+.notification.is-danger .error .notice {
+  font-size: 1rem;
+  color: #ffffff;
+}
+
+.error {
+  font-size: 0.75rem;
+  color: #ff4136;
+}
+
+.table th {
+  text-align: center;
+}
+
+.table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.hover-expand {
+  transition: all 0.2s ease;
+  cursor: default;
+}
+
+.hover-expand:hover {
+  box-shadow: 0 0 0 20px #fff, 5px 15px 30px 20px rgba(0, 0, 0, 0.05);
+}
+
+.hover-underline {
+  position: relative;
+}
+
+.hover-underline:after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  width: 0%;
+  height: 0.1em;
+  background: currentColor;
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.hover-underline:hover:after {
+  width: 100%;
+}
+
+.lh-4 {
+  line-height: 4rem;
+}
+
+@media screen and (min-width: 30em) {
+  .lh-4-ns {
+    line-height: 4rem;
+  }
+}
+
+@media screen and (min-width: 30em) and (max-width: 60em) {
+  .lh-4-m {
+    line-height: 4rem;
+  }
+}
+
+@media screen and (min-width: 60em) {
+  .lh-4-l {
+    line-height: 4rem;
+  }
+}
+
+.min-h3 {
+  min-height: 6rem;
+}
+
+@media screen and (min-width: 30em) {
+  .min-h3-ns {
+    min-height: 6rem;
+  }
+}
+
+@media screen and (min-width: 30em) and (max-width: 60em) {
+  .min-h3-m {
+    min-height: 6rem;
+  }
+}
+
+@media screen and (min-width: 60em) {
+  .min-h3-l {
+    min-height: 6rem;
+  }
+}
