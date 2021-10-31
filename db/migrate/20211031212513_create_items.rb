@@ -3,10 +3,10 @@ class CreateItems < ActiveRecord::Migration[6.1]
     create_table :items do |t|
       t.string :title
       t.text :description
-      t.references :seller, null: false, { to_table: :users }
+      t.references :seller, null: false, foreign_key: { to_table: :users }
       t.decimal :price
       t.integer :status
-      t.references :category, null: false, { to_table: :categories }
+      t.references :category, null: false, foreign_key: { to_table: :categories }
 
       t.timestamps
     end
