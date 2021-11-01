@@ -1,39 +1,113 @@
-<p id="notice"><%= notice %></p>
+<% content_for :page_title do %>LionSale: <%= @item.title %><% end %>
+<% content_for :page_description do %>LionSale: <%= @item.title %><% end %>
+<% content_for :content do %>
+<section class="section">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-8">
+        <% if @item.photos.attached? %>
+          <div class="swiper" id="item_swiper">
+            <div class="swiper-wrapper">
+            <% @item.photos.each do |image| %>
+            <div class="swiper-slide image is-4by3"><%= image_tag(image, class:"img-fluid") %></div>
+            <% end %>
+            </div>
+            <div class="swiper-pagination" id="item_swiper"></div>
+            <div class="swiper-button-prev"id="item_swiper_prev"></div>
+            <div class="swiper-button-next" id="item_swiper_next"></div>
+        </div>
+        <script>
+        const swiper = new Swiper('#item_swiper', {
+          // Optional parameters
+          direction: 'horizontal',
+          loop: true,
 
-<p>
-  <strong>Title:</strong>
-  <%= @item.title %>
-</p>
+          // If we need pagination
+          pagination: {
+            el: '#item_swiper',
+          },
 
-<p>
-  <strong>Description:</strong>
-  <%= @item.description %>
-</p>
+          // Navigation arrows
+          navigation: {
+            nextEl: '#item_swiper_prev',
+            prevEl: '#item_swiper_prev',
+          },
+        });
+        </script>
+      <% else %>
+        <div class="image is-4by3">
+            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+        </div>
+      <% end %>
+      </div>
+      <div class="column">
+        <p class="title is-2"><%= @item.title %></p>
+        <dl class="lh-copy mt0">
+          <dt class="f6 dark-gray">Sold by</dt>
+          <dd class="f4 ml0">
+            <%= link_to @item.seller.username, user_path(@item.seller.id), :class => "no-underline hover-underline"%>
+          </dd>
+          <dt class="f6 mt2 dark-gray">Description</dt>
+          <dd class="f4 ml0 black">
+          <div class="description-text">
+            <%= raw @item.description %>
+          </div>
+          </dd>
+          <dt class="f6 mt2 dark-gray">Category</dt>
+          <dd class="f4 ml0">
+            <%= link_to @item.category.name, items_path(category:@item.category.id), :class => "no-underline hover-underline"%>
+          </dd>
+          <dt class="f6 mt2 dark-gray">On shelf since: </dt>
+          <dd class="f4 ml0 black">
+            <%= @item.created_at.strftime("%l:%M %p - %b %e %Y")%>
+          </dd>
+          <dt class="f6 mt2 dark-gray">Status updated at: </dt>
+          <dd class="f4 ml0 black">
+            <%= @item.updated_at.strftime("%l:%M %p - %b %e %Y")%>
+          </dd>
+          <dt class="f6 mt2 dark-gray">Status</dt>
+          <dd class="f4 ml0 black">
+          <%= render 'item_status', status:@item.status %>
+          <% if @item.status == 0%>
+          <strong><%= @item.number %></strong> avaliable
+          <% end %>
+          </dd>
+          <dt class="f5 mt2 dark-gray">Price:</dt>
+          <dd class="f3 ml0 black">
+            <p class="title is-2">$ <%= @item.price %></p>
+          </dd>
+        </dl>
 
-<p>
-  <strong>Seller:</strong>
-  <%= @item.seller_id %>
-</p>
+        <div class="mt3">
+          <% if @current_user %>
+          <div class="field is-grouped">
+            <p class="control">
+            <%= link_to '<span class="icon is-small"><i class="fa fa-shopping-cart"></i></span><span>Request to buy</span>'.html_safe, new_transaction_path(buyer_id:@current_user.id,item_id:@item.id),class:"button is-warning"%>
+            </p>
+            <p class="control">
+            <%= link_to '<span class="icon is-small"><i class="fa fa-paper-plane"></i></span><span>Message seller</span>'.html_safe, new_message_path(from_id:@current_user.id,to_id:@item.seller.id,item_id:@item.id),class:"button is-primary"%>
+            </p>
+            <p class="control">
+              <%= link_to '<span class="icon is-small"><i class="fa fa-heart"></i></span><span>Like</span>'.html_safe, "#",class:"button is-danger"%>
+            </p>
+          </div>
+          <% if @current_user == @item.seller %>
+          <div class="field is-grouped">
+            <p class="control">
+            <%= link_to '<span class="icon is-small"><i class="fa fa-edit"></i></span><span>Edit this item</span>'.html_safe, edit_item_path(@item), class:"button is-link"%>
+            </p>
+            <p class="control">
+            <%= link_to '<span class="icon is-small"><i class="fa fa-trash"></i></span><span>Close selling</span>'.html_safe, item_path(item:@item.id), method: :delete,class:"button is-danger"%>
+            </p>
+          </div>
+          <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<% end %>
+<%= render template: "layouts/application" %>
 
-<p>
-  <strong>Price:</strong>
-  <%= @item.price %>
-</p>
 
-<p>
-  <strong>Status:</strong>
-  <%= @item.status %>
-</p>
-
-<p>
-  <strong>Category:</strong>
-  <%= @item.category_id %>
-</p>
-
-<p>
-  <strong>Number:</strong>
-  <%= @item.number %>
-</p>
-
-<%= link_to 'Edit', edit_item_path(@item) %> |
-<%= link_to 'Back', items_path %>
