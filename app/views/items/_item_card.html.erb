@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card equal-height">
     <div class="card-image">
     <% if item.photos.attached? %>
     <div class="swiper" id="item_swiper_<%= index %>">
@@ -40,13 +40,15 @@
         <strong><%= item.number %></strong> avaliable
         <% end %>
         </p>
-        <time>On shelf at: item.created_at.strftime("%l:%M %p - %b %e %Y")</time>
+        <time>On shelf at: <%= item.created_at.strftime("%l:%M %p - %b %e %Y")%></time>
     </div>
     </div>
     <footer class="card-footer">
-    <%= link_to "Detail", item_path(item), :class => "card-footer-item" %>
-    <%= link_to "Contact", new_message_path(from_id:current_user.id,to_id:item.seller.id,item_id:item.id), :class => "card-footer-item" %>
-    <%= link_to "Like", "#", :class => "card-footer-item" %>
+    <%= link_to "Detail", item_path(item), :class => "card-footer-item hover-underline" %>
+    <% if current_user %>
+    <%= link_to "Contact", new_message_path(from_id:current_user.id,to_id:item.seller.id,item_id:item.id), :class => "card-footer-item hover-underline" %>
+    <% end %>
+    <%= link_to "Like", "#", :class => "card-footer-item hover-underline" %>
     </footer>
     </div>
 </div>

@@ -12,7 +12,6 @@
  *
  *= require new_ckeditor/ckeditor.css
  *= require normalize-rails
- *= require swiper
  *= require_self
  *= require_tree .
  */

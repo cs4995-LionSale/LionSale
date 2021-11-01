@@ -16,28 +16,37 @@
       </ul>
     </nav>
     <% end %>
-    <div class="columns is-multiline">
-      <div class="column is-4">
+    <div class="tile is-ancestor">
+      <div class="tile is-vertical is-parent">
       <% @items.each_with_index do |item,index| %>
       <% if index%3==0 %>
+      <div class="tile is-child">
         <%= render 'item_card', item:item,index:index,current_user:@current_user %>
       <% end %>
       <% end %>
       </div>
-      <div class="column is-4">
+      <div class="tile is-vertical is-parent">
       <% @items.each_with_index do |item,index| %>
       <% if index%3==1 %>
+      <div class="tile is-child">
         <%= render 'item_card', item:item,index:index,current_user:@current_user %>
       <% end %>
       <% end %>
-      </div>    
-      <div class="column is-4">
+      <% if @items.count%3 == 1%>
+      <div class="tile is-child"><div class="card equal-height is-hidden"><footer class="card-footer"></footer></div></div>
+      <% end %>
+      </div>
+      <div class="tile is-vertical is-parent">
       <% @items.each_with_index do |item,index| %>
       <% if index%3==2 %>
+      <div class="tile is-child">
         <%= render 'item_card', item:item,index:index,current_user:@current_user %>
       <% end %>
       <% end %>
-      </div>      
+      <% if @items.count % 3 != 0%>
+      <div class="tile is-child"><div class="card equal-height is-hidden"><footer class="card-footer"></footer></div></div>
+      <% end %>
+      </div>     
     </div>
   </div>
 </section>

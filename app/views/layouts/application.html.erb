@@ -21,8 +21,8 @@
     <style><%= yield :stylesheets %></style>
   </head>
 
-<body class="has-navbar-fixed-top bg bg-gradient">
-
+<body class="has-navbar-fixed-top">
+  <div class="bg bg-gradient "></div>
   <header>
     <nav id="topNav" class="navbar shadow-5 f5 is-fixed-top">
       <div class="navbar-brand">
@@ -92,7 +92,7 @@
   </main>
   <% end %>
   <%= yield :content %>
-  <footer class="bg-white black-70 pv2 pv3-l ph4 absolute left-0 right-0 bottom-0">
+  <footer class="bg-white black-70 pv2 pv3-l ph4 left-0 right-0 bottom-0">
     <p class="f7">Copyright &copy; 2021 LionSale Team. All Rights Reserved.</p>
   </footer>
   <script>
