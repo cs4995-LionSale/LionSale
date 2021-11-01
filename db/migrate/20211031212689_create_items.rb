@@ -7,6 +7,7 @@ class CreateItems < ActiveRecord::Migration[6.1]
       t.decimal :price
       t.integer :status
       t.references :category, null: false, foreign_key: { to_table: :categories }
+      t.integer :number
 
       t.timestamps
     end

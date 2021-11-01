@@ -8,7 +8,8 @@ RSpec.describe "items/show", type: :view do
       seller: nil,
       price: "9.99",
       status: 2,
-      category: nil
+      category: nil,
+      number: 3
     ))
   end
 
@@ -20,5 +21,6 @@ RSpec.describe "items/show", type: :view do
     expect(rendered).to match(/9.99/)
     expect(rendered).to match(/2/)
     expect(rendered).to match(//)
+    expect(rendered).to match(/3/)
   end
 end

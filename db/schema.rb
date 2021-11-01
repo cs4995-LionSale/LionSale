@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 2021_10_31_213725) do
     t.decimal "price"
     t.integer "status"
     t.integer "category_id", null: false
+    t.integer "number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["category_id"], name: "index_items_on_category_id"

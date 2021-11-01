@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
+  resources :items
   resources :messages
   resources :users
-  resources :items
   resources :transactions
   resources :categories
   root 'static_pages#home'

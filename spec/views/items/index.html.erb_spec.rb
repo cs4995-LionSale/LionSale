@@ -9,7 +9,8 @@ RSpec.describe "items/index", type: :view do
         seller: nil,
         price: "9.99",
         status: 2,
-        category: nil
+        category: nil,
+        number: 3
       ),
       Item.create!(
         title: "Title",
@@ -17,7 +18,8 @@ RSpec.describe "items/index", type: :view do
         seller: nil,
         price: "9.99",
         status: 2,
-        category: nil
+        category: nil,
+        number: 3
       )
     ])
   end
@@ -30,5 +32,6 @@ RSpec.describe "items/index", type: :view do
     assert_select "tr>td", text: "9.99".to_s, count: 2
     assert_select "tr>td", text: 2.to_s, count: 2
     assert_select "tr>td", text: nil.to_s, count: 2
+    assert_select "tr>td", text: 3.to_s, count: 2
   end
 end

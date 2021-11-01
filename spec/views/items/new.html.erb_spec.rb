@@ -8,7 +8,8 @@ RSpec.describe "items/new", type: :view do
       seller: nil,
       price: "9.99",
       status: 1,
-      category: nil
+      category: nil,
+      number: 1
     ))
   end
 
@@ -28,6 +29,8 @@ RSpec.describe "items/new", type: :view do
       assert_select "input[name=?]", "item[status]"
 
       assert_select "input[name=?]", "item[category_id]"
+
+      assert_select "input[name=?]", "item[number]"
     end
   end
 end
