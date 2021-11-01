@@ -1,39 +1,46 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Items</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Seller</th>
-      <th>Price</th>
-      <th>Status</th>
-      <th>Category</th>
-      <th>Number</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @items.each do |item| %>
-      <tr>
-        <td><%= item.title %></td>
-        <td><%= item.description %></td>
-        <td><%= item.seller_id %></td>
-        <td><%= item.price %></td>
-        <td><%= item.status %></td>
-        <td><%= item.category_id %></td>
-        <td><%= item.number %></td>
-        <td><%= link_to 'Show', item %></td>
-        <td><%= link_to 'Edit', edit_item_path(item) %></td>
-        <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<% content_for :page_title do %>Find some items<% end %>
+<% content_for :page_description do %>Item index page<% end %>
+<% content_for :content do %>
+<section class="section">
+  <div class="container">
+    <% if @categories %>
+    <nav class="breadcrumb" aria-label="breadcrumbs">
+      <ul>
+      <% @categories.each do |cat| %>
+        <% if cat.equal?(@categories.last) %>
+        <li><%= link_to cat.name, items_path(category_id:cat.id), class: "is-active" %></li>
+        <% else %>
+        <li><%= link_to cat.name, items_path(category_id:cat.id)%></li>
+        <% end %>
+      <% end %>
+      </ul>
+    </nav>
     <% end %>
-  </tbody>
-</table>
+    <div class="columns is-multiline">
+      <div class="column is-4">
+      <% @items.each_with_index do |item,index| %>
+      <% if index%3==0 %>
+        <%= render 'item_card', item:item,index:index,current_user:@current_user %>
+      <% end %>
+      <% end %>
+      </div>
+      <div class="column is-4">
+      <% @items.each_with_index do |item,index| %>
+      <% if index%3==1 %>
+        <%= render 'item_card', item:item,index:index,current_user:@current_user %>
+      <% end %>
+      <% end %>
+      </div>    
+      <div class="column is-4">
+      <% @items.each_with_index do |item,index| %>
+      <% if index%3==2 %>
+        <%= render 'item_card', item:item,index:index,current_user:@current_user %>
+      <% end %>
+      <% end %>
+      </div>      
+    </div>
+  </div>
+</section>
 
-<br>
-
-<%= link_to 'New Item', new_item_path %>
+<% end %>
+<%= render template: "layouts/application" %>
