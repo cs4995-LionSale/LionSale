@@ -1,6 +1,11 @@
-<h1>Editing User</h1>
-
-<%= render 'form', user: @user %>
-
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>
+<% content_for :page_title do %>Edit <%= @user.username %>'s user profile!<% end %>
+<% content_for :page_description do %>Edit <%= @user.username %>'s user profile for LionSale!<% end %>
+<% content_for :content do %>
+<section class="section">
+  <div class="container">
+    <h1 class="black">Edit your profile for LionSale!</h1>
+    <%= render 'edit_profile_form', user: @user %>
+  </div>
+</section>
+<% end %>
+<%= render template: "layouts/application" %>

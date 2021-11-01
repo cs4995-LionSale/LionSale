@@ -1,0 +1,138 @@
+<%= form_with(model: user, class: "black", HTML:{ enctype:"multipart/form-data" }) do |form| %>
+    <!-- <div>
+      <% if user.errors.any? %>
+      <div id="error_explanation" class="alert alert-warning alert-dismissible fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+        <strong><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</strong>
+        <ul>
+          <% user.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+      <% end %>
+    </div> -->
+  <div class="field is-horizontal">
+    <div class="field-label is-normal f6" style="flex-grow: 0.6">
+      <%= form.label :email, "E-mail", class: "label tl" %>
+    </div>
+    <div class="field-body">
+      <div class="field is-narrow">
+        <div class="control has-icons-left">
+          <span class="icon is-small is-left">
+            <i class="fa fa-envelope"></i>
+          </span>
+          <%= form.text_field :email, class: "input", type:"email", value:user.email %>
+        </div>
+        <% if user.errors[:email].any? %>
+        <div class="help is-danger">
+          <ul>
+            <% user.errors[:email].each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="field is-horizontal">
+    <div class="field-label is-normal f6" style="flex-grow: 0.6">
+      <%= form.label :username, "Username", class: "label tl" %>
+    </div>
+    <div class="field-body">
+      <div class="field is-narrow">
+        <div class="control has-icons-left">
+          <span class="icon is-small is-left">
+            <i class="fa fa-id-card"></i>
+          </span>
+          <%= form.text_field :username, class: "input", value:user.username %>
+        </div>
+        <% if user.errors[:username].any? %>
+        <div class="help is-danger">
+          <ul>
+            <% user.errors[:username].each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="field is-horizontal">
+    <div class="field-label is-normal f6" style="flex-grow: 0.6">
+      <%= form.label :address, "Address", class: "label tl" %>
+    </div>
+    <div class="field-body">
+      <div class="field is-narrow">
+        <div class="control has-icons-left">
+          <span class="icon is-small is-left">
+            <i class="fa fa-map-marker"></i>
+          </span>
+          <%= form.text_field :address, class: "input", value:user.address %>
+        </div>
+        <% if user.errors[:address].any? %>
+        <div class="help is-danger">
+          <ul>
+            <% user.errors[:address].each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="field is-horizontal">
+    <div class="field-label is-normal f6" style="flex-grow: 0.6">
+      <%= form.label :avatar, "Avatar", class: "label tl" %>
+    </div>
+    <div class="field-body">
+    <% if user.avatar.attached?  %>
+        <figure class="image is-128x128 profile-img">
+          <img class="is-rounded profile-img" src="https://bulma.io/images/placeholders/128x128.png">
+          <%= image_tag(user.avatar, class:"is-rounded profile-img") %>
+        </figure>
+    <% end %>
+      <div class="file has-name">
+        <label class="file-label">
+          <%= form.file_field :avatar, direct_upload: true, class:"file-input" %>
+          <span class="file-cta">
+            <span class="file-icon">
+              <i class="fa fa-upload"></i>
+            </span>
+          </span>
+          <span class="file-name" id="filename">
+            Choose a file…
+          </span>
+        </label>
+        <% if user.errors[:avatar].any? %>
+        <div class="help is-danger">
+          <ul>
+            <% user.errors[:avatar].each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="field is-horizontal actions">
+    <div class="field-label" style="flex-grow: 0.6">
+      <!-- Left empty for spacing -->
+    </div>
+    <div class="field-body">
+      <div class="field">
+        <div class="control">
+          <%= form.submit "Edit My Profile", class:"button is-primary ph4" %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

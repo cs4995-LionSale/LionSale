@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  resources :items
-  resources :messages
-  resources :users
-  resources :transactions
-  resources :categories
+  resources :items, only: [:index, :new, :create, :show, :edit, :update]
+  resources :messages, only: [:index, :new, :create, :show]
+  resources :users, only: [:new, :create, :show, :edit, :update]
+  resources :transactions, only: [:index, :new, :create, :show]
+  resources :categories, only: [:index, :show]
   root 'static_pages#home'
   get 'home' => 'static_pages#home'
   get 'about' => 'static_pages#about'
