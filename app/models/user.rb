@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+    has_secure_password
     has_one_attached :avatar
     has_many :messgaes_sent, class_name: 'Message', inverse_of: 'from'
     has_many :messgaes_received, class_name: 'Message', inverse_of: 'to'

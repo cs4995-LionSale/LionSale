@@ -1,2 +1,44 @@
-<h1>Sessions#new</h1>
-<p>Find me in app/views/sessions/new.html.erb</p>
+<% content_for :page_title do %>Log in<% end %>
+<% content_for :page_description do %>Welcome to the LionSale!<% end %>
+<% content_for :content do %>
+<section class="section">
+  <div class="container">
+    <h1 class="black">Welcome to the LionSale!</h1>
+     <%= form_with url: login_path do |f| %>
+     <div class="field w-25">
+        <%= f.label 'Username:', class:"label f6"%>
+        <div class="control has-icons-left">
+           <%= f.text_field :username, id: 'username', class:"input" %>
+          <span class="icon is-small is-left">
+            <i class="fa fa-user"></i>
+          </span>
+        </div>
+    </div>
+    <div class="field w-25">
+        <%= f.label 'Password:', class:"label f6"%>
+        <div class="control has-icons-left">
+           <%= f.password_field :password, id: 'password', class:"input" %>
+          <span class="icon is-small is-left">
+            <i class="fa fa-lock"></i>
+          </span>
+        </div>
+    </div>
+
+    <% if @show_checkbox_recaptcha %>
+        <%= recaptcha_tags %>
+        
+    <% else %>
+        <%= recaptcha_v3(action: 'login', site_key: ENV['RECAPTCHA_SITE_KEY_V3']) %>
+    <% end %>
+        
+    <%= f.submit 'Log In', class:"button is-link ph4 mt2"%>
+      <div class="near-white mt2 f4">
+        <p>Don't have an account? <%= link_to "Signup", signup_path, :class => "fw7 blue" %> </p>
+        <p>Forgot Password？ <%= link_to "Login", "#", :class => "fw7 blue" %> </p> 
+      </div>
+      <%= hidden_field_tag 'next', request.original_fullpath %>
+    <% end %>
+  </div>
+</section>
+<% end %>
+<%= render template: "layouts/application" %>

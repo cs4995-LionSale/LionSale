@@ -52,7 +52,7 @@
           <% else %>
           <div class="navbar-item">
             <div class="buttons">
-              <%= link_to "Signup", signup_path(next:request.original_fullpath), :class => "button is-primary ph4" %>
+              <%= link_to "Signup", signup_path, :class => "button is-primary ph4" %>
               <%= link_to "Login", login_path(next:request.original_fullpath), :class => "button is-link is-outlined ph4" %>
             </div>
           </div>
@@ -78,9 +78,9 @@
   </script>
   <% if !flash.empty? %>
   <main class="dark-gray mb4 relative">
-    <ul class="notification is-info absolute right-0 z-9999 animated delay-6s fadeOut f5 tc">
+    <ul class="notification is-info absolute right-0 z-9999 animated delay-6s fade-out f5 tc">
     <% flash.each do |name, msg| %>
-      <%= content_tag :div, msg, class: content_tag %>
+      <%= content_tag :div, msg, class: name %>
     <% end %>
     </ul>
   </main>
