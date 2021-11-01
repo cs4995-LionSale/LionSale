@@ -5,9 +5,11 @@
   <div class="container emp-profile">
     <div class="columns is-multiline">
       <div class="column is-two-fifths">
+        <% if @user.avatar.attached? %>
         <figure class="image is-128x128 profile-img">
-          <%= image_tag(user.avatar, class:"is-rounded profile-img") %>
+          <%= image_tag(@user.avatar, class:"is-rounded profile-img") %>
         </figure>
+        <% end %>
         <div class="profile-link">
             <p class="proile-rating">Rating as a seller:
             <% @user.rating_seller.to_i.times do %>
@@ -85,5 +87,3 @@
 <% end %>
 <%= render template: "layouts/application" %>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>

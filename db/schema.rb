@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 2021_10_31_213725) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
-    t.integer "parent_category_id", null: false
+    t.integer "parent_category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["parent_category_id"], name: "index_categories_on_parent_category_id"
