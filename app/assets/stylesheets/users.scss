@@ -1,3 +1,75 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.emp-profile{
+    padding: 3%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    border-radius: 0.5rem;
+    background: #fff;
+}
+
+.profile-img{
+    margin-left: 16%;
+    text-align: center;
+    margin-bottom: 6%;
+}
+
+.profile-head h2{
+    font-size: 28px;
+    margin-top: 3%;
+    color: #333;
+}
+.profile-head p{
+    font-size: 16px;
+    color: #66ccff;
+    font-weight: 600;
+    margin-top: 2%;
+}
+
+.profile-link{
+    padding: 14%;
+    margin-top: -15%;
+}
+.profile-link p{
+    font-size: 12px;
+    color: #818182;
+    font-weight: 600;
+    margin-top: 10%;
+}
+.profile-link a{
+    text-decoration: none;
+    color: #495057;
+    font-weight: 600;
+    font-size: 14px;
+}
+.profile-link ul{
+    list-style: none;
+}
+
+.proile-rating{
+    font-size: 12px;
+    color: #818182;
+    margin-top: 5%;
+}
+.proile-rating span{
+    color: #495057;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.profile-level {
+    margin-top: 14%;
+}
+
+.profile-level-heading {
+    color: #495057;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 1%;
+}
+
+.profile-level-item {
+    padding: 4%;
+}

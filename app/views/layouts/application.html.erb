@@ -36,16 +36,16 @@
           <%= link_to "About", about_path, :class => "navbar-item" %>
         </div>
         <div class="navbar-end">
-          <% if @user and @user.id %>
+          <% if @current_user %>
           <div id="nav-dropdown" class="navbar-item has-dropdown" id="account">
-            <a class="navbar-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= @user.username %></a>
+            <a class="navbar-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= @current_user.username %></a>
             <div class="navbar-dropdown is-right">
-              <%= link_to "Profile", user_path(@user.id), :class => "navbar-item" %>
-              <%= link_to "My Items", items_path(user:@user.id), :class => "navbar-item" %>
+              <%= link_to "Profile", user_path(@current_user.id), :class => "navbar-item" %>
+              <%= link_to "My Items", items_path(user:@current_user.id), :class => "navbar-item" %>
               <%= link_to "My Transactions", transactions_path, :class => "navbar-item" %>
               <%= link_to "My Mailbox", messages_path, :class => "navbar-item" %>
               <hr class="navbar-divider">
-              <%= link_to "Edit My Profile", edit_user_path(@user), :class => "navbar-item" %>
+              <%= link_to "Edit My Profile", edit_user_path(@current_user), :class => "navbar-item" %>
               <%= link_to "Logout", logout_path, :class => "navbar-item" %>
             </div>
           </div>

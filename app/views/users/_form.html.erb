@@ -21,8 +21,11 @@
     </div>
     <div class="field-body">
       <div class="field is-narrow">
-        <div class="control">
-          <%= form.text_field :email, class: "input" %>
+        <div class="control has-icons-left">
+          <span class="icon is-small is-left">
+            <i class="fa fa-envelope"></i>
+          </span>
+          <%= form.text_field :email, class: "input",type:"email" %>
         </div>
         <% if user.errors[:email].any? %>
         <div class="help is-danger">
@@ -42,7 +45,10 @@
     </div>
     <div class="field-body">
       <div class="field is-narrow">
-        <div class="control">
+        <div class="control has-icons-left">
+          <span class="icon is-small is-left">
+            <i class="fa fa-id-card"></i>
+          </span>
           <%= form.text_field :username, class: "input" %>
         </div>
         <% if user.errors[:username].any? %>
@@ -63,7 +69,10 @@
     </div>
     <div class="field-body">
       <div class="field is-narrow">
-        <div class="control">
+        <div class="control has-icons-left">
+          <span class="icon is-small is-left">
+            <i class="fa fa-lock"></i>
+          </span>
           <%= form.password_field :password, class: "input" %>
         </div>
         <% if user.errors[:password].any? %>
@@ -84,7 +93,10 @@
     </div>
     <div class="field-body">
       <div class="field is-narrow">
-        <div class="control">
+        <div class="control has-icons-left">
+          <span class="icon is-small is-left">
+            <i class="fa fa-lock"></i>
+          </span>
           <%= form.password_field :password_confirmation, class: "input" %>
         </div>
         <% if user.errors[:password_confirmation].any? %>
@@ -105,7 +117,10 @@
     </div>
     <div class="field-body">
       <div class="field is-narrow">
-        <div class="control">
+        <div class="control has-icons-left">
+          <span class="icon is-small is-left">
+            <i class="fa fa-map-marker"></i>
+          </span>
           <%= form.text_field :address, class: "input" %>
         </div>
         <% if user.errors[:address].any? %>

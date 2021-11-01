@@ -1,39 +1,89 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
-
-<p>
-  <strong>Username:</strong>
-  <%= @user.username %>
-</p>
-
-<p>
-  <strong>Password digest:</strong>
-  <%= @user.password_digest %>
-</p>
-
-<p>
-  <strong>Address:</strong>
-  <%= @user.address %>
-</p>
-
-<p>
-  <strong>Rating seller:</strong>
-  <%= @user.rating_seller %>
-</p>
-
-<p>
-  <strong>Rating buyer:</strong>
-  <%= @user.rating_buyer %>
-</p>
-
-<p>
-  <strong>Permission:</strong>
-  <%= @user.permission %>
-</p>
+<% content_for :page_title do %><% @user.username%>'s Profile<% end %>
+<% content_for :page_description do %><% @user.username%>'s Profile<% end %>
+<% content_for :content do %>
+<section class="section">
+  <div class="container emp-profile">
+    <div class="columns is-multiline">
+      <div class="column is-two-fifths">
+        <figure class="image is-128x128 profile-img">
+          <img class="is-rounded profile-img" src="https://bulma.io/images/placeholders/128x128.png">
+        </figure>
+        <div class="profile-link">
+            <p class="proile-rating">Rating as a seller:
+            <% @user.rating_seller.to_i.times do %>
+            <i class="fa fa-star"></i>
+            <% end %>
+            <span><%= @user.rating_seller %>/5</span></p>
+            <p class="proile-rating">Rating as a buyer:
+            <% @user.rating_buyer.to_i.times do %>
+            <i class="fa fa-star"></i>
+            <% end %>
+            <span><%= @user.rating_buyer %>/5</span></p>
+            <p>ITEMS AT LIONSALE</p>
+            <%= link_to "Items Selling/Sold", items_path(user:@user.id), class:"button is-link is-inverted" %>
+            <% if @current_user and @current_user.id == @user.id %>
+            <p>TRANSACTIONS</p>
+            <%= link_to "My Transactions", transactions_path, :class => "button is-link is-inverted" %>
+            <p>MESSAGES</p>
+            <%= link_to "My Mailbox", messages_path, :class => "button is-link is-inverted" %>
+            <% end %>
+        </div>
+      </div>
+      <div class="column">
+        <div class="profile-head">
+            <h2>
+                <%= @user.username %>
+            </h2>
+            <p>
+              <strong>Email:</strong>
+              <%= @user.email %>
+            </p>
+            <p>
+              <strong>Address:</strong>
+              <%= @user.address %>
+            </p>
+            <p>
+              <strong>Joined at:</strong>
+              <%= @user.created_at.strftime("%B %Y") %>
+            </p>
+        </div>
+        <nav class="level profile-level">
+          <div class="level-item has-text-centered profile-level-item">
+            <div>
+              <p class="heading profile-level-heading">Items sold</p>
+              <p class="title"><%= @user.items_sold_num %></p>
+            </div>
+          </div>
+          <div class="level-item has-text-centered profile-level-item">
+            <div>
+              <p class="heading profile-level-heading">Items selling</p>
+              <p class="title"><%= @user.items_selling_num %></p>
+            </div>
+          </div>
+          <div class="level-item has-text-centered profile-level-item">
+            <div>
+              <p class="heading profile-level-heading">Items bought</p>
+              <p class="title"><%= @user.items_bought_num %></p>
+            </div>
+          </div>
+          <div class="level-item has-text-centered profile-level-item">
+            <div>
+              <p class="heading profile-level-heading">Items liked</p>
+              <p class="title">???</p>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div class="column is-2">
+      <% if @current_user and @current_user.id == @user.id %>
+        <%= link_to "Edit My Profile", edit_user_path(@user), :class => "button is-info is-rounded" %>
+      <% end %>
+      </div> 
+    </div>
+  </div>
+</section>
+<% end %>
+<%= render template: "layouts/application" %>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

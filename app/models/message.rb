@@ -4,3 +4,4 @@ class Message < ApplicationRecord
   belongs_to :item, class_name: 'Item', foreign_key: 'item_id'
   has_many_attached :attachments
 end
+  
