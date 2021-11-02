@@ -7,7 +7,7 @@
         <div class="swiper-slide image is-16by9"><%= image_tag(image, class:"img-fluid") %></div>
         <% end %>
         </div>
-        <div class="swiper-pagination" id="item_swiper_<%= index %>"></div>
+        <div class="swiper-pagination" id="item_swiper_pagination_<%= index %>"></div>
         <div class="swiper-button-prev"id="item_swiper_prev_<%= index %>"></div>
         <div class="swiper-button-next" id="item_swiper_next_<%= index %>"></div>
     </div>
@@ -60,12 +60,12 @@ const swiper_<%= index %> = new Swiper('#item_swiper_<%= index %>', {
 
   // If we need pagination
   pagination: {
-    el: '#item_swiper_<%= index %>',
+    el: '#item_swiper_pagination_<%= index %>',
   },
 
   // Navigation arrows
   navigation: {
-    nextEl: '#item_swiper_prev_<%= index %>',
+    nextEl: '#item_swiper_next_<%= index %>',
     prevEl: '#item_swiper_prev_<%= index %>',
   },
 });

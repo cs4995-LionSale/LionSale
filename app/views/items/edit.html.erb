@@ -1,6 +1,11 @@
-<h1>Editing Item</h1>
-
-<%= render 'form', item: @item %>
-
-<%= link_to 'Show', @item %> |
-<%= link_to 'Back', items_path %>
+<% content_for :page_title do %>Edit <%= @item.title %>?<% end %>
+<% content_for :page_description do %>Edit <%= @item.title %>'s information for LionSale!<% end %>
+<% content_for :content do %>
+<section class="section">
+  <div class="container">
+    <h1 class="black">Edit <%= @item.title %>'s information for LionSale!</h1>
+    <%= render 'form', item: @item,is_new: false %>
+  </div>
+</section>
+<% end %>
+<%= render template: "layouts/application" %>

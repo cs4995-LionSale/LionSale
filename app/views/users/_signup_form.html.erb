@@ -152,6 +152,7 @@
             Choose a file…
           </span>
         </label>
+
         <% if user.errors[:avatar].any? %>
         <div class="help is-danger">
           <ul>
@@ -164,10 +165,11 @@
       </div>
     </div>
   </div>
-
+  <figure class="image is-128x128 gallery">
+    <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png" id="avatar_preview">
+  </figure>
   <%= recaptcha_v3(action: 'registration', site_key: ENV['RECAPTCHA_SITE_KEY_V3']) %>
 
-  
   <div class="field is-horizontal actions">
     <div class="field-label" style="flex-grow: 0.6">
       <!-- Left empty for spacing -->
@@ -191,5 +193,20 @@
       $('#filename')[0].innerHTML = file.files[0].name;
     }
   };
+  function readURL(input) {
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+              $('#avatar_preview').attr('src', e.target.result);
+          }
+
+          reader.readAsDataURL(input.files[0]);
+      }
+  }
+
+  $("#user_avatar").change(function () {
+      readURL(this);
+  });
 </script>
 <% end %>
