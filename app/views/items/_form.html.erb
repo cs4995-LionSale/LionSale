@@ -1,52 +1,310 @@
-<%= form_with(model: item) do |form| %>
-  <% if item.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h2>
-
-      <ul>
-        <% item.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
-  </div>
-
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
-  </div>
-
-  <div class="field">
-    <%= form.label :seller_id %>
-    <%= form.text_field :seller_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :price %>
-    <%= form.text_field :price %>
-  </div>
-
-  <div class="field">
-    <%= form.label :status %>
-    <%= form.number_field :status %>
-  </div>
-
-  <div class="field">
-    <%= form.label :category_id %>
-    <%= form.text_field :category_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :number %>
-    <%= form.number_field :number %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+<%= content_for :js do %>
+  <%= javascript_include_tag 'new_ckeditor/classic/ckeditor', 'data-turbolinks-track': 'reload' %>
 <% end %>
+<script>
+  ClassicEditor
+      .create( document.querySelector( '#item_description' ), {
+        toolbar: {
+          items: [
+						'heading',
+						'|',
+						'bold',
+						'italic',
+						'link',
+						'underline',
+						'strikethrough',
+						'bulletedList',
+						'numberedList',
+						'alignment',
+						'|',
+						'indent',
+						'outdent',
+						'|',
+						'blockQuote',
+						'insertTable',
+						'undo',
+						'redo',
+						'fontBackgroundColor',
+						'fontColor',
+						'fontSize',
+						'fontFamily',
+						'highlight',
+						'horizontalLine',
+						'removeFormat',
+						'specialCharacters',
+						'codeBlock',
+						'code'
+          ]
+        },
+        language: 'en',
+        image: {
+          toolbar: [ 'imageTextAlternative', '|', 'imageStyle:alignLeft', 'imageStyle:full', 'imageStyle:alignRight' ],
+
+            styles: [
+                'full',
+                'alignLeft',
+                'alignRight'
+            ]
+        },
+        table: {
+          contentToolbar: [
+						'tableColumn',
+						'tableRow',
+						'mergeTableCells',
+						'tableCellProperties',
+						'tableProperties'
+          ]
+        },
+      } )
+      .then( editor => {
+      } )
+      .catch( error => {
+        console.error( error );
+      } );
+</script>
+<%= form_with(model: item, class: "black", HTML:{ enctype:"multipart/form-data" }) do |form| %>
+    <!-- <div>
+      <% if item.errors.any? %>
+      <div id="error_explanation" class="alert alert-warning alert-dismissible fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+        <strong><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</strong>
+        <ul>
+          <% item.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+      <% end %>
+    </div> -->
+  <div class="field is-horizontal">
+    <div class="field-label is-normal f6" style="flex-grow: 0.6">
+      <%= form.label :title, "Item title", class: "label tl" %>
+    </div>
+    <div class="field-body">
+      <div class="field is-narrow">
+        <div class="control">
+          <%= form.text_field :title, class: "input",value:item.title %>
+        </div>
+        <% if item.errors[:title].any? %>
+        <div class="help is-danger">
+          <ul>
+            <% item.errors[:title].each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="field is-horizontal">
+    <div class="field-label is-normal f6" style="flex-grow: 0.6">
+      <%= form.label :description, "Item Description", class: "label tl" %>
+    </div>
+    <div class="field-body">
+      <div class="field is-narrow">
+        <div class="control">
+          <%= form.ckeditor :description,value:raw(item.description) %>
+        </div>
+        <% if item.errors[:description].any? %>
+        <div class="help is-danger">
+          <ul>
+            <% item.errors[:description].each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+    <div class="field is-horizontal">
+    <div class="field-label is-normal f6" style="flex-grow: 0.6">
+      <%= form.label :category_id, "Category", class: "label tl" %>
+    </div>
+    <div class="field-body">
+      <div class="field is-narrow">
+        <div class="control select">
+          <%= form.collection_select :category_id, Category.all, :id, :name, prompt: true,value:item.category_id %>
+        </div>
+        <% if item.errors[:category_id].any? %>
+        <div class="help is-danger">
+          <ul>
+            <% item.errors[:category_id].each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="field is-horizontal">
+    <div class="field-label is-normal f6" style="flex-grow: 0.6">
+      <%= form.label :price, "Price per item", class: "label tl" %>
+    </div>
+    <div class="field-body">
+      <div class="field is-narrow">
+        <div class="control has-icons-left">
+          <span class="icon is-small is-left">
+            <i class="fa fa-tag"></i>
+          </span>
+          <%= form.number_field :price,min:0,step:0.01,value:9.99, class: "input", value:item.price %>
+        </div>
+        <% if item.errors[:price].any? %>
+        <div class="help is-danger">
+          <ul>
+            <% item.errors[:price].each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+    <div class="field is-horizontal">
+    <div class="field-label is-normal f6" style="flex-grow: 0.6">
+      <%= form.label :number, "Quantity", class: "label tl" %>
+    </div>
+    <div class="field-body">
+      <div class="field is-narrow">
+        <div class="control has-icons-left">
+          <span class="icon is-small is-left">
+            <i class="fa fa-hashtag"></i>
+          </span>
+          <%= form.number_field :number,min:1,step:1,value:1, class: "input",value:item.number %>
+        </div>
+        <% if item.errors[:number].any? %>
+        <div class="help is-danger">
+          <ul>
+            <% item.errors[:number].each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="field is-horizontal">
+    <div class="field-label is-normal f6" style="flex-grow: 0.6">
+      <%= form.label :photos, "Photos", class: "label tl" %>
+    </div>
+    <div class="field-body">
+      <div class="file has-name">
+        <label class="file-label">
+          <%= form.file_field :photos, multiple: true, direct_upload: true, class:"file-input" %>
+          <span class="file-cta">
+            <span class="file-icon">
+              <i class="fa fa-upload"></i>
+            </span>
+          </span>
+          <span class="file-name" id="filename">
+            Choose files…
+          </span>
+        </label>
+        
+        <% if item.errors[:photos].any? %>
+        <div class="help is-danger">
+          <ul>
+            <% item.errors[:photos].each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div>
+  <div class="swiper" hidden id="preview_swiper">
+      <div class="swiper-wrapper photos_preview">
+      <% if item.photos.attached? %>
+        <% item.photos.each do |image| %>
+        <div class="swiper-slide image is-16by9"><%= image_tag(image, class:"img-fluid") %></div>
+        <% end %>
+      <% end %>
+      </div>
+      <div class="swiper-pagination" id="preview_swiper_pagination"></div>
+      <div class="swiper-button-prev"id="preview_swiper_prev"></div>
+      <div class="swiper-button-next" id="preview_swiper_next"></div>
+  </div>
+  </div>
+  <div class="field is-horizontal actions">
+    <div class="field-label" style="flex-grow: 0.6">
+      <!-- Left empty for spacing -->
+    </div>
+    <div class="field-body">
+      <div class="field">
+        <div class="control">
+          <%= form.button :submit, class: 'button is-block is-primary is-large is-link ph4 mt2' do %>
+          <% if is_new %>
+          <span class="icon is-small"><i class="fa fa-plus"></i></span><span>Sell it!</span>
+          <% else %>
+          <span class="icon is-small"><i class="fa fa-edit"></i></span><span>Edit it!</span>
+          <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<script>
+const swiper = new Swiper('#preview_swiper', {
+        // Optional parameters
+        direction: 'horizontal',
+        loop: false,
+
+        // If we need pagination
+        pagination: {
+          el: '#preview_swiper_pagination',
+        },
+
+        // Navigation arrows
+        navigation: {
+          nextEl: '#preview_swiper_next',
+          prevEl: '#preview_swiper_prev',
+        },
+        observer: true
+      });
+$(function() {
+      // Multiple images preview in browser
+      var imagesPreview = function(input, placeToInsertImagePreview) {
+
+          if (input.files) {
+              var filesAmount = input.files.length;
+
+              for (i = 0; i < filesAmount; i++) {
+                  var reader = new FileReader();
+
+                  reader.onload = function(event) {
+                      $($.parseHTML('<div>')).attr("class","swiper-slide image is-4by3").append($($.parseHTML('<img>')).attr('src', event.target.result).attr("class","img-fluid")).appendTo(placeToInsertImagePreview);
+                  }
+
+                  reader.readAsDataURL(input.files[i]);
+              }
+          }
+
+      };
+      $('#item_photos').on('change', function() {
+          imagesPreview(this, 'div.photos_preview');
+          var file = $('#item_photos')[0];
+          $('#preview_swiper').removeAttr("hidden");
+          var filehint = "";
+          if ( file.files.length > 0) {
+            for (let index = 0; index < file.files.length; index++) {
+              filehint = filehint + "," + file.files[index].name;
+              
+            }
+            $('#filename')[0].innerHTML = filehint + " or Choose files";
+          }
+            
+      });
+  });
+
+</script>
+<% end %>
+

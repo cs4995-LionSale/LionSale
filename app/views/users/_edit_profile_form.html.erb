@@ -122,7 +122,9 @@
       </div>
     </div>
   </div>
-
+  <figure class="image is-128x128 gallery">
+    <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png" id="avatar_preview">
+  </figure>
   <div class="field is-horizontal actions">
     <div class="field-label" style="flex-grow: 0.6">
       <!-- Left empty for spacing -->
@@ -130,9 +132,36 @@
     <div class="field-body">
       <div class="field">
         <div class="control">
-          <%= form.submit "Edit My Profile", class:"button is-primary ph4" %>
+          <%= form.button :submit, class: 'button is-block is-primary is-large is-link ph4 mt2' do %>
+            <span class="icon is-small"><i class="fa fa-edit"></i></span><span>Edit my Profile</span>
+          <% end %>
         </div>
       </div>
     </div>
   </div>
+<script>
+  var file = $("#user_avatar")[0];
+  file.onchange = function () {
+    console.log(file.files)
+    if (file.files.length > 0) {
+      $('#filename')[0].innerHTML = file.files[0].name;
+    }
+  };
+  function readURL(input) {
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+              $('#avatar_preview').attr('src', e.target.result);
+          }
+
+          reader.readAsDataURL(input.files[0]);
+      }
+  }
+
+  $("#user_avatar").change(function () {
+      readURL(this);
+  });
+</script>
+
 <% end %>

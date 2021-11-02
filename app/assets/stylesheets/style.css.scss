@@ -196,3 +196,33 @@ body {
 a:hover {
   background-color: rgba(255, 255, 255, 0);
 }
+
+.gallery {
+  margin: 2%;
+  margin-left: 14%;
+}
+
+.img__wrap {
+  position: relative;
+}
+
+.img__description {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.01);
+  color: #66a6ff;
+  visibility: hidden;
+  opacity: 0;
+
+  /* transition effect. not necessary */
+  transition: opacity .2s, visibility .2s;
+}
+
+.img__wrap:hover .img__description {
+  visibility: visible;
+  opacity: 1;
+}
