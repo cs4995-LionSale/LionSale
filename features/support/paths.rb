@@ -8,18 +8,18 @@ module NavigationHelpers
     def path_to(page_name)
       case page_name
   
-      when /^the home\s?page$/ then '/users'
+      # when /^the home\s?page$/ then '/users'
   
       # Add more mappings here.
       # Here is an example that pulls values out of the Regexp:
       #
       #   when /^(.*)'s profile page$/i
       #     user_profile_path(User.find_by_login($1))
-       when /^the register page$/i then register_path( })
+       when /^the register page$/ then new_user_path()
   
-       when /^the login page$/i then login_path()
+       when /^the login page$/ then new_session_path()
   
-       when /^the profile page for "(.*)"$/i then profile_path(Users.all.select{ |u| u.username == $1 })
+       when /^the profile page for "(.*)"$/i then home_static_pages_path(Users.all.select{ |u| u.username == $1 })
 
        when /^the updateprofile page for "(.*)"$/i then update_profile_path(Users.all.select{ |u| u.username == $1 })
   

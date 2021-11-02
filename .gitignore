@@ -97,3 +97,6 @@ yarn-debug.log*
 /storage/*
 !/storage/.keep
 .DS_Store
+*.rb
+db/migrate/20211031210432_create_active_storage_tables.active_storage.rb
+db/migrate/20211031212053_create_users.rb

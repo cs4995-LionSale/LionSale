@@ -4,10 +4,12 @@ Feature: the user enters the LionSale app
   I also want to see and update my user profile in 
   
 Scenario: create user success
-  Given the following users do not exist: 
-| name        | email | password     | address |
-| Alex    | aaa@columbia.edu     | abc | 333 Amsterdam Ave. |
-  And I am on the register page
+#   Given the following user do not exist: 
+# | username        | email | password_digest     | address |
+# | Alex    | aaa@columbia.edu     | abc | 333 Amsterdam Ave. |
+#   And I am on the register page
+Given I am on the register page
+
   And I fill in "username" with "Alex"
   And I fill in "email" with "aaa@columbia.edu"
   And I fill in "password" with "abc"
@@ -16,7 +18,7 @@ Scenario: create user success
   Then I shoud be on the profile page for "Alex"
 
 Scenario: create user failure
-  Given the following users exist: 
+  Given the following user exist: 
 | username        | email | password_digest     | address |
 | Alex    | aaa@columbia.edu     | abc | 333 Amsterdam Ave. |
 | Bill    | bbb@columbia.edu     | mypassword | 6000 W 120 St. |
@@ -34,37 +36,37 @@ Scenario: create user failure
   Then I should see "failure"
   Then I shoud be on the register page
 
-Scenario: create long user failure
-  Given I am on the register page
-  And I fill in "username" with 
-    "AaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-    AaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-    AaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-  And I fill in "email" with "aaa@columbia.edu"
-  And I fill in "password" with "abc"
-  And  I press "Register"
-  Then I should see "failure"
-  Then I shoud be on the register page
+# Scenario: create long user failure
+#   Given I am on the register page
+#   And I fill in "username" with 
+#     "AaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+#     AaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+#     AaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+#   And I fill in "email" with "aaa@columbia.edu"
+#   And I fill in "password" with "abc"
+#   And  I press "Register"
+#   Then I should see "failure"
+#   Then I shoud be on the register page
 
-Scenario: create bad email failure1
-  Given I am on the register page
-  And I fill in "username" with 
-    "Alan"
-  And I fill in "email" with "aaaaaaaacolumbia.edu"
-  And I fill in "password" with "abc"
-  And  I press "Register"
-  Then I should see "failure"
-  Then I shoud be on the register page
+# Scenario: create bad email failure1
+#   Given I am on the register page
+#   And I fill in "username" with 
+#     "Alan"
+#   And I fill in "email" with "aaaaaaaacolumbia.edu"
+#   And I fill in "password" with "abc"
+#   And  I press "Register"
+#   Then I should see "failure"
+#   Then I shoud be on the register page
 
-Scenario: create bad email failure2
-  Given I am on the register page
-  And I fill in "username" with 
-    "Alan"
-  And I fill in "email" with "aaaaaaaa@columbia.edu@columbia.edu"
-  And I fill in "password" with "abc"
-  And I press "Register"
-  Then I should see "failure"
-  Then I shoud be on the register page
+# Scenario: create bad email failure2
+#   Given I am on the register page
+#   And I fill in "username" with 
+#     "Alan"
+#   And I fill in "email" with "aaaaaaaa@columbia.edu@columbia.edu"
+#   And I fill in "password" with "abc"
+#   And I press "Register"
+#   Then I should see "failure"
+#   Then I shoud be on the register page
   
 Scenario: login success1
   Given I am on the login page

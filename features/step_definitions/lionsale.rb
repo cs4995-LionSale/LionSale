@@ -1,10 +1,10 @@
-Given /the following users exist/ do |users_table|
-    users_table.hashes.each do |user|
-      Users.create user
+Given /the following user exist/ do |users_table|
+    users_table.hashes.each do |usern|
+      User.create usern
     end
   end
-Given /the following users do not exist/ do |users_table|
-    users_table.hashes.each do |user|
-      Users.delete user
+Given /the following user do not exist/ do |users_table|
+    users_table.hashes.each do |usern|
+      User.delete usern
     end
   end
