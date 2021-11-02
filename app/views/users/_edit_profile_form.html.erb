@@ -130,9 +130,20 @@
     <div class="field-body">
       <div class="field">
         <div class="control">
-          <%= form.submit "Edit My Profile", class:"button is-primary ph4" %>
+          <%= form.button :submit, class: 'button is-block is-primary is-large is-link ph4 mt2' do %>
+            <span class="icon is-small"><i class="fa fa-edit"></i></span><span>Edit my Profile</span>
+          <% end %>
         </div>
       </div>
     </div>
   </div>
+  <script>
+  var file = $("#user_avatar")[0];
+  file.onchange = function () {
+    console.log(file.files)
+    if (file.files.length > 0) {
+      $('#filename')[0].innerHTML = file.files[0].name;
+    }
+  };
+</script>
 <% end %>
