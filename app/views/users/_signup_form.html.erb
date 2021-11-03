@@ -155,15 +155,15 @@
           </span>
         </label>
 
-        # <% if user.errors[:avatar].any? %>
-        # <div class="help is-danger">
-        #   <ul>
-        #     <% user.errors[:avatar].each do |error| %>
-        #       <li><%= error.full_message %></li>
-        #     <% end %>
-        #   </ul>
-        # </div>
-        # <% end %>
+        <% if user.errors[:avatar].any? %>
+        <div class="help is-danger">
+          <ul>
+            <% user.errors[:avatar].each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+        <% end %>
       </div>
     </div>
   </div>
