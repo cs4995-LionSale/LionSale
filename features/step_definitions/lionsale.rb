@@ -1,16 +1,4 @@
-# Given /the following user exist/ do |users_table|
-#     users_table.hashes.each do |usern|
-#       User.create usern
-#     end
-#   end
-# Given /the following user do not exist/ do |users_table|
-#     users_table.hashes.each do |usern|
-#       User.delete usern
-#     end
-#   end
-
-
-Given /^I have signed up as "([^"]*)"$/ do |email|
+Given /^I have filled info and signed up as "([^"]*)"$/ do |email|
   visit(signup_path)
   fill_in('user_email', :with => email)
   fill_in('user_username', :with => "alex")
@@ -20,7 +8,7 @@ Given /^I have signed up as "([^"]*)"$/ do |email|
   click_button('signupbutton')
 end
 
-Given /^I have signed up long as "([^"]*)"$/ do |email|
+Given /^I have filled info and signed up long as "([^"]*)"$/ do |email|
   visit(signup_path)
   fill_in('user_email', :with => email)
   fill_in('user_username', :with => "AaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -39,12 +27,12 @@ Given /^I have login as "([^"]*)"$/ do |email|
   click_button('loginbutton')
 end
 
-Then /^I should be on the home (.*)$/ do |page_name|
+Then /^I should be on the home page for (.*)$/ do |name|
   current_path = URI.parse(current_url).path
   if current_path.respond_to? :should
-    current_path.should == users_path()
+    current_path.should == users_path(Users.all.select{ |u| u.username == name })
   else
-    assert_equal users_path(), current_path
+    assert_equal users_path(Users.all.select{ |u| u.username == name }), current_path
   end
 end
 
@@ -60,9 +48,9 @@ end
 Then /^I should be on the login (.*)$/ do |page_name|
   current_path = URI.parse(current_url).path
   if current_path.respond_to? :should
-    current_path.should == signup_path()
+    current_path.should == login_path()
   else
-    assert_equal signup_path(), current_path
+    assert_equal login_path(), current_path
   end
 end
 

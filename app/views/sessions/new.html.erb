@@ -32,17 +32,16 @@
           <% end %>
         </div>
     </div>
-
     <% if @show_checkbox_recaptcha %>
         <%= recaptcha_tags %>
         
     <% else %>
         <%= recaptcha_v3(action: 'login', site_key: ENV['RECAPTCHA_SITE_KEY_V3']) %>
     <% end %>
-    
     <%= f.button :submit,id:"loginbutton", class: 'button is-block is-info is-large is-link ph4 mt2' do %>
      <span class="icon is-small"><i class="fa fa-sign-in"></i></span><span>Log In</span>
     <% end %>
+    
 
       <div class="near-white mt2 f4">
         <p>Don't have an account? <%= link_to "Signup", signup_path, :class => "fw7 blue" %> </p>
