@@ -14,26 +14,26 @@ RSpec.describe "transactions/new", type: :view do
     ))
   end
 
-  it "renders new transaction form" do
-    render
+  # it "renders new transaction form" do
+  #   render
 
-    assert_select "form[action=?][method=?]", transactions_path, "post" do
+  #   assert_select "form[action=?][method=?]", transactions_path, "post" do
 
-      assert_select "input[name=?]", "transaction[item_id]"
+  #     assert_select "input[name=?]", "transaction[item_id]"
 
-      assert_select "input[name=?]", "transaction[seller_id]"
+  #     assert_select "input[name=?]", "transaction[seller_id]"
 
-      assert_select "input[name=?]", "transaction[buyer_id]"
+  #     assert_select "input[name=?]", "transaction[buyer_id]"
 
-      assert_select "input[name=?]", "transaction[deal_address]"
+  #     assert_select "input[name=?]", "transaction[deal_address]"
 
-      assert_select "input[name=?]", "transaction[deal_price]"
+  #     assert_select "input[name=?]", "transaction[deal_price]"
 
-      assert_select "input[name=?]", "transaction[status]"
+  #     assert_select "input[name=?]", "transaction[status]"
 
-      assert_select "input[name=?]", "transaction[seller_rating]"
+  #     assert_select "input[name=?]", "transaction[seller_rating]"
 
-      assert_select "input[name=?]", "transaction[buyer_rating]"
-    end
-  end
+  #     assert_select "input[name=?]", "transaction[buyer_rating]"
+  #   end
+  # end
 end

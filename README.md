@@ -3,9 +3,9 @@ CS W4995 S03 ESaaS Group Project
 
 ## Team Member
 + Weicheng Zhao (wz2578)
-+ 
-+ 
-+ 
++ Yue Huang (yh3404)
++ Tianyi Wang (tw2774)
++ Ruohan Li (rl3227)
 
 ## Instruction to run and test locally
 
@@ -19,6 +19,9 @@ CS W4995 S03 ESaaS Group Project
 
 ### To test
 
+1. Refer the last section to setup database and input stuffs
+2. Run cucumber --init for cucumber
+3. Run rspec for rspec tests
 
 
 ## User stories
