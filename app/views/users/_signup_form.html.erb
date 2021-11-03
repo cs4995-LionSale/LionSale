@@ -1,5 +1,5 @@
-<%= form_with(model: user, class: "black", HTML:{ enctype:"multipart/form-data" }) do |form| %>
-    <!-- <div>
+<%= form_with(model: user,url: signup_path(user), class: "black", HTML:{ enctype:"multipart/form-data" }) do |form| %>
+     <!-- <div>
       <% if user.errors.any? %>
       <div id="error_explanation" class="alert alert-warning alert-dismissible fade in" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -7,11 +7,9 @@
           <span class="sr-only">Close</span>
         </button>
         <strong><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</strong>
-        <ul>
           <% user.errors.each do |error| %>
-            <li><%= error.full_message %></li>
+            <p><%= error.full_message %></p>
           <% end %>
-        </ul>
       </div>
       <% end %>
     </div> -->
@@ -31,7 +29,7 @@
         <div class="help is-danger">
           <ul>
             <% user.errors[:email].each do |error| %>
-              <li><%= error.full_message %></li>
+              <li><%= error %></li>
             <% end %>
           </ul>
         </div>
@@ -55,7 +53,7 @@
         <div class="help is-danger">
           <ul>
             <% user.errors[:username].each do |error| %>
-              <li><%= error.full_message %></li>
+              <li><%= error %></li>
             <% end %>
           </ul>
         </div>
@@ -80,7 +78,7 @@
         <div class="help is-danger">
           <ul>
             <% user.errors[:password].each do |error| %>
-              <li><%= error.full_message %></li>
+              <li><%= error %></li>
             <% end %>
           </ul>
         </div>
@@ -105,7 +103,7 @@
         <div class="help is-danger">
           <ul>
             <% user.errors[:password_confirmation].each do |error| %>
-              <li><%= error.full_message %></li>
+              <li><%= error %></li>
             <% end %>
           </ul>
         </div>
@@ -129,7 +127,7 @@
         <div class="help is-danger">
           <ul>
             <% user.errors[:address].each do |error| %>
-              <li><%= error.full_message %></li>
+              <li><%= error %></li>
             <% end %>
           </ul>
         </div>
@@ -159,7 +157,7 @@
         <div class="help is-danger">
           <ul>
             <% user.errors[:avatar].each do |error| %>
-              <li><%= error.full_message %></li>
+              <li><%= error %></li>
             <% end %>
           </ul>
         </div>
@@ -170,7 +168,12 @@
   <figure class="image is-128x128 gallery">
     <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png" id="avatar_preview">
   </figure>
-  <%= recaptcha_v3(action: 'registration', site_key: ENV['RECAPTCHA_SITE_KEY_V3']) %>
+  <% if @show_checkbox_recaptcha %>
+    <%= recaptcha_tags %>
+        
+  <% else %>
+    <%= recaptcha_v3(action: 'login', site_key: ENV['RECAPTCHA_SITE_KEY_V3']) %>
+  <% end %>
 
   <div class="field is-horizontal actions">
     <div class="field-label" style="flex-grow: 0.6">
