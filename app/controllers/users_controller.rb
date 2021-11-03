@@ -22,14 +22,32 @@ class UsersController < ApplicationController
 
   # POST /users or /users.json
   def create
-    @user = User.new(user_params)
+  
+    
 
-    if @user.save
-      log_in @user      
-      flash[:success] = "Welcome to LionSale!"
-      redirect_to @user
+    @user = User.new(user_params)
+    recaptcha_valid = verify_recaptcha(model: @user, action: 'registration')
+    if recaptcha_valid
+      if @user.save
+        log_in @user      
+        flash[:success] = "Welcome to LionSale!"
+        redirect_to @user
+      else
+       render 'new'
+      end
     else
-     render 'new'
+      # Score is below threshold, so user may be a bot. Show a challenge, require multi-factor
+      # authentication, or do something else.
+      render 'new'
+    end
+    respond_to do |format|
+      if @user.save
+        format.html { redirect_to @user, notice: "User was successfully created." }
+        format.json { render :show, status: :created, location: @user }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
     end
 
     # respond_to do |format|
