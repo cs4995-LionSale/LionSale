@@ -1,7 +1,7 @@
 Feature: the user enters the LionSale app
   
   I want to check that the user can successfully register, log in and see the page.
-  I also want to see and update my user profile in 
+  I also want to see and update my user profile in the web application
   
 Scenario: create user success
 #   Given the following user do not exist: 
