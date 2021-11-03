@@ -34,7 +34,7 @@ end
 
 Given /^I have login as "([^"]*)"$/ do |email|
   visit(login_path)
-  fill_in('username', :with => email)
+  fill_in('email', :with => email)
   fill_in('password', :with => 's3caaar3t')
   click_button('loginbutton')
 end
