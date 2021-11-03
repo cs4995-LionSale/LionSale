@@ -21,7 +21,7 @@
       <% @items.each_with_index do |item,index| %>
       <% if index%3==0 %>
       <div class="tile is-child">
-        <%= render 'item_card', item:item,index:index,current_user:@current_user %>
+        <%= render 'item_card', item:item,index:index,current_user:current_user %>
       <% end %>
       <% end %>
       </div>
@@ -29,7 +29,7 @@
       <% @items.each_with_index do |item,index| %>
       <% if index%3==1 %>
       <div class="tile is-child">
-        <%= render 'item_card', item:item,index:index,current_user:@current_user %>
+        <%= render 'item_card', item:item,index:index,current_user:current_user %>
       <% end %>
       <% end %>
       <% if @items.count%3 == 1%>
@@ -40,7 +40,7 @@
       <% @items.each_with_index do |item,index| %>
       <% if index%3==2 %>
       <div class="tile is-child">
-        <%= render 'item_card', item:item,index:index,current_user:@current_user %>
+        <%= render 'item_card', item:item,index:index,current_user:current_user %>
       <% end %>
       <% end %>
       <% if @items.count % 3 != 0%>
