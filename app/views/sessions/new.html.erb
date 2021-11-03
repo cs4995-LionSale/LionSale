@@ -40,7 +40,7 @@
         <%= recaptcha_v3(action: 'login', site_key: ENV['RECAPTCHA_SITE_KEY_V3']) %>
     <% end %>
     
-    <%= f.button :submit, class: 'button is-block is-info is-large is-link ph4 mt2' do %>
+    <%= f.button :submit,id:"loginbutton", class: 'button is-block is-info is-large is-link ph4 mt2' do %>
      <span class="icon is-small"><i class="fa fa-sign-in"></i></span><span>Log In</span>
     <% end %>
 
