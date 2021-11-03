@@ -92,7 +92,7 @@
         <div class="help is-danger">
           <ul>
             <% item.errors[:title].each do |error| %>
-              <li><%= error.full_message %></li>
+              <li><%= error %></li>
             <% end %>
           </ul>
         </div>
@@ -113,7 +113,7 @@
         <div class="help is-danger">
           <ul>
             <% item.errors[:description].each do |error| %>
-              <li><%= error.full_message %></li>
+              <li><%= error %></li>
             <% end %>
           </ul>
         </div>
@@ -134,7 +134,7 @@
         <div class="help is-danger">
           <ul>
             <% item.errors[:category_id].each do |error| %>
-              <li><%= error.full_message %></li>
+              <li><%= error %></li>
             <% end %>
           </ul>
         </div>
@@ -158,7 +158,7 @@
         <div class="help is-danger">
           <ul>
             <% item.errors[:price].each do |error| %>
-              <li><%= error.full_message %></li>
+              <li><%= error %></li>
             <% end %>
           </ul>
         </div>
@@ -182,7 +182,7 @@
         <div class="help is-danger">
           <ul>
             <% item.errors[:number].each do |error| %>
-              <li><%= error.full_message %></li>
+              <li><%= error %></li>
             <% end %>
           </ul>
         </div>
@@ -212,7 +212,7 @@
         <div class="help is-danger">
           <ul>
             <% item.errors[:photos].each do |error| %>
-              <li><%= error.full_message %></li>
+              <li><%= error %></li>
             <% end %>
           </ul>
         </div>

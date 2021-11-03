@@ -23,8 +23,9 @@ class UsersController < ApplicationController
   # POST /users or /users.json
   def create
     @user = User.new(user_params)
-    recaptcha_valid = verify_recaptcha(model: @user, action: 'registration')
-    if recaptcha_valid
+    success = verify_recaptcha(action: 'login', minimum_score: 0.5, secret_key: ENV['RECAPTCHA_SECRET_KEY_V3'])
+    checkbox_success = verify_recaptcha unless success
+    if success || checkbox_success
       if @user.save
         log_in @user      
         flash[:success] = "Welcome to LionSale!"
@@ -35,6 +36,9 @@ class UsersController < ApplicationController
     else
       # Score is below threshold, so user may be a bot. Show a challenge, require multi-factor
       # authentication, or do something else.
+      if !success
+        @show_checkbox_recaptcha = true
+      end
       render 'new'
     end
   end
@@ -82,7 +86,7 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:email, :username, :password_digest, :address, :rating_seller, :rating_buyer, :permission, :avatar)
+      params.require(:user).permit(:email, :username, :password, :password_confirmation, :address, :rating_seller, :rating_buyer, :permission, :avatar)
     end
 
 end
