@@ -1,67 +1,4 @@
-<%= content_for :js do %>
-  <%= javascript_include_tag 'new_ckeditor/classic/ckeditor', 'data-turbolinks-track': 'reload' %>
-<% end %>
-<script>
-  ClassicEditor
-      .create( document.querySelector( '#item_description' ), {
-        toolbar: {
-          items: [
-						'heading',
-						'|',
-						'bold',
-						'italic',
-						'link',
-						'underline',
-						'strikethrough',
-						'bulletedList',
-						'numberedList',
-						'alignment',
-						'|',
-						'indent',
-						'outdent',
-						'|',
-						'blockQuote',
-						'insertTable',
-						'undo',
-						'redo',
-						'fontBackgroundColor',
-						'fontColor',
-						'fontSize',
-						'fontFamily',
-						'highlight',
-						'horizontalLine',
-						'removeFormat',
-						'specialCharacters',
-						'codeBlock',
-						'code'
-          ]
-        },
-        language: 'en',
-        image: {
-          toolbar: [ 'imageTextAlternative', '|', 'imageStyle:alignLeft', 'imageStyle:full', 'imageStyle:alignRight' ],
-
-            styles: [
-                'full',
-                'alignLeft',
-                'alignRight'
-            ]
-        },
-        table: {
-          contentToolbar: [
-						'tableColumn',
-						'tableRow',
-						'mergeTableCells',
-						'tableCellProperties',
-						'tableProperties'
-          ]
-        },
-      } )
-      .then( editor => {
-      } )
-      .catch( error => {
-        console.error( error );
-      } );
-</script>
+<meta name='turbolinks-cache-control' content='no-cache'>
 <%= form_with(model: item, class: "black", HTML:{ enctype:"multipart/form-data" }) do |form| %>
     <!-- <div>
       <% if item.errors.any? %>
@@ -107,7 +44,7 @@
     <div class="field-body">
       <div class="field is-narrow">
         <div class="control">
-          <%= form.ckeditor :description,value:raw(item.description) %>
+          <%= form.ckeditor :description, value:item.description %>
         </div>
         <% if item.errors[:description].any? %>
         <div class="help is-danger">

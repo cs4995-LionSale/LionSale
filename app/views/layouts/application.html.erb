@@ -9,14 +9,15 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    
     <link
       rel="stylesheet"
       href="https://unpkg.com/swiper@7/swiper-bundle.min.css"
     />
-
+    <%= javascript_include_tag 'new_ckeditor/classic/ckeditor', 'data-turbolinks-track': 'reload' %>
     <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
     <style><%= yield :stylesheets %></style>
   </head>
@@ -41,7 +42,7 @@
           <%= link_to "About", about_path, :class => "navbar-item" %>
         </div>
         <div class="navbar-end">
-          <% if current_user %>
+          <% if logged_in? %>
           <div id="nav-dropdown" class="navbar-item has-dropdown" id="account">
             <a class="navbar-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= current_user.username %></a>
             <div class="navbar-dropdown is-right">
@@ -52,7 +53,7 @@
               <hr class="navbar-divider">
               <%= link_to "Sell an item", new_item_path, :class => "navbar-item" %>
               <%= link_to "Edit My Profile", edit_user_path(current_user), :class => "navbar-item" %>
-              <%= link_to "Logout", logout_path,method: :destroy, :class => "navbar-item" %>
+              <%= link_to "Logout", logout_path, method: :delete, :class => "navbar-item" %>
             </div>
           </div>
           <% else %>

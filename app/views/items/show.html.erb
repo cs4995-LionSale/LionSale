@@ -49,7 +49,7 @@
           </dd>
           <dt class="f6 mt2 dark-gray">Description</dt>
           <dd class="f4 ml0 black">
-          <div class="description-text">
+          <div class="description-text ck-content">
             <%= raw @item.description %>
           </div>
           </dd>
@@ -79,7 +79,7 @@
         </dl>
 
         <div class="mt3">
-          <% if current_user %>
+          <% if logged_in? %>
           <div class="field is-grouped">
             <p class="control">
             <% if @item.status == 0 %>
