@@ -62,12 +62,12 @@ Scenario: login failure
 
 # Scenario: check and update profile B
 #   Given I am on the profile page for "Bill"
-#   Then I should see "Bill"
+#   Then I should see "Bill" 
 #   Then I should see "bbb@columbia.edu"
 #   Then I press "Update Profile"
 #   Then I should be on the updateprofile page for "Bill"
 #   Then I fill in "Address" with "1000 Broadway Ave."
-#   Then I click "Update Profile"
+#   Then I click "Update Profile"  
 #   Then I should be on the profile page for "Bill"
 #   Then I should see "1000 Broadway Ave."
 #   Then I should not see "6000 W 120 St."
