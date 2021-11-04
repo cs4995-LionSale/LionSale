@@ -1,5 +1,5 @@
 
-<%= form_with(model: user,url: signup_path(user), class: "black", HTML:{ enctype:"multipart/form-data" }) do |form| %>
+<%= form_with(model: user,url: user_path(user), method: :patch, class: "black", HTML:{ enctype:"multipart/form-data" }) do |form| %>
     <!-- <div>
       <% if user.errors.any? %>
       <div id="error_explanation" class="alert alert-warning alert-dismissible fade in" role="alert">
@@ -95,8 +95,7 @@
     <div class="field-body">
     <% if user.avatar.attached?  %>
         <figure class="image is-128x128 profile-img">
-          <img class="is-rounded profile-img" src="https://bulma.io/images/placeholders/128x128.png">
-          <%= image_tag(user.avatar, class:"is-rounded profile-img") %>
+          <%= image_tag(user.avatar, class:"is-rounded profile-img",id:"avatar_preview") %>
         </figure>
     <% end %>
       <div class="file has-name">
@@ -123,9 +122,6 @@
       </div>
     </div>
   </div>
-  <figure class="image is-128x128 gallery">
-    <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png" id="avatar_preview">
-  </figure>
   <div class="field is-horizontal actions">
     <div class="field-label" style="flex-grow: 0.6">
       <!-- Left empty for spacing -->

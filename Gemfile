@@ -74,6 +74,9 @@ group :test do
   gem 'cucumber-rails', require: false
   # database_cleaner is not mandatory, but highly recommended
   gem 'database_cleaner'
+  gem 'database_cleaner-active_record'
+  gem 'launchy'
+  gem 'simplecov', :require => false
 end
 
 group :production do

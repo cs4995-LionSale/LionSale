@@ -23,14 +23,19 @@ end
 Given /^I have login as "([^"]*)"$/ do |email|
   visit(login_path)
   fill_in('email', :with => email)
-  fill_in('password', :with => 's3caaar3t')
+  fill_in(placeholder:'Your Password', :with => 's3caaar3t')
   click_button('loginbutton')
+end
+
+Then /^I logout$/ do
+  page.find('#nav-dropdown').click
+  click_link('nav-logout-link')
 end
 
 Then /^I should be on the home page for (.*)$/ do |name|
   current_path = URI.parse(current_url).path
-  if current_path.respond_to? :should
-    current_path.should == users_path(Users.all.select{ |u| u.username == name })
+  if current_path.respond_to? :should 
+    current_path.should == user_path(1)
   else
     assert_equal users_path(Users.all.select{ |u| u.username == name }), current_path
   end
@@ -42,6 +47,15 @@ Then /^I should be on the register (.*)$/ do |page_name|
     current_path.should == signup_path()
   else
     assert_equal signup_path(), current_path
+  end
+end
+
+Then /^I should be on the slash (.*)$/ do |page_name|
+  current_path = URI.parse(current_url).path
+  if current_path.respond_to? :should
+    current_path.should =='/'
+  else
+    assert_equal '/', current_path
   end
 end
 

@@ -43,17 +43,17 @@
         </div>
         <div class="navbar-end">
           <% if logged_in? %>
-          <div id="nav-dropdown" class="navbar-item has-dropdown" id="account">
+          <div id="nav-dropdown" class="navbar-item has-dropdown">
             <a class="navbar-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= current_user.username %></a>
             <div class="navbar-dropdown is-right">
-              <%= link_to "Profile", user_path(current_user.id), :class => "navbar-item" %>
-              <%= link_to "My Items", items_path(user:current_user.id), :class => "navbar-item" %>
-              <%= link_to "My Transactions", transactions_path, :class => "navbar-item" %>
-              <%= link_to "My Mailbox", messages_path, :class => "navbar-item" %>
+              <%= link_to "Profile", user_path(current_user.id), :class => "navbar-item", :id => 'nav-profile-link' %>
+              <%= link_to "My Items", items_path(user:current_user.id), :class => "navbar-item", :id => 'nav-item-link' %>
+              <%= link_to "My Transactions", transactions_path, :class => "navbar-item", :id => 'nav-transaction-link' %>
+              <%= link_to "My Mailbox", messages_path, :class => "navbar-item", :id => 'nav-mailbox-link' %>
               <hr class="navbar-divider">
-              <%= link_to "Sell an item", new_item_path, :class => "navbar-item" %>
-              <%= link_to "Edit My Profile", edit_user_path(current_user), :class => "navbar-item" %>
-              <%= link_to "Logout", logout_path, method: :delete, :class => "navbar-item" %>
+              <%= link_to "Sell an item", new_item_path, :class => "navbar-item", :id => 'nav-new-item-link' %>
+              <%= link_to "Edit My Profile", edit_user_path(current_user), :class => "navbar-item", :id => 'nav-edit-profile-link' %>
+              <%= link_to "Logout", logout_path, method: :delete, :class => "navbar-item", :id => 'nav-logout-link' %>
             </div>
           </div>
           <% else %>

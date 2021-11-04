@@ -10,6 +10,7 @@ CS W4995 S03 ESaaS Group Project
 ## Instruction to run and test locally
 
 ### To run
+0. Clone our project from tag name "proj-iter1"
 1. Install ruby version 3.0.2
 2. At the root path of the project, run `bundle`
 3. Run `yarn`
@@ -40,4 +41,7 @@ Please refer `./features` directory for details
 + Heroku deployment link: https://lion-sale.herokuapp.com/
 + Github repo link: https://github.com/cs4995-LionSale/LionSale
 
+## Notes
+We have added Recaptcha for security reasons, but we are not covering them in our tests because it will be ignored and thus cannot be tested in cucumber. 
 
+Further, we have finished more front-end programming than the back-end code can cover, so we are not testing some of the front-end features eg: items, user profile editing, etc. until the back end functions are integrated 
