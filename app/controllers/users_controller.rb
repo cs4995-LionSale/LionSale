@@ -1,10 +1,8 @@
 class UsersController < ApplicationController
+  before_action :logged_in_user, only: [:index, :edit, :update, :destroy]  
+  before_action :correct_user,   only: [:edit, :update] 
+  before_action :admin_user,     only: :destroy 
   before_action :set_user, only: %i[ show edit update destroy ]
-
-  # GET /users or /users.json
-  def index
-    @users = User.all
-  end
 
   # GET /users/1 or /users/1.json
   def show
@@ -23,36 +21,34 @@ class UsersController < ApplicationController
   # POST /users or /users.json
   def create
     @user = User.new(user_params)
-
-    if @user.save
-      log_in @user      
-      flash[:success] = "Welcome to LionSale!"
-      redirect_to @user
+    @user.permission = 0 # set default permission code for new user
+    success = verify_recaptcha(action: 'login', minimum_score: 0.5, secret_key: ENV['RECAPTCHA_SECRET_KEY_V3'])
+    checkbox_success = verify_recaptcha unless success
+    if success || checkbox_success
+      if @user.save
+        log_in @user      
+        flash[:success] = "Welcome to LionSale!"
+        redirect_to @user
+      else
+       render 'new'
+      end
     else
-     render 'new'
+      # Score is below threshold, so user may be a bot. Show a challenge, require multi-factor
+      # authentication, or do something else.
+      if !success
+        @show_checkbox_recaptcha = true
+      end
+      render 'new'
     end
-
-    # respond_to do |format|
-    #   if @user.save
-    #     format.html { redirect_to @user, notice: "User was successfully created." }
-    #     format.json { render :show, status: :created, location: @user }
-    #   else
-    #     format.html { render :new, status: :unprocessable_entity }
-    #     format.json { render json: @user.errors, status: :unprocessable_entity }
-    #   end
-    # end
   end
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to @user, notice: "User was successfully updated." }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    if @user.update_attributes(user_params)      # 处理更新成功的情况
+      flash[:success] = "User profile successfully updated" 
+      redirect_to @user
+    else
+      render 'edit'
     end
   end
 
@@ -71,22 +67,44 @@ class UsersController < ApplicationController
 
   # DELETE /users/1 or /users/1.json
   def destroy
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: "User was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    deletedUser = User.find(params[:id])
+    deletedUser.permission = -99
+    deletedUser.save
+    flash[:success] = "User deleted" 
+    redirect_to users_url  
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params[:id])
+      targetUser = User.find(params[:id])
+      if (targetUser == nil || targetUser.permission != -99)
+        @user = targetUser
+      end
     end
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:email, :username, :password_digest, :created_at, :updated_at, :avatar_url, :address, :rating_seller, :rating_buyer, :permission)
+      params.require(:user).permit(:email, :username, :password, :password_confirmation, :address, :rating_seller, :rating_buyer, :permission, :avatar)
     end
 
+    # make sure user must logged in before edit/update/delete operation
+    def logged_in_user
+      unless logged_in? 
+        store_location
+        flash[:danger] = "Please log in to continue editing and updating user information" 
+        redirect_to login_url 
+      end    
+    end
+
+    # guarantee the current user's identity is correct
+    def correct_user
+      @user = User.find(params[:id]) 
+      redirect_to(root_url) unless @user.permission != -99 && current_user?(@user)
+    end
+
+    # identify administrator
+    def admin_user
+      redirect_to(root_url) unless @user.admin?    
+    end
 end
