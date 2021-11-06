@@ -12,6 +12,7 @@
  *
  *= require new_ckeditor/ckeditor.css
  *= require normalize-rails
+ *= require flatpickr
  *= require_self
  *= require_tree .
  */

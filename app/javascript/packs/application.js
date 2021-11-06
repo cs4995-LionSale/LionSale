@@ -8,7 +8,17 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import "jquery"
+import flatpickr from 'flatpickr'
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+document.addEventListener('turbolinks:load', () => {
+    flatpickr("[data-behavior='flatpickr']", {
+      altInput: true,
+      altFormat: "F j, Y H:i",
+      enableTime: true,
+      dateFormat: "Y-m-d H:i",
+    });
+  })

@@ -152,6 +152,7 @@ GEM
     execjs (2.8.1)
     ffi (1.15.4)
     ffi (1.15.4-x64-mingw32)
+    flatpickr (4.6.6.0)
     font-awesome-rails (4.7.0.7)
       railties (>= 3.2, < 7)
     globalid (0.5.2)
@@ -341,6 +342,7 @@ DEPENDENCIES
   database_cleaner
   database_cleaner-active_record
   dotenv-rails (>= 2.7.6)
+  flatpickr (~> 4.6.6.0)
   font-awesome-rails (~> 4.7, >= 4.7.0.7)
   image_processing (~> 1.2)
   jbuilder (~> 2.7)

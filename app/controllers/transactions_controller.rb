@@ -8,10 +8,12 @@ class TransactionsController < ApplicationController
 
   # GET /transactions/1 or /transactions/1.json
   def show
+    @item = Item.find(params[:item_id])
   end
 
   # GET /transactions/new
   def new
+    @item = Item.find(params[:item_id])
     @transaction = Transaction.new
   end
 

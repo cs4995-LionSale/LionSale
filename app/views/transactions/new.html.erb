@@ -1,5 +1,161 @@
-<h1>New Transaction</h1>
+<% content_for :page_title do %>Request to buy <%= @item.title %><% end %>
+<% content_for :page_description do %>Request to buy <%= @item.title %>!<% end %>
+<% content_for :content do %>
+<section class="section">
+  <div class="container">
+      <div class="columns">
+      <div class="column is-6">
+        <% if @item.photos.attached? %>
+          <div class="swiper" id="item_swiper">
+            <div class="swiper-wrapper">
+            <% @item.photos.each do |image| %>
+            <div class="swiper-slide image is-4by3"><%= image_tag(image, class:"img-fluid") %></div>
+            <% end %>
+            </div>
+            <div class="swiper-pagination" id="item_swiper_pagination"></div>
+            <div class="swiper-button-prev"id="item_swiper_prev"></div>
+            <div class="swiper-button-next" id="item_swiper_next"></div>
+          </div>
+        <script>
+        const swiper = new Swiper('#item_swiper', {
+          // Optional parameters
+          direction: 'horizontal',
+          loop: true,
 
-<%= render 'form', transaction: @transaction %>
+          // If we need pagination
+          pagination: {
+            el: '#item_swiper_pagination',
+          },
 
-<%= link_to 'Back', transactions_path %>
+          // Navigation arrows
+          navigation: {
+            nextEl: '#item_swiper_next',
+            prevEl: '#item_swiper_prev',
+          },
+        });
+        </script>
+      <% else %>
+        <div class="image is-4by3">
+            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+        </div>
+      <% end %>
+      </div>
+      <div class="column">
+        <p class="title is-4">Send request to buy <%= @item.title %>!</p>
+        <p class="black subtitle is-6">Please make sure that you have discussed with the seller <%= @item.seller.username %> in advance!</p>
+        <%= form_with(model: @transaction) do |form| %>
+            <!-- <div>
+            <% if @transaction.errors.any? %>
+            <div id="error_explanation" class="alert alert-warning alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">Close</span>
+                </button>
+                <strong><%= pluralize(@transaction.errors.count, "error") %> prohibited this transaction from being saved:</strong>
+                <ul>
+                <% @transaction.errors.each do |error| %>
+                    <li><%= error.full_message %></li>
+                <% end %>
+                </ul>
+            </div>
+            <% end %>
+            </div> -->
+            <div class="field is-horizontal">
+                <div class="field-label is-normal f6" style="flex-grow: 0.6">
+                <%= form.label :expected_deal_time, "When to deal?", class: "label tl" %>
+                </div>
+                <div class="field-body">
+                <div class="field is-narrow">
+                    <div class="control">
+                    <%= form.text_field :expected_deal_time, class: "input", data: { behavior: 'flatpickr'},value:Time.now + 1.day %>
+                    </div>
+                    <% if @transaction.errors[:expected_deal_time].any? %>
+                    <div class="help is-danger">
+                    <ul>
+                        <% @transaction.errors[:expected_deal_time].each do |error| %>
+                        <li><%= error %></li>
+                        <% end %>
+                    </ul>
+                    </div>
+                    <% end %>
+                </div>
+                </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-label is-normal f6" style="flex-grow: 0.6">
+                <%= form.label :deal_address, "Where to deal?", class: "label tl" %>
+                </div>
+                <div class="field-body">
+                <div class="field is-narrow">
+                    <div class="control">
+                    <%= form.text_field :deal_address, class: "input",value:@item.seller.address %>
+                    </div>
+                    <% if @transaction.errors[:deal_address].any? %>
+                    <div class="help is-danger">
+                    <ul>
+                        <% @transaction.errors[:deal_address].each do |error| %>
+                        <li><%= error %></li>
+                        <% end %>
+                    </ul>
+                    </div>
+                    <% end %>
+                </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal f6" style="flex-grow: 0.6">
+                <%= form.label :quantity, "Quantity", class: "label tl" %>
+                </div>
+                <div class="field-body">
+                <div class="field is-narrow">
+                    <div class="control has-icons-left">
+                    <span class="icon is-small is-left">
+                        <i class="fa fa-hashtag"></i>
+                    </span>
+                    <%= form.number_field :quantity,min:1,step:1,value:1,max:@item.number, class: "input" %>
+                    </div>
+                    <% if @transaction.errors[:quantity].any? %>
+                    <div class="help is-danger">
+                    <ul>
+                        <% @transaction.errors[:quantity].each do |error| %>
+                        <li><%= error %></li>
+                        <% end %>
+                    </ul>
+                    </div>
+                    <% end %>
+                </div>
+                </div>
+            </div>
+            <div class="price">
+            <p class="title is-3 dark-gray">Total Price</p>
+            <p class="black subtitle is-1" id="total_price">$ <%= @item.price %></p>
+            <script>
+            $("#transaction_quantity").on("input", function() {
+                $('#total_price').text('$'+$(this).val()*<%= @item.price%>)});
+            </script>
+            </div>
+
+            <div class="field is-horizontal actions">
+                <div class="field-label" style="flex-grow: 0.6">
+                <!-- Left empty for spacing -->
+                </div>
+                <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                    <%= form.button :submit,id:"signupbutton", class: 'button is-block is-primary is-large is-link ph4 mt2' do %>
+                    <span class="icon is-small"><i class="fa fa-shopping-cart"></i></span><span>Buy Now!</span>
+                    <% end %>
+                    </div>
+                </div>
+                </div>
+            </div>
+        <% end %>
+
+      </div>
+    </div>    
+  </div>
+</section>
+<% end %>
+<%= render template: "layouts/application" %>
+

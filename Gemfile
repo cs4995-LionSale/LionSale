@@ -19,6 +19,7 @@ gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.7'
 gem 'bulma-rails', '~> 0.9.2'
 gem 'new_ckeditor', '~> 0.1.2'
 gem 'bootstrap', '~> 5.1.0'
+gem 'flatpickr', '~> 4.6.6.0'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '~> 5.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
