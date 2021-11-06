@@ -1,7 +1,9 @@
 module SessionsHelper
   # login to specific user
   def log_in(user)
-    session[:user_id] = user.id  
+    if (user.permission != -99)
+      session[:user_id] = user.id  
+    end
   end
 
   #return current user's object, if nil, find session recorded user
@@ -10,7 +12,7 @@ module SessionsHelper
         @current_user ||= User.find_by(id: user_id) 
     elsif (user_id = cookies.signed[:user_id]) 
       user = User.find_by(id: user_id) 
-      if user && user.authenticated?(cookies[:remember_token]) 
+      if user && user.permission != -99 && user.authenticated?(cookies[:remember_token]) 
         log_in user 
         @current_user = user 
       end 
@@ -19,7 +21,7 @@ module SessionsHelper
 
   #return true if user has logged in, otherwise, return false
   def logged_in?
-    if @current_user == nil
+    if @current_user == nil || @current_user.permission == -99
       return false
     else
       return true 
