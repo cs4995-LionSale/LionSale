@@ -1,2 +1,32 @@
-<h1>StaticPages#about</h1>
-<p>Find me in app/views/static_pages/about.html.erb</p>
+<% content_for :page_title do %>About LionSale<% end %>
+<% content_for :page_description do %>About LionSale<% end %>
+<% content_for :content do %>
+<section class="section">
+  <div class="container">
+    <h1 class="black">About us</h1>
+    <p class="black">CS W4995 S03 ESaaS Group Project<br />
+	<h1 class="black">Developer</h1>
+	<p class="black">
+    <ul>
+    <li class="black">Weicheng Zhao</li>
+    <li class="black">Yue Huang</li>
+    <li class="black">Tianyi Wang</li>
+    <li class="black">Ruohan Li</li>
+    </ul>
+	</p>
+	<h1 class="black">What you can do here</h1>
+	<p class="black"> Nothing?
+	</p>
+	<h1 class="black">Links</h1>
+	<p class="black">
+    Heroku deployment link: https://lion-sale.herokuapp.com/ <br />
+    Github repo link: https://github.com/cs4995-LionSale/LionSale <br />
+    </p>
+	<h1 class="black">Credits</h1>
+	<p class="black">Ruby on Rails, Heroku, CKEditor, Font-Awesome, Animate, Bulma, Normalize, Tachyons, jQuery, Swiper</p>
+	<h1 class="black">Version</h1>
+	<p class="black">20211106</p>
+  </div>
+</section>
+<% end %>
+<%= render template: "layouts/application" %>

@@ -56,6 +56,10 @@ class ItemsController < ApplicationController
     end
   end
 
+  def category_list
+    return []
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_item
