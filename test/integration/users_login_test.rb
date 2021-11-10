@@ -6,7 +6,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
       end
   test "login with valid information followed by logout" do
     get login_path
-    post login_path, session: { email: 'alex@columbia.edu', password: 's3caaar3t' }
+    post login_path, session: { email: @user.email, password: 's3caaar3t' }
     assert is_logged_in?
     assert_redirected_to @user
     follow_redirect!
