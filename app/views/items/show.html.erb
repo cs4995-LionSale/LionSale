@@ -45,7 +45,7 @@
         <dl class="lh-copy mt0">
           <dt class="f6 dark-gray">Sold by</dt>
           <dd class="f4 ml0">
-            <%= link_to @item.seller.username, user_path(@item.seller.id), :class => "no-underline hover-underline"%>
+            <%= link_to @item.seller.username, user_path(@item.seller), :class => "no-underline hover-underline"%>
           </dd>
           <dt class="f6 mt2 dark-gray">Description</dt>
           <dd class="f4 ml0 black">
@@ -55,7 +55,7 @@
           </dd>
           <dt class="f6 mt2 dark-gray">Category</dt>
           <dd class="f4 ml0">
-            <%= link_to @item.category.name, items_path(category:@item.category.id), :class => "no-underline hover-underline"%>
+            <%= link_to @item.category.name, items_path(category:@item.category), :class => "no-underline hover-underline"%>
           </dd>
           <dt class="f6 mt2 dark-gray">On shelf since: </dt>
           <dd class="f4 ml0 black">
@@ -101,7 +101,7 @@
             <%= link_to '<span class="icon is-small"><i class="fa fa-edit"></i></span><span>Edit this item</span>'.html_safe, edit_item_path(@item), class:"button is-link"%>
             </p>
             <p class="control">
-            <%= link_to '<span class="icon is-small"><i class="fa fa-trash"></i></span><span>Close selling</span>'.html_safe, item_path(item:@item.id), method: :delete,class:"button is-danger"%>
+            <%= link_to '<span class="icon is-small"><i class="fa fa-trash"></i></span><span>Close selling</span>'.html_safe, item_path(@item), method: :delete,class:"button is-danger"%>
             </p>
           </div>
           <% end %>

@@ -1,0 +1,48 @@
+<% case status 
+    when 0 %>
+Deal completed normally.
+<% when 100 %>
+Purchase request initialized. Processing...
+<% when 110 %>
+Purchase request sent. Waiting for response...
+<% when 111 %>
+Purchase request initialization process failed.
+<% when 112 %>
+Purchase request cancelled.
+<% when 120 %>
+Purchase request approved. Processing...
+<% when 121 %>
+Purchase request approvement process failed.
+<% when 122 %>
+Purchase request declined by seller.
+<% when 123 %>
+Purchase request timeout.
+<% when 191 %>
+Purchase request terminated.
+<% when 200 %>
+Waiting for deal confirmation...
+<% when 201 %>
+Deal confirmation initialized. Processing...
+<% when 210 %>
+Deal confirmation sent. Waiting for response...
+<% when 211 %>
+Deal confirmation initialization process failed.
+<% when 212 %>
+Deal cancelled by buyer.
+<% when 213 %>
+Buyer declined to confirm deal.
+<% when 213 %>
+Deal confirmation timeout.
+<% when 220 %>
+Deal confirmation approved. Processing...
+<% when 221 %>
+Deal confirmation approvement process failed.
+<% when 222 %>
+Deal cancelled by seller.
+<% when 223 %>
+Seller declined to confirm deal.
+<% when 224 %>
+Deal confirmation approvement timeout.
+<% when 291 %>
+Deal terminated.
+<% end %>
