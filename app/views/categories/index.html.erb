@@ -1,29 +1,21 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Categories</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Parent category</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @categories.each do |category| %>
-      <tr>
-        <td><%= category.name %></td>
-        <td><%= category.parent_category_id %></td>
-        <td><%= link_to 'Show', category %></td>
-        <td><%= link_to 'Edit', edit_category_path(category) %></td>
-        <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Category', new_category_path %>
+<% content_for :page_title do %>Categroies at LionSale!<% end %>
+<% content_for :page_description do %>Categroies at LionSale!<% end %>
+<% content_for :content do %>
+<section class="section">
+  <div class="container">
+    <div class="menu">
+      <p class="menu-label">
+        All Categroies
+      </p>
+      <ul class="menu-list">
+        <% @items.each do |cat| %>
+        <li>
+          <%= link_to cat.name, items_path(category_id:cat.id)%>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</section>
+<% end %>
+<%= render template: "layouts/application" %>

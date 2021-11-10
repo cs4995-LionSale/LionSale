@@ -9,11 +9,11 @@ import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import "jquery"
 import flatpickr from 'flatpickr'
-
+import * as Routes from 'routes';
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
-
+window.Routes = Routes;
 document.addEventListener('turbolinks:load', () => {
     flatpickr("[data-behavior='flatpickr']", {
       altInput: true,
