@@ -17,22 +17,44 @@ RSpec.describe "/users", type: :request do
   # User. As you add validations to User, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    # skip("Add a hash of attributes valid for your model")
+    {
+      email: "Email",
+      username: "Username",
+      password: "Password Digest",
+      password_confirmation: "Password Digest",
+      address: "Address",
+      rating_seller: 2.5,
+      rating_buyer: 3.5,
+      permission: 4
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    # skip("Add a hash of attributes invalid for your model")
+    {
+      email: "Email",
+      username: "Username",
+      password: "Password Digest",
+      password_confirmation: "Pasword Digest",
+      address: "Address",
+      rating_seller: 2.5,
+      rating_buyer: 3.5,
+      permission: 4
+    }
+    
   }
 
-  describe "GET /index" do
-    it "renders a successful response" do
-      User.create! valid_attributes
-      get users_url
-      expect(response).to be_successful
-    end
-  end
+  # describe "GET /index" do
+  #   it "renders a successful response" do
+  #     User.create! valid_attributes
+  #     get users_url
+  #     expect(response).to be_successful
+  #   end
+  # end
 
   describe "GET /show" do
+    #为什么是create 
     it "renders a successful response" do
       user = User.create! valid_attributes
       get user_url(user)
@@ -40,12 +62,12 @@ RSpec.describe "/users", type: :request do
     end
   end
 
-  # describe "GET /new" do
-  #   it "renders a successful response" do
-  #     get new_user_url
-  #     expect(response).to be_successful
-  #   end
-  # end
+  describe "GET /new" do
+    it "renders a successful response" do
+      get signup_url
+      expect(response).to be_successful
+    end
+  end
 
   describe "GET /edit" do
     it "render a successful response" do
@@ -55,33 +77,33 @@ RSpec.describe "/users", type: :request do
     end
   end
 
-  # describe "POST /create" do
-  #   context "with valid parameters" do
-  #     it "creates a new User" do
-  #       expect {
-  #         post users_url, params: { user: valid_attributes }
-  #       }.to change(User, :count).by(1)
-  #     end
+  describe "POST /create" do
+    context "with valid parameters" do
+      it "creates a new User" do
+        expect {
+          post signup_url, params: { user: valid_attributes }
+        }.to change(User, :count).by(1)
+      end
 
-  #     it "redirects to the created user" do
-  #       post users_url, params: { user: valid_attributes }
-  #       expect(response).to redirect_to(user_url(User.last))
-  #     end
-  #   end
+      it "redirects to the created user" do
+        post signup_url, params: { user: valid_attributes }
+        expect(response).to redirect_to(user_url(User.last))
+      end
+    end
 
-  #   context "with invalid parameters" do
-  #     it "does not create a new User" do
-  #       expect {
-  #         post users_url, params: { user: invalid_attributes }
-  #       }.to change(User, :count).by(0)
-  #     end
+    context "with invalid parameters" do
+      it "does not create a new User" do
+        expect {
+          post signup_url, params: { user: invalid_attributes }
+        }.to change(User, :count).by(0)
+      end
 
-  #     it "renders a successful response (i.e. to display the 'new' template)" do
-  #       post users_url, params: { user: invalid_attributes }
-  #       expect(response).to be_successful
-  #     end
-  #   end
-  # end
+      it "renders a successful response (i.e. to display the 'new' template)" do
+        post signup_url, params: { user: invalid_attributes }
+        expect(response).to be_successful
+      end
+    end
+  end
 
   describe "PATCH /update" do
     context "with valid parameters" do
@@ -118,13 +140,13 @@ RSpec.describe "/users", type: :request do
       user = User.create! valid_attributes
       expect {
         delete user_url(user)
-      }.to change(User, :count).by(-1)
+      }.to change(User, :count).by(0)
     end
 
-    it "redirects to the users list" do
-      user = User.create! valid_attributes
-      delete user_url(user)
-      expect(response).to redirect_to(users_url)
-    end
+    # it "redirects to the users list" do
+    #   user = User.create! valid_attributes
+    #   delete user_url(user)
+      # expect(response).to redirect_to(signup_url)
+    # end
   end
 end
