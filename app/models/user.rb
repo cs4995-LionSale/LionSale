@@ -13,10 +13,10 @@ class User < ApplicationRecord::Base
     has_many :messgaes_received, class_name: 'Message', inverse_of: 'to'
     has_many :transactions_as_seller, class_name: 'Transaction', inverse_of: 'seller'
     has_many :transactions_as_buyer, class_name: 'Transaction', inverse_of: 'buyer'
-    has_many :items_sold, class_name: 'Item', inverse_of: 'seller'
+    has_many :items_sold, class_name: 'Item', inverse_of: 'seller', dependent: :destroy
     
     def items_sold_num 
-        return items_sold.length
+        return items_sold.count
     end
     
     def items_selling_num 
@@ -24,8 +24,8 @@ class User < ApplicationRecord::Base
     end
 
     def items_bought_num 
-        return transactions_as_buyer.length
-    end
+        return transactions_as_buyer.count
+    end 
 
     #return target string's hash
     def User.digest(string)
@@ -56,6 +56,11 @@ class User < ApplicationRecord::Base
     #forget current user
     def forget
       update_attribute(:remember_digest, nil)  
+    end
+
+    # dynamic stream
+    def feed
+      Item.where("seller_id = ?", id)
     end
 end
 

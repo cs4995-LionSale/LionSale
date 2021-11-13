@@ -1,4 +1,6 @@
 class ItemsController < ApplicationController
+  before_action :logged_in_user, only: [:create, :destroy]
+  before_action :correct_user, only: :destroy
   before_action :set_item, only: %i[ show edit update destroy ]
 
   # GET /items or /items.json
@@ -21,13 +23,14 @@ class ItemsController < ApplicationController
 
   # POST /items or /items.json
   def create
-    @item = Item.new(item_params)
+    @item = current_user.items_sold.build(item_params)
 
     respond_to do |format|
       if @item.save
         format.html { redirect_to @item, notice: "Item was successfully created." }
         format.json { render :show, status: :created, location: @item }
       else
+        @feed_items = []
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @item.errors, status: :unprocessable_entity }
       end
@@ -64,6 +67,12 @@ class ItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def item_params
-      params.require(:item).permit(:title, :description, :seller_id, :price, :created_at, :updated_at, :status, :category_id)
+      params.require(:item).permit(:title, :description, :seller_id, :price, :created_at, :updated_at, :status, :category_id, :picture)
     end
+
+    def correct_user
+      @item = current_user.items_sold.find_by(id: params[:id]) 
+      redirect_to items_url if @item.nil?    
+    end
+
 end

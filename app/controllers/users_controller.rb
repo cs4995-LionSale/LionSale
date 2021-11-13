@@ -7,6 +7,7 @@ class UsersController < ApplicationController
   # GET /users/1 or /users/1.json
   def show
     @user = User.find(params[:id])
+    @items_sold = @user.items_sold.paginate(page: params[:page])
   end
 
   # GET /users/new
@@ -86,15 +87,6 @@ class UsersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def user_params
       params.require(:user).permit(:email, :username, :password, :password_confirmation, :address, :rating_seller, :rating_buyer, :permission, :avatar)
-    end
-
-    # make sure user must logged in before edit/update/delete operation
-    def logged_in_user
-      unless logged_in? 
-        store_location
-        flash[:danger] = "Please log in to continue editing and updating user information" 
-        redirect_to login_url 
-      end    
     end
 
     # guarantee the current user's identity is correct
