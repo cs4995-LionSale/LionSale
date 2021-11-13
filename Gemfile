@@ -22,6 +22,7 @@ gem 'bootstrap', '~> 5.1.0'
 gem 'flatpickr', '~> 4.6.6.0'
 gem "js-routes"
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
+gem 'carrierwave', '~> 0.10.0'
 gem 'webpacker', '~> 5.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
