@@ -9,8 +9,8 @@ class Item < ApplicationRecord
   has_many_attached :photos
   validates :seller_id, presence: true 
   validates :category_id, presence: true 
-  validates :title, presence: true, length: { max: 32}
-  validates :description, presence: true, length: { max: 255 }
+  validates :title, presence: true, length: { maximum: 32 } 
+  validates :description, presence: true, length: { maximum: 255 }
   validates :price, presence: true
   validate  :picture_size 
   
