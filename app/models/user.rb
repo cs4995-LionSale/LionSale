@@ -1,28 +1,28 @@
 class User < ApplicationRecord
     attr_accessor :remember_token 
     before_save { self.email = email.downcase }
-    validates :username, presence: true
-    validates :email, presence: true, 
-                      uniqueness: { case_sensitive: false }
+    validates :username, presence: true, length: { maximum: 255 }
+     VALID_EMAIL_REGEX = /\A[\w+\-.][email protected][a-z\d\-.]+\.[a-z]+\z/i
+     validates :email, presence: true, length: {maximum: 255}, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
     
     has_secure_password
-    validates :password, presence: true, length: { minimum: 6 } 
+    validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
 
     has_one_attached :avatar
     has_many :messgaes_sent, class_name: 'Message', inverse_of: 'from'
     has_many :messgaes_received, class_name: 'Message', inverse_of: 'to'
     has_many :transactions_as_seller, class_name: 'Transaction', inverse_of: 'seller'
-    has_many :transactions_as_buyer, class_name: 'Transaction', inverse_of: 'buyer'
+    has_many :transactions_as_buyer, class_name: 'Transaction', inverse_of: 'buyer', dependent: :destroy
     has_many :items_sold, class_name: 'Iten', inverse_of: 'seller'
     def items_sold_num 
-        return 123
+        return items_sold.count
     end
     def items_selling_num 
         return 456
     end
     def items_bought_num 
-        return 789
+      return transactions_as_buyer.count
     end
 
     #return target string's hash
@@ -55,6 +55,9 @@ class User < ApplicationRecord
     def forget
       update_attribute(:remember_digest, nil)  
     end
-
+# dynamic stream
+    def feed
+      Item.where("seller_id = ?", id)
+    end
 
 end
