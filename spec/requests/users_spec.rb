@@ -19,7 +19,7 @@ RSpec.describe "/users", type: :request do
   let(:valid_attributes) {
     # skip("Add a hash of attributes valid for your model")
     {
-      email: "Email",
+      email: "email@columbia.edu",
       username: "Username",
       password: "Password Digest",
       password_confirmation: "Password Digest",
@@ -109,7 +109,7 @@ RSpec.describe "/users", type: :request do
       let(:new_attributes) {
         # skip("Add a hash of attributes valid for your model")
         {
-          email: "EEEmail",
+          email: "eeeeemail@columbia.edu",
           username: "Username",
           password: "Password Digest",
           password_confirmation: "Password Digest",
@@ -126,7 +126,7 @@ RSpec.describe "/users", type: :request do
             
         patch update_user_url(user), params: { user: new_attributes }
         user.reload
-        expect(user.email).to eq("EEEmail")
+        expect(user.email).to eq("eeeeemail@columbia.edu")
         # skip("Add assertions for updated state")
         # expect(response).to redirect_to(user_url(user))
       end
