@@ -2,7 +2,7 @@ class User < ApplicationRecord::Base
     attr_accessor :remember_token 
     before_save { self.email = email.downcase }
     validates :username, presence: true, length: { maximum: 255 }
-    VALID_EMAIL_REGEX = /\A[\w+\-.][email protected][a-z\d\-.]+\.[a-z]+\z/i
+    VALID_EMAIL_REGEX = /\A[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)\z/
     validates :email, presence: true, length: {maximum: 255}, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
     
     has_secure_password
@@ -16,15 +16,28 @@ class User < ApplicationRecord::Base
     has_many :items_sold, class_name: 'Item', inverse_of: 'seller', dependent: :destroy
     
     def items_sold_num 
-        return items_sold.count
+      count = 0
+      items_sold.each do |item|
+        if item.status == 20
+          count += 1
+        end
+      end
+      
+      return count
     end
     
     def items_selling_num 
-        return 456
+      count = 0
+      items_sold.each do |item|
+        if item.status == 0
+          count += 1
+        end
+      end
+      return count
     end
 
     def items_bought_num 
-        return transactions_as_buyer.count
+      return transactions_as_buyer.size
     end 
 
     #return target string's hash

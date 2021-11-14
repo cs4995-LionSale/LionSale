@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   # GET /users/1 or /users/1.json
   def show
     @user = User.find(params[:id])
-    @items_sold = @user.items_sold.paginate(page: params[:page])
+    @items_sold = @user.items_sold
   end
 
   # GET /users/new
@@ -45,7 +45,7 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
-    if @user.update_attributes(user_params)      # 处理更新成功的情况
+    if @user.update_attributes(user_params)      # process success update situation 
       flash[:success] = "User profile successfully updated" 
       redirect_to @user
     else
