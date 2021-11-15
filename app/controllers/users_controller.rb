@@ -44,7 +44,7 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
-    if @user.update_attributes(user_params)      # 处理更新成功的情况
+    if @user.update(:email => user_params[:email], :username => user_params.[:username], :avatar_url => user_params[:avatar_url], :address => user_params[:address])      # 处理更新成功的情况
       flash[:success] = "User profile successfully updated" 
       redirect_to @user
     else
