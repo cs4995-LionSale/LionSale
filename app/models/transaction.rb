@@ -1,5 +1,7 @@
 class Transaction < ApplicationRecord
-  belongs_to :item
-  belongs_to :seller
-  belongs_to :buyer
+  belongs_to :item, class_name: 'Item', foreign_key: 'item_id'
+  belongs_to :seller, class_name: 'User', foreign_key: 'seller_id'
+  belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id'
+
+  
 end
