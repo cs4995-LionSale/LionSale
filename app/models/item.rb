@@ -4,7 +4,7 @@ class Item < ApplicationRecord
   default_scope -> { order(created_at: :desc) } 
   mount_uploader :picture, PictureUploader 
   belongs_to :category, class_name: 'Category', foreign_key: 'category_id'
-  has_many :related_messages, class_name: 'Message', inverse_of: 'item'
+  has_many :related_messages, class_name: 'Message', inverse_of: 'item', foreign_key: 'item_id'
   has_many :transactions, class_name: 'Transaction', inverse_of: 'item', foreign_key: 'item_id'
   has_many_attached :photos
   validates :seller_id, presence: true 
