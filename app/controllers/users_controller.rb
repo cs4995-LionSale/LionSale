@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   # GET /users/1 or /users/1.json
   def show
     @user = User.find(params[:id])
-    @items_sold = @user.items_sold.paginate(page: params[:page])
+    @items_sold = @user.items_sold
   end
 
   # GET /users/new
