@@ -63,7 +63,7 @@ RSpec.describe "/users", type: :request do
 
   describe "GET /new" do
     it "renders a successful response" do
-      get signup_url
+      get signup_url()
       expect(response).to be_successful
     end
   end
@@ -72,6 +72,7 @@ RSpec.describe "/users", type: :request do
     it "render a successful response" do
       user = User.create! valid_attributes
       get edit_user_url(user)
+      raise response.body 
       expect(response).to be_successful
     end
   end
@@ -124,7 +125,7 @@ RSpec.describe "/users", type: :request do
         user = User.create! valid_attributes
         # patch :update, :user => new_attributes
             
-        patch update_user_url(user), params: { user: new_attributes }
+        patch user_url(user), params: { user: new_attributes }
         user.reload
         expect(user.email).to eq("eeeeemail@columbia.edu")
         # skip("Add assertions for updated state")

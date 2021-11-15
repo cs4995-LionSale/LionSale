@@ -97,7 +97,7 @@ class UsersController < ApplicationController
 
     # identify administrator
     def admin_user
-      redirect_to(root_url) unless @user.admin?    
+      redirect_to(root_url) unless @user.permission > 0    # user.permission = 99 if it is an admin 
     end
 
 end
