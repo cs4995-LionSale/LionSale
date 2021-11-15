@@ -16,32 +16,47 @@ RSpec.describe "/items", type: :request do
   
   # Item. As you add validations to Item, be sure to
   # adjust the attributes here as well.
+  # let(:user){
+
+  # }
   let(:valid_attributes) {
-    # skip("Add a hash of attributes valid for your model")
-    {
-      title: "book",
-      description: "CS book",
-      seller: 1,
-      price: 11,
-      # status: 1,
-      category: 1,
-    }
+    skip("Add a hash of attributes valid for your model")
+    # {
+    #   title: "book",
+    #   description: "CS book",
+    #   seller: user,
+    #   price: 11,
+    #   # status: 1,
+    #   category: 1,
+    # }
   }
 
   let(:invalid_attributes) {
-    # skip("Add a hash of attributes invalid for your model")
-    {
-      title: "book",
-      description: "CS book",
-      seller: "dddd",
-      price: 11,
-      # status: 1,
-      category: 1,
-    }
+    skip("Add a hash of attributes invalid for your model")
+    # {
+    #   title: "book",
+    #   description: "CS book",
+    #   seller: "dddd",
+    #   price: 11,
+    #   # status: 1,
+    #   category: 1,
+    # }
   }
 
   describe "GET /index" do
     it "renders a successful response" do
+      # :user = User.create! {
+      #   {
+      #     email: "emailw@columbia.edu",
+      #     username: "Username",
+      #     password: "Password Digest",
+      #     password_confirmation: "Password Digest",
+      #     address: "Address",
+      #     rating_seller: 2.5,
+      #     rating_buyer: 3.5,
+      #     permission: 4
+      #   }
+      # }
       Item.create! valid_attributes
       get items_url
       expect(response).to be_successful
