@@ -57,16 +57,9 @@ RSpec.describe "Sessions", type: :request do
 
   describe "DELETE /destroy" do
     it "destroys the session" do
-      session = Session.create! {email: "email@columbia.edu", password: "Password Digest",remember_me:"0" }
-      delete session_url(session)
+      delete logout_url()
       expect(response).to redirect_to(root_url())
     end
-
-    # it "redirects to the users list" do
-    #   user = User.create! valid_attributes
-    #   delete user_url(user)
-      # expect(response).to redirect_to(signup_url)
-    # end
   end
 
 end
