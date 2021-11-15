@@ -13,8 +13,8 @@ class User < ApplicationRecord
     has_one_attached :avatar
     has_many :messgaes_sent, class_name: 'Message', inverse_of: 'from'
     has_many :messgaes_received, class_name: 'Message', inverse_of: 'to'
-    has_many :transactions_as_seller, class_name: 'Transaction', inverse_of: 'seller', foreign_key: 'user_id'
-    has_many :transactions_as_buyer, class_name: 'Transaction', inverse_of: 'buyer', foreign_key: 'user_id'
+    has_many :transactions_as_seller, class_name: 'Transaction', inverse_of: 'seller', foreign_key: 'seller_id'
+    has_many :transactions_as_buyer, class_name: 'Transaction', inverse_of: 'buyer', foreign_key: 'buyer_id'
     has_many :items_sold, class_name: 'Item', inverse_of: 'seller', foreign_key: 'seller_id', dependent: :destroy
     def items_sold_num 
       count = 0
