@@ -13,17 +13,30 @@ class User < ApplicationRecord
     has_one_attached :avatar
     has_many :messgaes_sent, class_name: 'Message', inverse_of: 'from'
     has_many :messgaes_received, class_name: 'Message', inverse_of: 'to'
-    has_many :transactions_as_seller, class_name: 'Transaction', inverse_of: 'seller'
-    has_many :transactions_as_buyer, class_name: 'Transaction', inverse_of: 'buyer', dependent: :destroy
-    has_many :items_sold, class_name: 'Item', inverse_of: 'seller'
+    has_many :transactions_as_seller, class_name: 'Transaction', inverse_of: 'seller', foreign_key: 'user_id'
+    has_many :transactions_as_buyer, class_name: 'Transaction', inverse_of: 'buyer', foreign_key: 'user_id'
+    has_many :items_sold, class_name: 'Item', inverse_of: 'seller', foreign_key: 'user_id', dependent: :destroy
     def items_sold_num 
-        return items_sold.count
+      count = 0
+      items_sold.each do |item|
+        if item.status == 20
+          count += 1
+        end
+      end
+
+      return count
     end
     def items_selling_num 
-        return 456
+      count = 0
+      items_sold.each do |item|
+        if item.status == 0
+          count += 1
+        end
+      end
+      return count
     end
     def items_bought_num 
-      return transactions_as_buyer.count
+      return transactions_as_buyer.size
     end
 
     #return target string's hash
