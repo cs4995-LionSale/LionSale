@@ -17,11 +17,27 @@ RSpec.describe "/items", type: :request do
   # Item. As you add validations to Item, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    # skip("Add a hash of attributes valid for your model")
+    {
+      title: "book",
+      description: "CS book",
+      seller: 1,
+      price: 11,
+      # status: 1,
+      category: 1,
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    # skip("Add a hash of attributes invalid for your model")
+    {
+      title: "book",
+      description: "CS book",
+      seller: "dddd",
+      price: 11,
+      # status: 1,
+      category: 1,
+    }
   }
 
   describe "GET /index" do

@@ -72,8 +72,8 @@ RSpec.describe "/users", type: :request do
     it "render a successful response" do
       user = User.create! valid_attributes
       get edit_user_url(user)
-      raise response.body 
-      expect(response).to be_successful
+      # raise response.body 
+      expect(response).to redirect_to(login_url)
     end
   end
 
