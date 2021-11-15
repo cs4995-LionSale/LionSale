@@ -76,6 +76,8 @@ class UsersController < ApplicationController
   end
 
   private
+    #normal user permission = 0, destroy user permission = -99, admin user permission = 99
+
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       targetUser = User.find(params[:id])
@@ -97,6 +99,6 @@ class UsersController < ApplicationController
 
     # identify administrator
     def admin_user
-      redirect_to(root_url) unless @user.admin?    
+      redirect_to(root_url) unless @user.permission > 0    # user.permission = 99 if it is an admin 
     end
 end
