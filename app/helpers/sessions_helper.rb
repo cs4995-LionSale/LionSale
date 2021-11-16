@@ -2,7 +2,8 @@ module SessionsHelper
     # login to specific user
     def log_in(user)
       if (user.permission != -99)
-        session[:user_id] = user.id  
+        session[:user_id] = user.id
+        @current_user = user
       end
     end
   
@@ -16,12 +17,13 @@ module SessionsHelper
           log_in user 
           @current_user = user 
         end 
-      end  
+      end
+      return @current_user  
     end
   
     #return true if user has logged in, otherwise, return false
     def logged_in?
-      if @current_user == nil || @current_user.permission == -99
+      if current_user == nil || current_user.permission == -99
         return false
       else
         return true 
@@ -51,7 +53,7 @@ module SessionsHelper
     end
     # return true if input user is the current user
   def current_user?(user)
-    user == @current_user  
+    user == current_user  
   end
 
   # redirect to storage address or default address

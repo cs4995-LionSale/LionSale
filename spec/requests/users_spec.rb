@@ -105,51 +105,51 @@ RSpec.describe "/users", type: :request do
     end
   end
 
-  describe "PATCH /update" do
-    context "with valid parameters" do
-      let(:new_attributes) {
-        # skip("Add a hash of attributes valid for your model")
-        {
-          email: "eeeeemail@columbia.edu",
-          username: "Username",
-          password: "Password Digest",
-          password_confirmation: "Password Digest",
-          address: "Address",
-          rating_seller: 2.5,
-          rating_buyer: 3.5,
-          permission: 4
-        }
-      }
+  # describe "PATCH /update" do
+  #   context "with valid parameters" do
+  #     let(:new_attributes) {
+  #       # skip("Add a hash of attributes valid for your model")
+  #       {
+  #         email: "eeeeemail@columbia.edu",
+  #         username: "Username",
+  #         password: "Password Digest",
+  #         password_confirmation: "Password Digest",
+  #         address: "Address",
+  #         rating_seller: 2.5,
+  #         rating_buyer: 3.5,
+  #         permission: 4
+  #       }
+  #     }
 
 
-      # TODO:cucumber
+  #     # TODO:cucumber
 
       
-      # it "updates the requested user" do
-      #   user = User.create! valid_attributes
-      #   # patch :update, :user => 
-      #   post login_url(), params: { email: "email@columbia.edu", password: "Password Digest",remember_me:"0" }
-      #   patch user_url(user), params: { user: new_attributes }
-      #   user.reload
-      #   expect(user.email).to eq("eeeeemail@columbia.edu")
-      # end
+  #     # it "updates the requested user" do
+  #     #   user = User.create! valid_attributes
+  #     #   # patch :update, :user => 
+  #     #   post login_url(), params: { email: "email@columbia.edu", password: "Password Digest",remember_me:"0" }
+  #     #   patch user_url(user), params: { user: new_attributes }
+  #     #   user.reload
+  #     #   expect(user.email).to eq("eeeeemail@columbia.edu")
+  #     # end
 
-      # it "redirects to the user" do
-      #   user = User.create! valid_attributes
-      #   patch user_url(user), params: { user: new_attributes }
-      #   user.reload
-      #   expect(response).to redirect_to(user_url(user))
-      # end
-    end
+  #     # it "redirects to the user" do
+  #     #   user = User.create! valid_attributes
+        # patch user_url(user), params: { user: new_attributes }
+  #     #   user.reload
+  #     #   expect(response).to redirect_to(user_url(user))
+  #     # end
+  #   end
 
-    # context "with invalid parameters" do
-    #   it "renders a successful response (i.e. to display the 'edit' template)" do
-    #     user = User.create! valid_attributes
-    #     patch user_url(user), params: { user: invalid_attributes }
-    #     expect(response).to be_successful
-    #   end
-    # end
-  end
+  #   # context "with invalid parameters" do
+  #   #   it "renders a successful response (i.e. to display the 'edit' template)" do
+  #   #     user = User.create! valid_attributes
+  #   #     patch user_url(user), params: { user: invalid_attributes }
+  #   #     expect(response).to be_successful
+  #   #   end
+  #   # end
+  # end
 
   describe "DELETE /destroy" do
     it "destroys the requested user" do
@@ -158,11 +158,5 @@ RSpec.describe "/users", type: :request do
         delete user_url(user)
       }.to change(User, :count).by(0)
     end
-
-    # it "redirects to the users list" do
-    #   user = User.create! valid_attributes
-    #   delete user_url(user)
-      # expect(response).to redirect_to(signup_url)
-    # end
   end
 end

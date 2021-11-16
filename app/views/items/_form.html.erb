@@ -105,7 +105,7 @@
   </div>
   <div class="field is-horizontal">
     <div class="field-label is-normal f6" style="flex-grow: 0.6">
-      <%= form.label :number, "Quantity", class: "label tl" %>
+      <%= form.label :stock, "Quantity", class: "label tl" %>
     </div>
     <div class="field-body">
       <div class="field is-narrow">
@@ -113,12 +113,12 @@
           <span class="icon is-small is-left">
             <i class="fa fa-hashtag"></i>
           </span>
-          <%= form.number_field :number,min:1,step:1, class: "input",value:item.number %>
+          <%= form.number_field :stock,min:1,step:1, class: "input",value:item.stock %>
         </div>
-        <% if item.errors[:number].any? %>
+        <% if item.errors[:stock].any? %>
         <div class="help is-danger">
           <ul>
-            <% item.errors[:number].each do |error| %>
+            <% item.errors[:stock].each do |error| %>
               <li><%= error %></li>
             <% end %>
           </ul>

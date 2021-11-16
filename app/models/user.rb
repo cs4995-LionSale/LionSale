@@ -20,25 +20,14 @@ class User < ApplicationRecord
     has_many :items_sold, class_name: 'Item', inverse_of: 'seller', foreign_key: 'seller_id', dependent: :destroy
     def items_sold_num 
       count = 0
-      items_sold.each do |item|
-        if item.status == 20
-          count += 1
-        end
-      end
-
-      return count
+      return items_sold.where(status:20).count
     end
     def items_selling_num 
       count = 0
-      items_sold.each do |item|
-        if item.status == 0
-          count += 1
-        end
-      end
-      return count
+      return items_sold.where(status:0).count
     end
     def items_bought_num 
-      return transactions_as_buyer.size
+      return transactions_as_buyer.count
     end
 
     #return target string's hash
