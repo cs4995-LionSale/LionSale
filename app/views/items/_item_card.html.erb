@@ -37,7 +37,7 @@
         <span>Price: </span><p class="title is-2">$ <%= item.price %></p>
         <span>Status: </span><p class="subtitle is-6"><%= render 'item_status', status:item.status %>
         <% if item.status == 0%>
-        <strong><%= item.number %></strong> avaliable
+        <strong><%= item.stock %></strong> avaliable
         <% end %>
         </p>
         <time>On shelf at: <%= item.created_at.strftime("%l:%M %p - %b %e %Y")%></time>

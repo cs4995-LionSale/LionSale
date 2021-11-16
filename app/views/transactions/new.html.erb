@@ -113,7 +113,7 @@
                     <span class="icon is-small is-left">
                         <i class="fa fa-hashtag"></i>
                     </span>
-                    <%= form.number_field :quantity,min:1,step:1,value:1,max:@item.number, class: "input" %>
+                    <%= form.number_field :quantity,min:1,step:1,value:1,max:@item.stock, class: "input" %>
                     </div>
                     <% if @transaction.errors[:quantity].any? %>
                     <div class="help is-danger">

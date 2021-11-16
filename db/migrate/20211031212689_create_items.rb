@@ -6,6 +6,7 @@ class CreateItems < ActiveRecord::Migration[6.1]
       t.references :seller, null: false, foreign_key: { to_table: :users }
       t.decimal :price
       t.integer :status
+      t.integer :stock
       t.references :category, null: false, foreign_key: { to_table: :users }
 
       t.timestamps
