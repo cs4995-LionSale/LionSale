@@ -23,40 +23,34 @@ class ItemsController < ApplicationController
 
   # POST /items or /items.json
   def create
-    @item = current_user.items_sold.build(item_params)
-
-    respond_to do |format|
-      if @item.save
-        format.html { redirect_to @item, notice: "Item was successfully created." }
-        format.json { render :show, status: :created, location: @item }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @item.errors, status: :unprocessable_entity }
-      end
+    @item = @user.items_sold.build(item_params)
+    @item.status = 0
+    if @item.save
+      flash[:success] = "Item is successfully created."
+      redirect_to @user
+    else
+      render 'new'
     end
   end
 
   # PATCH/PUT /items/1 or /items/1.json
   def update
-    respond_to do |format|
-      if @item.update(item_params)
-        format.html { redirect_to @item, notice: "Item was successfully updated." }
-        format.json { render :show, status: :ok, location: @item }
-      else
-        @feed_items = []
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @item.errors, status: :unprocessable_entity }
-      end
+    if @item.update(:title => item_params[:title], :description => item_params[:description], :seller_id => item_params[:seller_id], :price => item_params[:price], 
+      :created_at => item_params[:created_at], :updated_at => item_params[:updated_at], :status => item_params[:status], :category_id => item_params[:category_id], :picture => item_params[:picture])
+      flash[:success] = "Item profile is successfully updated"
+      redirect_to @user
+    else
+      render 'edit'
     end
   end
 
   # DELETE /items/1 or /items/1.json
   def destroy
-    @item.destroy
-    respond_to do |format|
-      format.html { redirect_to items_url, notice: "Item was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    destroyedItem = Item.find(params[:id])
+    destroyedItem.status = 50
+    destroyedItem.save
+    flash[:success] = "Item selling has been stopped"
+    redirect_to @user
   end
 
   def category_list
