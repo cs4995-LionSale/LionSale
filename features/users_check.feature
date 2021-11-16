@@ -25,10 +25,17 @@ Given I have filled info and signed up as "alex@columbia.edu"
 #   Then I should be on the register page
 
   
-Scenario: login success1
+Scenario: login success1 
   Given I have login as "alex@columbia.edu"
   Then I should be on the home page for "Alex"
   
+
+Scenario: update profile 1
+  Given I have login as "alex@columbia.edu"
+  Then I should be on the home page for "Alex"
+  Then I update profile with new email as "aa@columbia.edu" and new address as "222 abc st."
+  Then I should be on the home page for "Alex"
+
 # Scenario: login success2
 #   Given I am on the login page
 #   And I fill in "username" with "Alex"
