@@ -19,143 +19,157 @@ RSpec.describe "/items", type: :request do
   # let(:user){
 
   # }
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-    # {
-    #   title: "book",
-    #   description: "CS book",
-    #   seller: user,
-    #   price: 11,
-    #   # status: 1,
-    #   category: 1,
-    # }
-  }
 
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-    # {
-    #   title: "book",
-    #   description: "CS book",
-    #   seller: "dddd",
-    #   price: 11,
-    #   # status: 1,
-    #   category: 1,
-    # }
+  let(:uvalid_attributes) {
+    # skip("Add a hash of attributes valid for your model")
+    {
+      email: "email@columbia.edu",
+      username: "Username",
+      password: "Password Digest",
+      password_confirmation: "Password Digest",
+      address: "Address",
+      rating_seller: 2.5,
+      rating_buyer: 3.5,
+      permission: 4
+    }
   }
+  # let(:valid_attributes) {
+  #   # skip("Add a hash of attributes valid for your model")
+  #   # :title, :description, :seller_id, :price, :created_at, 
+  #   # :updated_at, :status, :category_id, :picture
+  #   {
+  #     title: "book",
+  #     description: "CS book",
+  #     # seller_id: user.id,
+  #     price: 11,
+  #     # status: 1,
+  #     category_id: 1,
+  #   }
+  # }
+
+  # let(:invalid_attributes) {
+  #   skip("Add a hash of attributes invalid for your model")
+  #   # {
+  #   #   title: "book",
+  #   #   description: "CS book",
+  #   #   seller: "dddd",
+  #   #   price: 11,
+  #   #   # status: 1,
+  #   #   category: 1,
+  #   # }
+  # }
 
   describe "GET /index" do
     it "renders a successful response" do
-      # :user = User.create! {
-      #   {
-      #     email: "emailw@columbia.edu",
-      #     username: "Username",
-      #     password: "Password Digest",
-      #     password_confirmation: "Password Digest",
-      #     address: "Address",
-      #     rating_seller: 2.5,
-      #     rating_buyer: 3.5,
-      #     permission: 4
-      #   }
-      # }
-      Item.create! valid_attributes
+      user = User.create! uvalid_attributes
+      user.items_sold.build({title: "book",
+          description: "CS book",
+          price: 11,
+          category_id: 1})
+      # Item.create! valid_attributes
       get items_url
       expect(response).to be_successful
     end
   end
 
-  describe "GET /show" do
-    it "renders a successful response" do
-      item = Item.create! valid_attributes
-      get item_url(item)
-      expect(response).to be_successful
-    end
-  end
+  # describe "GET /show" do
+  #   it "renders a successful response" do
+  #     item = Item.create! valid_attributes
+  #     get item_url(item)
+  #     expect(response).to be_successful
+  #   end
+  # end
 
-  describe "GET /new" do
-    it "renders a successful response" do
-      get new_item_url
-      expect(response).to be_successful
-    end
-  end
+  # describe "GET /new" do
+  #   it "renders a successful response" do
+  #     get new_item_url
+  #     expect(response).to be_successful
+  #   end
+  # end
 
-  describe "GET /edit" do
-    it "render a successful response" do
-      item = Item.create! valid_attributes
-      get edit_item_url(item)
-      expect(response).to be_successful
-    end
-  end
+  
 
-  describe "POST /create" do
-    context "with valid parameters" do
-      it "creates a new Item" do
-        expect {
-          post items_url, params: { item: valid_attributes }
-        }.to change(Item, :count).by(1)
-      end
+  # describe "GET /edit" do
+  #   it "render a successful response" do
+  #     item = Item.create! valid_attributes
+  #     get edit_item_url(item)
+  #     expect(response).to be_successful
+  #   end
+  # end
 
-      it "redirects to the created item" do
-        post items_url, params: { item: valid_attributes }
-        expect(response).to redirect_to(item_url(Item.last))
-      end
-    end
+  # describe "POST /create" do
+  #   context "with valid parameters" do
+  #     it "creates a new Item" do
+  #       user = User.create! uvalid_attributes
+  #       # user.items_sold.build({title: "book",
+  #       #   description: "CS book",
+  #       #   price: 11,
+  #       #   category_id: 1})
+  #       # log_in(user)
+  #       post items_url, params: { item_params: {title: "book",
+  #         description: "CS book",
+  #         price: 11,
+  #         category_id: 1} }
+  #       expect(response).to redirect_to(login_url)
+  #     end
 
-    context "with invalid parameters" do
-      it "does not create a new Item" do
-        expect {
-          post items_url, params: { item: invalid_attributes }
-        }.to change(Item, :count).by(0)
-      end
+  #     # it "redirects to the created item" do
+  #     #   post items_url, params: { item: valid_attributes }
+  #     #   expect(response).to redirect_to(user_url(user))
+  #     # end
+  #   end
 
-      it "renders a successful response (i.e. to display the 'new' template)" do
-        post items_url, params: { item: invalid_attributes }
-        expect(response).to be_successful
-      end
-    end
-  end
+    # context "with invalid parameters" do
+    #   it "does not create a new Item" do
+    #     expect {
+    #       post items_url, params: { item: invalid_attributes }
+    #     }.to change(Item, :count).by(0)
+    #   end
 
-  describe "PATCH /update" do
-    context "with valid parameters" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
+    #   it "renders a successful response (i.e. to display the 'new' template)" do
+    #     post items_url, params: { item: invalid_attributes }
+    #     expect(response).to be_successful
+    #   end
+    # end
+  # end
 
-      it "updates the requested item" do
-        item = Item.create! valid_attributes
-        patch item_url(item), params: { item: new_attributes }
-        item.reload
-        skip("Add assertions for updated state")
-      end
+  # describe "PATCH /update" do
+  #   context "with valid parameters" do
 
-      it "redirects to the item" do
-        item = Item.create! valid_attributes
-        patch item_url(item), params: { item: new_attributes }
-        item.reload
-        expect(response).to redirect_to(item_url(item))
-      end
-    end
+  #     it "updates the requested item" do
+  #       user = User.create! uvalid_attributes
+  #       # user.items_sold.build({title: "book",
+  #       #   description: "CS book",
+  #       #   price: 11,
+  #       #   category_id: 1})
+  #       post item_url, params: { item_params: {title: "book",
+  #         description: "CS book",
+  #         price: 11,
+  #         category_id: 1} }
 
-    context "with invalid parameters" do
-      it "renders a successful response (i.e. to display the 'edit' template)" do
-        item = Item.create! valid_attributes
-        patch item_url(item), params: { item: invalid_attributes }
-        expect(response).to be_successful
-      end
-    end
-  end
+  #       # item = Item.create! valid_attributes
+  #       # patch item_url(item), params: { item: new_attributes }
+  #       item.reload
+  #       expect(response).to redirect_to(login_url)
+  #     end
 
-  describe "DELETE /destroy" do
-    it "destroys the requested item" do
-      item = Item.create! valid_attributes
-      expect {
-        delete item_url(item)
-      }.to change(Item, :count).by(-1)
-    end
+  #   end
 
-    it "redirects to the items list" do
-      item = Item.create! valid_attributes
-      delete item_url(item)
-      expect(response).to redirect_to(items_url)
-    end
-  end
+   
+  # end
+
+  # describe "DELETE /destroy" do
+  #   it "destroys the requested item" do
+  #     item = Item.create! valid_attributes
+  #     expect {
+  #       delete item_url(item)
+  #     }.to change(Item, :count).by(-1)
+  #   end
+
+  #   it "redirects to the items list" do
+  #     item = Item.create! valid_attributes
+  #     delete item_url(item)
+  #     expect(response).to redirect_to(items_url)
+  #   end
+  # end
 end

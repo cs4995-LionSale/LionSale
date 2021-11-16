@@ -6,6 +6,7 @@ class ItemsController < ApplicationController
   # GET /items or /items.json
   def index
     @items = Item.all
+    @category_list = category_list()
   end
 
   # GET /items/1 or /items/1.json
