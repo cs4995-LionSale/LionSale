@@ -136,7 +136,7 @@ RSpec.describe "/users", type: :request do
 
   #     # it "redirects to the user" do
   #     #   user = User.create! valid_attributes
-  #     #   patch user_url(user), params: { user: new_attributes }
+        # patch user_url(user), params: { user: new_attributes }
   #     #   user.reload
   #     #   expect(response).to redirect_to(user_url(user))
   #     # end
