@@ -129,8 +129,6 @@ RSpec.describe "/users", type: :request do
       #   user = User.create! valid_attributes
       #   # patch :update, :user => 
       #   post login_url(), params: { email: "email@columbia.edu", password: "Password Digest",remember_me:"0" }
-        
-            
       #   patch user_url(user), params: { user: new_attributes }
       #   user.reload
       #   expect(user.email).to eq("eeeeemail@columbia.edu")
