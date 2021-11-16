@@ -23,39 +23,52 @@ class TransactionsController < ApplicationController
 
   # POST /transactions or /transactions.json
   def create
-    @transaction = Transaction.new(transaction_params)
-
-    respond_to do |format|
+    if @item.quantity >= transaction_params[:quantity]
+      @transaction = @item.transactions.build(transaction_params)
+      @transaction.status = 100
       if @transaction.save
-        format.html { redirect_to @transaction, notice: "Transaction was successfully created." }
-        format.json { render :show, status: :created, location: @transaction }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @transaction.errors, status: :unprocessable_entity }
+        @transaction.status = 110
+        # detail transaction logic here
+        
+        
+        if @item.change_stock(-1 * transaction_params[:quantity]) # decrease transaction's quantity from item's stock and save
+          flash[:success] = "Transaction is successfully created"
+          redirect_to @transaction
+        else
+          flash[:fail] = "Error occurs while changing item's stock"
+          redirect_to @item
+        end
+      else 
+        flash[:fail] = "Transaction request fails, please try again"
+        @transaction.status = 111
+        redirect_to @item
       end
+    else
+      flash[:fail] = "Item is out of stock"
+      redirect_to @item
     end
   end
 
   # PATCH/PUT /transactions/1 or /transactions/1.json
   def update
-    respond_to do |format|
-      if @transaction.update(transaction_params)
-        format.html { redirect_to @transaction, notice: "Transaction was successfully updated." }
-        format.json { render :show, status: :ok, location: @transaction }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @transaction.errors, status: :unprocessable_entity }
-      end
+    if @transaction.update(:item_id => transaction_params[:item_id], :seller_id => transaction_params[:seller_id], :buyer_id => transaction_params[:buyer_id], 
+      :expected_deal_time => transaction_params[:expected_deal_time], :real_deal_time => transaction_params[:real_deal_time], :deal_address => transaction_params[:deal_address], 
+      :deal_price => transaction_params[:deal_price], :status => transaction_params[:status], :seller_rating => transaction_params[:seller_rating], :buyer_rating => transaction_params[:buyer_rating])
+      
+      flash[:success] = "Transaction profile is successfully updated"
+      redirect_to @transaction
+    else
+      render 'edit'
     end
   end
 
   # DELETE /transactions/1 or /transactions/1.json
   def destroy
-    @transaction.destroy
-    respond_to do |format|
-      format.html { redirect_to transactions_url, notice: "Transaction was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    destroyedTransaction = Transaction.find(params[:id])
+    destroyedTransaction.status = 112
+    destroyedTransaction.save
+    flash[:success] = "Transaction has been canceled"
+    redirect_to @item
   end
 
   private

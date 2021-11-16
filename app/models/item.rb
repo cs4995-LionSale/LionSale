@@ -13,4 +13,16 @@ class Item < ApplicationRecord
   validates :price, presence: true
   validate  :picture_size 
   
+  
+  def change_stock(quantity)
+    if (stock == 0) #in that case number should be positive to add stock, and status should be set to allow sell
+      status = 0
+    end  
+    stock += quantity
+    if (stock == 0) # change status of item if out of stock
+      status = 20
+    end
+
+    save()
+  end
 end
