@@ -32,6 +32,26 @@ Then /^I logout$/ do
   click_link('nav-logout-link')
 end
 
+Then /^I go to update profile$/ do 
+  click_link('Edit My Profile')
+end
+
+Then /^I update$/ do 
+  click_button('Edit my Profile')
+end
+
+Then /^I put in new email as "([^"]*)"$/ do |email|
+  fill_in('user_email', :with => email)
+end
+
+Then /^I put in new address as "([^"]*)"$/ do |address|
+  fill_in('user_address', :with => address)
+end
+
+Then /^I put in new name as "([^"]*)"$/ do |name|
+  fill_in('user_username', :with => name)
+end
+
 Then /^I should be on the home page for (.*)$/ do |name|
   current_path = URI.parse(current_url).path
   if current_path.respond_to? :should 
