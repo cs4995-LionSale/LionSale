@@ -60,9 +60,5 @@ class User < ApplicationRecord
     def forget
       update_attribute(:remember_digest, nil)  
     end
-# dynamic stream
-    def feed
-      Item.where("seller_id = ?", id)
-    end
 
 end
