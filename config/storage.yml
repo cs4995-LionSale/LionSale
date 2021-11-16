@@ -21,8 +21,8 @@ google_dev:
   credentials:
     type: "service_account"
     project_id: "iron-inkwell-332219"
-    private_key_id: ENV['GOOGLE_APPLICATION_PK_ID']
-    private_key: ENV['GOOGLE_APPLICATION_PK']
+    private_key_id: "<%= ENV['GOOGLE_APPLICATION_PK_ID'] %>"
+    private_key: "<%= ENV['GOOGLE_APPLICATION_PK'] %>"
     client_email: "lionsale-server@iron-inkwell-332219.iam.gserviceaccount.com"
     client_id: "118288889606683472562"
     auth_uri: "https://accounts.google.com/o/oauth2/auth"
@@ -37,8 +37,8 @@ google:
   credentials:
     type: "service_account"
     project_id: "iron-inkwell-332219"
-    private_key_id: ENV['GOOGLE_APPLICATION_PK_ID']
-    private_key: ENV['GOOGLE_APPLICATION_PK']
+    private_key_id: "<%= ENV['GOOGLE_APPLICATION_PK_ID'] %>"
+    private_key: "<%= ENV['GOOGLE_APPLICATION_PK'] %>"
     client_email: "lionsale-server@iron-inkwell-332219.iam.gserviceaccount.com"
     client_id: "118288889606683472562"
     auth_uri: "https://accounts.google.com/o/oauth2/auth"
