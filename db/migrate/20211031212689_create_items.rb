@@ -10,6 +10,6 @@ class CreateItems < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
+    add_index :items, [:seller_id, :created_at]
   end
-  add_index :items, [:seller_id, :created_at] end
 end
