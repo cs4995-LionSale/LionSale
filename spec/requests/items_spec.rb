@@ -60,7 +60,7 @@ RSpec.describe "/items", type: :request do
   # }
 
   describe "GET /index" do
-    it "renders a successful response" do
+    it "without userid" do
       user = User.create! uvalid_attributes
       user.items_sold.build({title: "book",
           description: "CS book",
@@ -68,6 +68,52 @@ RSpec.describe "/items", type: :request do
           category_id: 1})
       # Item.create! valid_attributes
       get items_url
+      expect(response).to be_successful
+    end
+    it "with userid" do
+      user = User.create! uvalid_attributes
+      user.items_sold.build({title: "book",
+          description: "CS book",
+          price: 11,
+          category_id: 1})
+      # Item.create! valid_attributes
+      get items_url, params: { user_id: user.id }
+      expect(response).to be_successful
+    end
+    it "with unkown userid" do
+      user = User.create! uvalid_attributes
+      user.items_sold.build({title: "book",
+          description: "CS book",
+          price: 11,
+          category_id: 1})
+      # Item.create! valid_attributes
+      get items_url, params: { user_id: 333 }
+      expect(response).to be_successful
+    end
+    it "with categoryid" do
+      user = User.create! uvalid_attributes
+      user.items_sold.build({title: "book",
+          description: "CS book",
+          price: 11,
+          category_id: 1})
+      # Item.create! valid_attributes
+      category_id = 1
+      get items_url, params: { category_id: category_id }
+      expect(response).to be_successful
+    end
+    it "with known categoryid" do
+      user = User.create! uvalid_attributes
+      user.items_sold.build({title: "book",
+          description: "CS book",
+          price: 11,
+          category_id: 1})
+      # Item.create! valid_attributes
+      cate1 = Category.create!({:name => "A"})
+      cate2 = Category.create!({:name => "B",:parent_category => cate1})
+      cate3 = Category.create!({:name => "C",:parent_category => cate2})
+    
+      # category_id = 1
+      get items_url, params: { category_id: cate2.id }
       expect(response).to be_successful
     end
   end

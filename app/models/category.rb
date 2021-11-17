@@ -8,7 +8,7 @@ class Category < ApplicationRecord
     r = [self]
     curr = parent_category
     while curr do
-      r = r.push[curr]
+      r = r.push(curr)
       curr = curr.parent_category
     end
     return r
