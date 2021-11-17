@@ -54,7 +54,12 @@ class ItemsController < ApplicationController
   # PATCH/PUT /items/1 or /items/1.json
   def update
     if @item.update(:title => item_params[:title], :description => item_params[:description], :seller_id => item_params[:seller_id], :price => item_params[:price], 
-      :created_at => item_params[:created_at], :updated_at => item_params[:updated_at], :status => item_params[:status], :category_id => item_params[:category_id], :picture => item_params[:picture])
+      :created_at => item_params[:created_at], :updated_at => item_params[:updated_at], :status => item_params[:status], :category_id => item_params[:category_id])
+      if params[:item][:photos]
+        params[:item][:photos].each do |photo|
+          @item.photos.attach(photo)
+        end
+      end
       flash[:success] = "Item profile is successfully updated"
       redirect_to current_user
     else
@@ -79,7 +84,7 @@ class ItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def item_params
-      params.require(:item).permit(:title, :description, :seller_id, :price, :created_at, :updated_at, :status, :category_id, :picture)    
+      params.require(:item).permit(:title, :description, :seller_id, :price, :created_at, :updated_at, :status, :category_id    
     end
 
     def correct_user
