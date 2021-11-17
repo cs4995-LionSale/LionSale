@@ -60,7 +60,7 @@ class TransactionsController < ApplicationController
       flash[:success] = "Transaction profile is successfully updated"
       redirect_to @transaction
     else
-      render 'edit'
+      redirect_to @transaction
     end
   end
 

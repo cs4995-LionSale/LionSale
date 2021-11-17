@@ -41,11 +41,11 @@ class ItemsController < ApplicationController
 
   # POST /items or /items.json
   def create
-    @item = @user.items_sold.build(item_params)
+    @item = current_user.items_sold.build(item_params)
     @item.status = 0
     if @item.save
       flash[:success] = "Item is successfully created."
-      redirect_to @user
+      redirect_to current_user
     else
       render 'new'
     end
@@ -56,7 +56,7 @@ class ItemsController < ApplicationController
     if @item.update(:title => item_params[:title], :description => item_params[:description], :seller_id => item_params[:seller_id], :price => item_params[:price], 
       :created_at => item_params[:created_at], :updated_at => item_params[:updated_at], :status => item_params[:status], :category_id => item_params[:category_id], :picture => item_params[:picture])
       flash[:success] = "Item profile is successfully updated"
-      redirect_to @user
+      redirect_to current_user
     else
       render 'edit'
     end
@@ -68,7 +68,7 @@ class ItemsController < ApplicationController
     destroyedItem.status = 50
     destroyedItem.save
     flash[:success] = "Item selling has been stopped"
-    redirect_to @user
+    redirect_to current_user
   end
 
   private
@@ -83,7 +83,6 @@ class ItemsController < ApplicationController
     end
 
     def correct_user
-      @item = current_user.items_sold.find_by(id: params[:id]) 
-      redirect_to items_url if @item.nil?    
+      redirect_to(root_url) unless current_user.permission != -99 
     end
 end
