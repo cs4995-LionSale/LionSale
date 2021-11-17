@@ -3,12 +3,11 @@ class TransactionsController < ApplicationController
 
   # GET /transactions or /transactions.json
   def index
-    @transactions = Transaction.all
+    @transactions = Transaction.where(seller:current_user).or(Transaction.where(buyer:current_user))
   end
 
   # GET /transactions/1 or /transactions/1.json
   def show
-    @item = Item.find(params[:item_id])
   end
 
   # GET /transactions/new

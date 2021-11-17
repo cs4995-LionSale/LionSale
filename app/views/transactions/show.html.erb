@@ -5,7 +5,7 @@
   <div class="container">
       <div class="columns">
       <div class="column is-6">
-        <% if @item.photos.attached? %>
+        <% if @transaction.item.photos.attached? %>
           <div class="swiper" id="item_swiper">
             <div class="swiper-wrapper">
             <% @transaction.item.photos.each do |image| %>
@@ -155,7 +155,7 @@
               </script>
             </div>
             <p class="control">
-            <%= button_to(id:"confirm_deal_buyer",class:"button is-primary",data: {confirm: "Are you sure you want to confirm the deal?" }) do %>
+            <%= button_tag(id:"confirm_deal_buyer",class:"button is-primary",data: {confirm: "Are you sure you want to confirm the deal?" }) do %>
               <span class="icon is-small"><i class="fa fa-check"></i></span><span>Confirm Deal</span>
             <% end %>
             </p>
@@ -227,7 +227,7 @@
               </script>
             </div>
             <p class="control">
-            <%= button_to(id:"confirm_deal_seller",class:"button is-primary",data: {confirm: "Are you sure you want to confirm the deal?" }) do %>
+            <%= button_tag(id:"confirm_deal_seller",class:"button is-primary",data: {confirm: "Are you sure you want to confirm the deal?" }) do %>
               <span class="icon is-small"><i class="fa fa-check"></i></span><span>Confirm Deal</span>
             <% end %>
             </p>

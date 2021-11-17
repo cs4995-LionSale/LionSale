@@ -24,10 +24,10 @@
           <tr>
             <td><%= index+1 %></td>
             <td>
-              <%= link_to @transactions.item.title, item_path(@transactions.item), :class => "no-underline hover-underline"%>
+              <%= link_to transaction.item.title, item_path(transaction.item), :class => "no-underline hover-underline"%>
             </td>
             <td>
-              <%= link_to @transactions.seller.username, user_path(@transactions.seller), :class => "no-underline hover-underline"%>
+              <%= link_to transaction.seller.username, user_path(transaction.seller), :class => "no-underline hover-underline"%>
             </td>
             <td>
               <%= transaction.expected_deal_time %>

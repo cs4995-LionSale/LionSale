@@ -24,12 +24,12 @@
             <% end %>
             <span><%= @user.rating_buyer %>/5</span></p>
             <p>ITEMS AT LIONSALE</p>
-            <%= button_to("Items Selling/Sold", items_path(user_id:@user.id), method: :get,class:"button is-link is-inverted") %>
+            <%= link_to "Items Selling/Sold", items_path(user_id:@user.id),class:"button is-link is-inverted" %>
             <% if logged_in? and current_user?(@user) %>
             <p>TRANSACTIONS</p>
-            <%= button_to("My Transactions",transactions_path, method: :get,:class => "button is-link is-inverted") %>
+            <%= link_to "My Transactions",transactions_path,:class => "button is-link is-inverted" %>
             <p>MESSAGES</p>
-            <%= button_to("My Mailbox",messages_path, method: :get,:class => "button is-link is-inverted") %>
+            <%= link_to "My Mailbox",messages_path,:class => "button is-link is-inverted" %>
             <% end %>
         </div>
       </div>

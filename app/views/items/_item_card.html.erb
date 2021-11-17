@@ -1,15 +1,15 @@
 <div class="card equal-height">
     <div class="card-image">
     <% if item.photos.attached? %>
-    <div class="swiper" id="item_swiper_<%= index %>">
+    <div class="swiper swiper-in-card" id="item_swiper_<%= item.id %>">
         <div class="swiper-wrapper">
         <% item.photos.each do |image| %>
         <div class="swiper-slide image is-16by9"><%= image_tag(image, class:"img-fluid") %></div>
         <% end %>
         </div>
-        <div class="swiper-pagination" id="item_swiper_pagination_<%= index %>"></div>
-        <div class="swiper-button-prev"id="item_swiper_prev_<%= index %>"></div>
-        <div class="swiper-button-next" id="item_swiper_next_<%= index %>"></div>
+        <div class="swiper-pagination" id="item_swiper_pagination_<%= item.id %>"></div>
+        <div class="swiper-button-prev"id="item_swiper_prev_<%= item.id %>"></div>
+        <div class="swiper-button-next" id="item_swiper_next_<%= item.id %>"></div>
     </div>
     <% else %>
     <div class="image is-16by9">
@@ -53,20 +53,20 @@
     </div>
 </div>
 <script>
-const swiper_<%= index %> = new Swiper('#item_swiper_<%= index %>', {
+var swiper_<%= item.id %> = new Swiper('#item_swiper_<%= item.id %>', {
   // Optional parameters
   direction: 'horizontal',
   loop: true,
 
   // If we need pagination
   pagination: {
-    el: '#item_swiper_pagination_<%= index %>',
+    el: '#item_swiper_pagination_<%= item.id %>',
   },
 
   // Navigation arrows
   navigation: {
-    nextEl: '#item_swiper_next_<%= index %>',
-    prevEl: '#item_swiper_prev_<%= index %>',
+    nextEl: '#item_swiper_next_<%= item.id %>',
+    prevEl: '#item_swiper_prev_<%= item.id %>',
   },
 });
 </script>
