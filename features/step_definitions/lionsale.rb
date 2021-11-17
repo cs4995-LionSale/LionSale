@@ -80,10 +80,32 @@ end
 
 
 
+Then /^I edit item$/ do
+  click_button("Edit it!")
+end
+
+Then /^I update item$/ do
+  click_link('Detail', :match=>:first)
+  click_button("Edit this item")
+end
+
+Then /^I goto update item$/ do
+  page.find('#nav-dropdown').click
+  click_link("My Items")
+end
+
+Then /^I goto items page$/ do
+  click_link("Items")
+end
+
+Then /^I should see "([^"]*)"$/ do |text|
+  page.has_content?(text).should eq true
+end
 
 Then /^I sell item$/ do 
   page.find('#nav-dropdown').click
   click_link('Sell an item')
+  
 end
   
 Then /^I putin itemtitle (.*)$/ do |text|
@@ -92,6 +114,7 @@ end
 
 Then /^I putin itemprice (.*)$/ do |text|
   fill_in('item_price', :with => text)
+  select('All', :from => 'item_category_id')
 end
 
 Then /^I putin itemquant (.*)$/ do |text|
@@ -105,7 +128,7 @@ end
 Then /^I should be on the home page for (.*)$/ do |name|
   current_path = URI.parse(current_url).path
   if current_path.respond_to? :should 
-    current_path.should == user_path(1)
+    current_path.should == user_path(6)
   else
     assert_equal users_path(Users.all.select{ |u| u.username == name }), current_path
   end
@@ -123,7 +146,7 @@ end
 Then /^I should be on the second home page for (.*)$/ do |name|
   current_path = URI.parse(current_url).path
   if current_path.respond_to? :should 
-    current_path.should == user_path(2)
+    current_path.should == user_path(7)
   else
     assert_equal users_path(Users.all.select{ |u| u.username == name }), current_path
   end

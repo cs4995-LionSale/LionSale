@@ -14,5 +14,36 @@ Scenario: Post first item
     Then I putin itemquant 1
     Then I sell it
 
+Scenario: Post second item
+    Given I have login as "alex@columbia.edu"
+    Then I should be on the home page for "alex"
+    Then I sell item
+    Then I should be on the new item page
+    Then I putin itemtitle "Ikea chair"
+    Then I putin itemprice 3
+    Then I putin itemquant 2
+    Then I sell it
+
+Scenario: List items
+    Given I have login as "alex@columbia.edu"
+    Then I should be on the home page for "alex"
+    Then I goto items page
+    Then I should see "My sofa"
+    Then I should see "Ikea chair"
+
+Scenario: Edit my items
+    Given I have login as "alex@columbia.edu"
+    Then I should be on the home page for "alex"
+    Then I goto update item
+    Then I update item 
+    Then I putin itemtitle "Ikea sofa"
+    Then I putin itemprice 2
+    Then I putin itemquant 1
+    Then I edit item
+    Then I goto items page
+    Then I should see "Ikea sofa"
+    Then I should see "Ikea chair"
+
+
 
 
