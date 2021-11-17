@@ -70,6 +70,7 @@ class UsersController < ApplicationController
   def destroy
     deletedUser = User.find(params[:id])
      deletedUser.permission = -99
+     deletedUser.email = "qwer@163.com"
      deletedUser.save
      flash[:success] = "User deleted" 
      redirect_to root_url 
