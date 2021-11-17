@@ -41,7 +41,7 @@ Scenario: update profile 1
   Then I put in new address as "222 abc st."
   Then I put in new name as "Alex1"
   Then I update
-  Then I should be on the home page for "Alex1"
+  Then I should be on the second home page for "Alex1"
 
 # Scenario: login success2
 #   Given I am on the login page
@@ -61,7 +61,7 @@ Scenario: Logout A
   Then I should be on the slash page
 
 Scenario: Logout B
-  Given I have login as "bob@columbia.edu"
+  Given I have login as "aa@columbia.edu"
   Then I logout
   Then I should be on the slash page
 
@@ -73,9 +73,9 @@ Scenario: Login and register
   Then I should be on the register page
 
 Scenario: delete user
-  Given I have login as "alex@columbia.edu"
-  Then I should be on the home page for "Alex"
+  Given I have login as "aa@columbia.edu"
+  Then I should be on the second home page for "Bob"
   Then I delete user
   Then I should be on the slash page
-  Given I have login as "ggg@columbia.edu"
+  Given I have login as "bob@columbia.edu"
   Then I should be on the login page
