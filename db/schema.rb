@@ -54,12 +54,11 @@ ActiveRecord::Schema.define(version: 2021_11_06_195917) do
     t.integer "seller_id", null: false
     t.decimal "price"
     t.integer "status"
-    t.integer "stock"
     t.integer "category_id", null: false
+    t.integer "stock"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["category_id"], name: "index_items_on_category_id"
-    t.index ["seller_id", "created_at"], name: "index_items_on_seller_id_and_created_at"
     t.index ["seller_id"], name: "index_items_on_seller_id"
   end
 
@@ -110,7 +109,7 @@ ActiveRecord::Schema.define(version: 2021_11_06_195917) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "categories", "categories", column: "parent_category_id"
-  add_foreign_key "items", "users", column: "category_id"
+  add_foreign_key "items", "categories"
   add_foreign_key "items", "users", column: "seller_id"
   add_foreign_key "messages", "users", column: "from_id"
   add_foreign_key "messages", "users", column: "item_id"

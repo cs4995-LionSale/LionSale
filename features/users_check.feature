@@ -29,12 +29,15 @@ Scenario: login success1
   Given I have login as "alex@columbia.edu"
   Then I should be on the home page for "Alex"
   
-
 Scenario: update profile 1
   Given I have login as "alex@columbia.edu"
   Then I should be on the home page for "Alex"
-  Then I update profile with new email as "aa@columbia.edu" and new address as "222 abc st."
-  Then I should be on the home page for "Alex"
+  Then I go to update profile
+  Then I put in new email as "aa@columbia.edu"
+  Then I put in new address as "222 abc st."
+  Then I put in new name as "Alex1"
+  Then I update
+  Then I should be on the home page for "Alex1"
 
 # Scenario: login success2
 #   Given I am on the login page
@@ -48,46 +51,8 @@ Scenario: login failure
   Given I have login as "ggg@columbia.edu"
   Then I should be on the login page
 
-# Scenario: check and update profile A
-#   Given I am on the profile page for "Alex"
-#   Then I should see "Alex"
-#   Then I should see "aaa@columbia.edu"
-#   Then I press "Update Profile"
-#   Then I should be on the updateprofile page for "Alex"
-#   Then I fill in "Address" with "1000 Broadway Ave."
-#   Then I click "Update Profile"
-#   Then I should be on the profile page for "Alex"
-#   Then I should see "1000 Broadway Ave."
-#   Then I should not see "333 Amsterdam Ave."
-#   Then I press "Update Profile"
-#   Then I should be on the updateprofile page for "Alex"
-#   Then I fill in "Address" with "333 Amsterdam Ave."
-#   Then I click "Update Profile"
-#   Then I should see "333 Amsterdam Ave."
-#   Then I should not see "1000 Broadway Ave."
-#   Then I should be on the profile page for "Alex"
-
-# Scenario: check and update profile B
-#   Given I am on the profile page for "Bill"
-#   Then I should see "Bill" 
-#   Then I should see "bbb@columbia.edu"
-#   Then I press "Update Profile"
-#   Then I should be on the updateprofile page for "Bill"
-#   Then I fill in "Address" with "1000 Broadway Ave."
-#   Then I click "Update Profile"  
-#   Then I should be on the profile page for "Bill"
-#   Then I should see "1000 Broadway Ave."
-#   Then I should not see "6000 W 120 St."
-#   Then I press "Update Profile"
-#   Then I should be on the updateprofile page for "Bill"
-#   Then I fill in "Address" with "4444 Amsterdam Ave."
-#   Then I click "Update Profile"
-#   Then I should see "4444 Amsterdam Ave."
-#   Then I should not see "1000 Broadway Ave."
-#   Then I should be on the profile page for "Bill"
-
 Scenario: Logout A
-  Given I have login as "alex@columbia.edu"
+  Given I have login as "aa@columbia.edu"
   Then I logout
   Then I should be on the slash page
 

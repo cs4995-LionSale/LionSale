@@ -24,5 +24,14 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "authenticated?" do
+    it "check authenticated?" do
+      user = User.create! valid_attributes
+      # post Session.login_url(), params: { email: "email@columbia.edu", password: "Password Digest",remember_me:"0" }
+      # user.authenticated?(user.remember_token)
+      expect(user.authenticated?(user.remember_token)).to eq(false)
+    end
+  end
+
 
 end
