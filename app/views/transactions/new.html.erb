@@ -1,6 +1,7 @@
 <% content_for :page_title do %>Request to buy <%= @item.title %><% end %>
 <% content_for :page_description do %>Request to buy <%= @item.title %>!<% end %>
 <% content_for :content do %>
+
 <section class="section">
   <div class="container">
       <div class="columns">
@@ -17,7 +18,7 @@
             <div class="swiper-button-next" id="item_swiper_next"></div>
           </div>
         <script>
-        const swiper = new Swiper('#item_swiper', {
+        var swiper = new Swiper('#item_swiper', {
           // Optional parameters
           direction: 'horizontal',
           loop: true,

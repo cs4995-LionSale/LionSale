@@ -1,6 +1,7 @@
 <% content_for :page_title do %>LionSale: <%= @item.title %><% end %>
 <% content_for :page_description do %>LionSale: <%= @item.title %><% end %>
 <% content_for :content do %>
+<meta name='turbolinks-cache-control' content='no-cache'>
 <section class="section">
   <div class="container">
     <div class="columns">
@@ -17,7 +18,7 @@
             <div class="swiper-button-next" id="item_swiper_next"></div>
           </div>
         <script>
-        const swiper = new Swiper('#item_swiper', {
+        var swiper = new Swiper('#item_swiper', {
           // Optional parameters
           direction: 'horizontal',
           loop: true,
@@ -55,7 +56,7 @@
           </dd>
           <dt class="f6 mt2 dark-gray">Category</dt>
           <dd class="f4 ml0">
-            <%= link_to @item.category.name, items_path(category:@item.category), :class => "no-underline hover-underline"%>
+            <%= link_to @item.category.name, items_path(category_id:@item.category), :class => "no-underline hover-underline"%>
           </dd>
           <dt class="f6 mt2 dark-gray">On shelf since: </dt>
           <dd class="f4 ml0 black">
@@ -84,8 +85,6 @@
             <p class="control">
             <% if @item.status == 0 %>
             <%= link_to '<span class="icon is-small"><i class="fa fa-shopping-cart"></i></span><span>Request to buy</span>'.html_safe, new_transaction_path(buyer_id:current_user.id,item_id:@item.id),class:"button is-warning"%>
-            <% else %>
-            <%= link_to '<span class="icon is-small"><i class="fa fa-shopping-cart"></i></span><span>Request to buy</span>'.html_safe, new_transaction_path(buyer_id:current_user.id,item_id:@item.id),class:"button is-warning is-disabled"%>
             <% end %>
             </p>
             <p class="control">
