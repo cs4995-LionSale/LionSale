@@ -25,7 +25,6 @@ Given /^I have login as "([^"]*)"$/ do |email|
   fill_in('email', :with => email)
   fill_in(placeholder:'Your Password', :with => 's3caaar3t')
   click_button('loginbutton')
-  page.save_and_open_screenshot()
 end
 
 Then /^I logout$/ do
@@ -33,7 +32,6 @@ Then /^I logout$/ do
   page.find('#nav-dropdown').click
 
   click_button('Logout')
-  # page.save_and_open_screenshot()
 
 end
 
@@ -70,9 +68,11 @@ Then /^I go to login$/ do
 end
 
 Then /^I delete user$/ do
-  # page.save_and_open_screenshot()
-  page.driver.browser.switch_to.alert.accept
+  
   click_button("Delete This Account")
+  # page.save_and_open_screenshot()
+
+  # page.driver.browser.switch_to.alert.accept
 end
 
 
@@ -81,12 +81,26 @@ end
 
 
 
-Then /^I sell item "([^"]*)"$/ do |item|
+Then /^I sell item$/ do 
   page.find('#nav-dropdown').click
-
   click_link('Sell an item')
 end
   
+Then /^I putin itemtitle (.*)$/ do |text|
+  fill_in('item_title', :with => text)
+end
+
+Then /^I putin itemprice (.*)$/ do |text|
+  fill_in('item_price', :with => text)
+end
+
+Then /^I putin itemquant (.*)$/ do |text|
+  fill_in('item_stock', :with => text)
+end
+
+Then /^I sell it$/ do
+  click_button("Sell it!")
+end
 
 Then /^I should be on the home page for (.*)$/ do |name|
   current_path = URI.parse(current_url).path
@@ -98,8 +112,6 @@ Then /^I should be on the home page for (.*)$/ do |name|
 end
 
 Then /^I should be on the new item (.*)$/ do |name|
-  page.save_and_open_screenshot()
-
   current_path = URI.parse(current_url).path
   if current_path.respond_to? :should 
     current_path.should == '/items/new'
