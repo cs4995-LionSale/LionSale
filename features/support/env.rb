@@ -9,7 +9,7 @@ require 'database_cleaner/active_record'
 require 'simplecov'
 SimpleCov.start
 
-Capybara.default_driver = :selenium # :selenium_chrome and :selenium_chrome_headless are also registered
+Capybara.default_driver = :selenium_chrome # :selenium_chrome and :selenium_chrome_headless are also registered
 
 # frozen_string_literal: true
 
