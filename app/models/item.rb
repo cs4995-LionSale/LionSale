@@ -9,7 +9,7 @@ class Item < ApplicationRecord
   validates :seller_id, presence: true 
   validates :category_id, presence: true 
   validates :title, presence: true, length: { maximum: 255 } 
-  validates :description, presence: true, length: { maximum: 65535 }
+  validates :description, length: { maximum: 65535 }
   validates :price, presence: true
   
   
