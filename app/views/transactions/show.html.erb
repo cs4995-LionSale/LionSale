@@ -155,7 +155,9 @@
               </script>
             </div>
             <p class="control">
-            <%= button_to '<span class="icon is-small"><i class="fa fa-check"></i></span><span>Confirm Deal</span>'.html_safe, id:"confirm_deal_buyer",class:"button is-primary"%>
+            <%= button_to(id:"confirm_deal_buyer",class:"button is-primary",data: {confirm: "Are you sure you want to confirm the deal?" }) do %>
+              <span class="icon is-small"><i class="fa fa-check"></i></span><span>Confirm Deal</span>
+            <% end %>
             </p>
             <% if Time.now > @transaction.expected_deal_time %>
             <p class="control">
@@ -225,7 +227,9 @@
               </script>
             </div>
             <p class="control">
-            <%= button_to '<span class="icon is-small"><i class="fa fa-check"></i></span><span>Confirm Deal</span>'.html_safe, id:"confirm_deal_seller",class:"button is-primary"%>
+            <%= button_to(id:"confirm_deal_seller",class:"button is-primary",data: {confirm: "Are you sure you want to confirm the deal?" }) do %>
+              <span class="icon is-small"><i class="fa fa-check"></i></span><span>Confirm Deal</span>
+            <% end %>
             </p>
             <% if Time.now > @transaction.expected_deal_time %>
             <p class="control">

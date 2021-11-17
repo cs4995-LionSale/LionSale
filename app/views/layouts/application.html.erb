@@ -53,7 +53,9 @@
               <hr class="navbar-divider">
               <%= link_to "Sell an item", new_item_path, :class => "navbar-item", :id => 'nav-new-item-link' %>
               <%= link_to "Edit My Profile", edit_user_path(current_user), :class => "navbar-item", :id => 'nav-edit-profile-link' %>
-              <%= link_to "Logout", logout_path, method: :delete, :class => "navbar-item", :id => 'nav-logout-link' %>
+              <div class="navbar-item">
+              <%= button_to "Logout", logout_path, method: :delete, :class => " button is-primary", :id => 'nav-logout-link' %>
+              </div>
             </div>
           </div>
           <% else %>
