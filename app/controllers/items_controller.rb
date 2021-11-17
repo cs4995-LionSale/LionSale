@@ -5,8 +5,25 @@ class ItemsController < ApplicationController
 
   # GET /items or /items.json
   def index
-    @items = Item.all
-    @category_list = category_list()
+    @category_list = []
+    if params[:user_id]
+      usr = User.find_by_id(params[:user_id])
+      if usr
+        @items = Item.where(seller_id:params[:user_id])
+      else
+        @items = Item.all
+      end
+    elsif params[:category_id]
+      cat = Category.find_by_id(params[:category_id])
+      if cat
+        @items = Item.where(category:cat.get_sub_categories([]))
+        @category_list = cat.get_category_path
+      else
+        @items = Item.all
+      end
+    else
+      @items = Item.all
+    end
   end
 
   # GET /items/1 or /items/1.json
@@ -52,10 +69,6 @@ class ItemsController < ApplicationController
     destroyedItem.save
     flash[:success] = "Item selling has been stopped"
     redirect_to current_user
-  end
-
-  def category_list
-    return []
   end
 
   private
