@@ -9,7 +9,7 @@ class ItemsController < ApplicationController
     if params[:user_id]
       usr = User.find_by_id(params[:user_id])
       if usr
-        @items = Item.where(user_id:params[:user_id])
+        @items = Item.where(seller_id:params[:user_id])
       else
         @items = Item.all
       end
