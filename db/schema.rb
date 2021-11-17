@@ -54,11 +54,12 @@ ActiveRecord::Schema.define(version: 2021_11_06_195917) do
     t.integer "seller_id", null: false
     t.decimal "price"
     t.integer "status"
-    t.integer "category_id", null: false
     t.integer "stock"
+    t.integer "category_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["category_id"], name: "index_items_on_category_id"
+    t.index ["seller_id", "created_at"], name: "index_items_on_seller_id_and_created_at"
     t.index ["seller_id"], name: "index_items_on_seller_id"
   end
 
