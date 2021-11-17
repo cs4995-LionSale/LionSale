@@ -43,9 +43,10 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
-    @user.avatar.purge_later
-    @user.avatar.attach(params[:avatar])
-    if @user.update(:email => user_params[:email], :username => user_params[:username], :address => user_params[:address])      # process successfully update
+    if @user.update(:email => user_params[:email], :username => user_params[:username], :address => user_params[:address])
+      if params[:user][:avatar]
+        @user.avatar.attach(params[:user][:avatar])
+      end      # process successfully update
       flash[:success] = "User profile successfully updated" 
       redirect_to @user
     else
