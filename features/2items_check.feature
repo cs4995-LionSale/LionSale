@@ -41,8 +41,8 @@ Scenario: Edit my items
     Then I putin itemquant 1
     Then I edit item
     Then I goto items page
+    Then I should see "My sofa"
     Then I should see "Ikea sofa"
-    Then I should see "Ikea chair"
 
 
 

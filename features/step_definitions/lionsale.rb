@@ -99,6 +99,7 @@ Then /^I goto items page$/ do
 end
 
 Then /^I should see "([^"]*)"$/ do |text|
+  # page.save_and_open_screenshot()
   page.has_content?(text).should eq true
 end
 
