@@ -72,7 +72,7 @@ class UsersController < ApplicationController
      deletedUser.permission = -99
      deletedUser.save
      flash[:success] = "User deleted" 
-     redirect_to users_url  
+     redirect_to root_url 
   end
 
   private
