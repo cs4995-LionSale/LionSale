@@ -86,15 +86,21 @@
             
             <% if @transaction.status == 110 and current_user == @transaction.seller %>
             <p class="control">
-            <%= link_to '<span class="icon is-small"><i class="fa fa-check"></i></span><span>Approve purchase reuqest</span>'.html_safe, transaction_path(@transaction,status:120),class:"button is-primary"%>
+            <%= button_to(transaction_path(@transaction,status:120), method: :patch, class:"button is-primary",data: {confirm: "Are you sure you want to approve purchase reuqest?" }) do %>
+              <span class="icon is-small"><i class="fa fa-check"></i></span><span>Approve purchase reuqest</span>
+            <% end %>
             </p>
             <p class="control">
-            <%= link_to '<span class="icon is-small"><i class="fa fa-times"></i></span><span>Decline purchase reuqest</span>'.html_safe, transaction_path(@transaction,status:122),class:"button is-danger"%>
+            <%= button_to(transaction_path(@transaction,status:122), method: :patch, class:"button is-danger",data: {confirm: "Are you sure you want to decline purchase reuqest?" }) do %>
+              <span class="icon is-small"><i class="fa fa-times"></i></span><span>Decline purchase reuqest</span>
+            <% end %>
             </p>
             <% end %>
             <% if @transaction.status == 110 and current_user == @transaction.buyer %>
             <p class="control">
-            <%= link_to '<span class="icon is-small"><i class="fa fa-times"></i></span><span>Cancel purchase reuqest</span>'.html_safe, transaction_path(@transaction,status:112),class:"button is-danger"%>
+            <%= button_to(transaction_path(@transaction,status:112), method: :patch, class:"button is-danger",data: {confirm: "Are you sure you want to cancel purchase reuqest?" }) do %>
+              <span class="icon is-small"><i class="fa fa-times"></i></span><span>Cancel purchase reuqest</span>
+            <% end %>
             </p>
             <% end %>
             <% if @transaction.status == 200 and current_user == @transaction.buyer %>
@@ -161,11 +167,15 @@
             </p>
             <% if Time.now > @transaction.expected_deal_time %>
             <p class="control">
-            <%= link_to '<span class="icon is-small"><i class="fa fa-times"></i></span><span>Decline to confirm deal</span>'.html_safe, transaction_path(@transaction,status:213),class:"button is-danger"%>
+            <%= button_to(transaction_path(@transaction,status:213), method: :patch, class:"button is-danger",data: {confirm: "Are you sure you want to decline to confirm the deal?" }) do %>
+              <span class="icon is-small"><i class="fa fa-times"></i></span><span>Decline to confirm deal</span>
+            <% end %>
             </p>
             <% else %>
             <p class="control">
-            <%= link_to '<span class="icon is-small"><i class="fa fa-times"></i></span><span>Cancel deal</span>'.html_safe, transaction_path(@transaction,status:212),class:"button is-danger"%>
+            <%= button_to(transaction_path(@transaction,status:212), method: :patch, class:"button is-danger",data: {confirm: "Are you sure you want to cancel the deal?" }) do %>
+              <span class="icon is-small"><i class="fa fa-times"></i></span><span>Cancel deal</span>
+            <% end %>
             </p>
             <% end %>
             <% end %>
@@ -233,11 +243,15 @@
             </p>
             <% if Time.now > @transaction.expected_deal_time %>
             <p class="control">
-            <%= link_to '<span class="icon is-small"><i class="fa fa-times"></i></span><span>Decline to confirm deal</span>'.html_safe, transaction_path(@transaction,status:223),class:"button is-danger"%>
+            <%= button_to(transaction_path(@transaction,status:223), method: :patch, class:"button is-danger",data: {confirm: "Are you sure you want to decline to confirm the deal?" }) do %>
+            <span class="icon is-small"><i class="fa fa-times"></i></span><span>Decline to confirm deal</span>
+            <% end %>
             </p>
             <% else %>
             <p class="control">
-            <%= link_to '<span class="icon is-small"><i class="fa fa-times"></i></span><span>Cancel deal</span>'.html_safe, transaction_path(@transaction,status:222),class:"button is-danger"%>
+            <%= button_to(transaction_path(@transaction,status:222), method: :patch, class:"button is-danger",data: {confirm: "Are you sure you want to cancel the deal?" }) do %>
+              <span class="icon is-small"><i class="fa fa-times"></i></span><span>Cancel deal</span>
+            <% end %>
             </p>
             <% end %>
             <% end %>
