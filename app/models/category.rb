@@ -21,7 +21,6 @@ class Category < ApplicationRecord
         r = r+ subcat.get_sub_categories(Array.new)
       end
     end
-    print(r)
     return r
   end
 end
