@@ -35,6 +35,8 @@ Scenario: Edit my items
     Given I have login as "alex@columbia.edu"
     Then I should be on the home page for "alex"
     Then I goto update item
+    Then I should see "My sofa"
+    Then I should see "Ikea chair"
     Then I update item 
     Then I putin itemtitle "Ikea sofa"
     Then I putin itemprice 2

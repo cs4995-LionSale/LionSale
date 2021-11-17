@@ -16,7 +16,8 @@ CS W4995 S03 ESaaS Group Project
 3. Run `yarn`
 4. Run `rails db:migrate`
 5. Put the `.env` file provided in the submission file into the root path of the project
-6. Run `rails server` and the project would be available at `http://127.0.0.1:3000`
+6. Add the seed into the testing environment using 'db:seed'
+7. Run `rails server` and the project would be available at `http://127.0.0.1:3000`
 
 ### To test
 
