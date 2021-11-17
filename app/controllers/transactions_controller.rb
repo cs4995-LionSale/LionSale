@@ -33,9 +33,11 @@ class TransactionsController < ApplicationController
         
         if @item.change_stock(-1 * transaction_params[:quantity]) # decrease transaction's quantity from item's stock and save
           flash[:success] = "Transaction is successfully created"
+          @transaction.status = 200
           redirect_to @transaction
         else
           flash[:fail] = "Error occurs while changing item's stock"
+          @transaction.status = 121
           redirect_to @item
         end
       else 
@@ -54,7 +56,7 @@ class TransactionsController < ApplicationController
     if @transaction.update(:item_id => transaction_params[:item_id], :seller_id => transaction_params[:seller_id], :buyer_id => transaction_params[:buyer_id], 
       :expected_deal_time => transaction_params[:expected_deal_time], :real_deal_time => transaction_params[:real_deal_time], :deal_address => transaction_params[:deal_address], 
       :deal_price => transaction_params[:deal_price], :status => transaction_params[:status], :seller_rating => transaction_params[:seller_rating], :buyer_rating => transaction_params[:buyer_rating])
-      
+      @transaction.status = 300
       flash[:success] = "Transaction profile is successfully updated"
       redirect_to @transaction
     else
