@@ -3,7 +3,6 @@ Feature: the user can post items and check other's items
 I want to check that the user can be able to post and update his/her items, and can see a list of
 his/her items to sale. They can also check the items currently on sale. 
 
-
 Scenario: Post first item
     Given I have login as "alex@columbia.edu"
     Then I should be on the home page for "alex"
@@ -12,6 +11,7 @@ Scenario: Post first item
     Then I putin itemtitle "My sofa"
     Then I putin itemprice 1
     Then I putin itemquant 1
+    Then I putin itemcat 'All'
     Then I sell it
 
 Scenario: Post second item
@@ -22,6 +22,7 @@ Scenario: Post second item
     Then I putin itemtitle "Ikea chair"
     Then I putin itemprice 3
     Then I putin itemquant 2
+    Then I putin itemcat 'Potions'
     Then I sell it
 
 Scenario: List items
@@ -31,7 +32,20 @@ Scenario: List items
     Then I should see "My sofa"
     Then I should see "Ikea chair"
 
-Scenario: Edit my items
+Scenario: Check category of items
+    Given I have login as "alex@columbia.edu"
+    Then I should be on the home page for "alex"
+    Then I goto categories page
+    Then I should see "My sofa"
+    Then I should see "Ikea chair"
+    Then I go to 'Potions' category
+    Then I should see "My sofa"
+    Then I should see "Ikea chair"
+    Then I go to 'Weapons' category
+    Then I should see "My sofa"
+    Then I should not see "Ikea chair"
+    
+Scenario: Edit my items and then delete
     Given I have login as "alex@columbia.edu"
     Then I should be on the home page for "alex"
     Then I goto update item
@@ -45,6 +59,14 @@ Scenario: Edit my items
     Then I goto items page
     Then I should see "My sofa"
     Then I should see "Ikea sofa"
+    Then I goto update item
+    Then I delete item
+    Then I should be on the home page for "alex"
+    Then I goto items page
+    Then I should not see "My sofa"
+
+
+
 
 
 

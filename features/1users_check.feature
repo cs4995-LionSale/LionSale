@@ -28,7 +28,6 @@ Given I have filled info and signed up as "alex@columbia.edu"
 # Given I have filled info and signed up long as "aaaaaaaaaaa@columbia@columbia.edu"
 #   Then I should be on the register page
 
-  
 Scenario: login success1 
   Given I have login as "alex@columbia.edu"
   Then I should be on the home page for "Alex"

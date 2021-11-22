@@ -28,7 +28,6 @@ Given /^I have login as "([^"]*)"$/ do |email|
 end
 
 Then /^I logout$/ do
-
   page.find('#nav-dropdown').click
 
   click_button('Logout')
@@ -36,11 +35,12 @@ Then /^I logout$/ do
 end
 
 Then /^I go to update profile$/ do 
-  click_button('Edit My Profile')
+  click_link('Edit My Profile')
 end
 
 Then /^I update$/ do 
-  click_button('Edit my Profile')
+
+  click_button('Edit My Profile')
 end
 
 Then /^I put in new email as "([^"]*)"$/ do |email|
@@ -86,7 +86,12 @@ end
 
 Then /^I update item$/ do
   click_link('Detail', :match=>:first)
-  click_button("Edit this item")
+  click_link("Edit this item")
+end
+
+Then /^I delete item$/ do
+  click_link('Detail', :match=>:first)
+  click_button("Close selling")
 end
 
 Then /^I goto update item$/ do
@@ -98,9 +103,21 @@ Then /^I goto items page$/ do
   click_link("Items")
 end
 
+Then /^I goto categories page$/ do
+  click_link("Categories")
+end
+
+Then /^I goto (.*) category$/ do |text|
+  click_link(text)
+end
+
 Then /^I should see "([^"]*)"$/ do |text|
-  # page.save_and_open_screenshot()
   page.has_content?(text).should eq true
+end
+
+Then /^I should not see "([^"]*)"$/ do |text|
+  page.save_and_open_screenshot()
+  page.has_content?(text).should eq false
 end
 
 Then /^I sell item$/ do 
@@ -115,7 +132,10 @@ end
 
 Then /^I putin itemprice (.*)$/ do |text|
   fill_in('item_price', :with => text)
-  select('All', :from => 'item_category_id')
+end
+
+Then /^I putin itemcat (.*)$/ do |text|
+  select(text, :from => 'item_category_id')
 end
 
 Then /^I putin itemquant (.*)$/ do |text|
