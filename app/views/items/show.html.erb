@@ -81,12 +81,13 @@
 
         <div class="mt3">
           <% if logged_in? %>
+          <% if current_user != @item.seller %>
           <div class="field is-grouped">
-            <p class="control">
             <% if @item.status == 0 %>
+            <p class="control">
             <%= link_to '<span class="icon is-small"><i class="fa fa-shopping-cart"></i></span><span>Request to buy</span>'.html_safe, new_transaction_path(buyer_id:current_user.id,item_id:@item.id),class:"button is-warning"%>
-            <% end %>
             </p>
+            <% end %>
             <p class="control">
             <%= link_to '<span class="icon is-small"><i class="fa fa-paper-plane"></i></span><span>Message seller</span>'.html_safe, new_message_path(from_id:current_user.id,to_id:@item.seller.id,item_id:@item.id),class:"button is-primary"%>
             </p>
@@ -94,19 +95,22 @@
               <%= link_to '<span class="icon is-small"><i class="fa fa-heart"></i></span><span>Like</span>'.html_safe, "#",class:"button is-danger"%>
             </p>
           </div>
-          <% if current_user == @item.seller %>
+        <% else %>  
           <div class="field is-grouped">
             <p class="control">
-            <%= button_to(edit_item_path(@item),method: :get, class:"button is-link") do %>
-              <span class="icon is-small"><i class="fa fa-edit"></i></span><span>Edit this item</span>
-            <% end %>
+            <%= link_to '<span class="icon is-small"><i class="fa fa-edit"></i></span><span>Edit this item</span>'.html_safe, edit_item_path(@item), class:"button is-link" %>
             </p>
+            <p class="control">
+            <%= link_to '<span class="icon is-small"><i class="fa fa-paper-plane"></i></span><span>Related Message<s/span>'.html_safe, messages_path(item_id:@item.id),class:"button is-primary"%>
+            </p>
+            <% if @item.status == 0 or @item.status == 20 %>
             <p class="control">
             <%= button_to(item_path(@item), method: :delete, class:"button is-danger",data: {confirm: "Are you sure you want to close the selling of this item?" }) do %>
               <span class="icon is-small"><i class="fa fa-trash"></i></span><span>Close selling</span>
-            <% end %>
             </p>
+            <% end %>
           </div>
+          <% end %>
           <% end %>
           <% end %>
         </div>

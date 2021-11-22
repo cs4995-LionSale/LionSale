@@ -46,7 +46,11 @@
     <footer class="card-footer">
     <%= link_to "Detail", item_path(item), :class => "card-footer-item hover-underline" %>
     <% if logged_in? %>
+    <% if current_user == item.seller %>
+    <%= link_to "Messages", messages_path(item_id:item.id), :class => "card-footer-item hover-underline" %>
+    <% else %>
     <%= link_to "Contact", new_message_path(from_id:current_user.id,to_id:item.seller.id,item_id:item.id), :class => "card-footer-item hover-underline" %>
+    <% end %>
     <% end %>
     <%= link_to "Like", "#", :class => "card-footer-item hover-underline" %>
     </footer>
