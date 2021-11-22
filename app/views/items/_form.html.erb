@@ -158,7 +158,11 @@
     </div>
   </div>
   <div>
+  <% if item.photos.attached? %>
+  <div class="swiper" id="preview_swiper">
+  <% else %>
   <div class="swiper" hidden id="preview_swiper">
+  <% end %>
       <div class="swiper-wrapper photos_preview">
       <% if item.photos.attached? %>
         <% item.photos.each do |image| %>

@@ -17,12 +17,12 @@
             <% @user.rating_seller.to_i.times do %>
             <i class="fa fa-star"></i>
             <% end %>
-            <span><%= @user.rating_seller %>/5</span></p>
+            <span><%= @user.rating_seller %>/5.0</span></p>
             <p class="proile-rating">Rating as a buyer:
             <% @user.rating_buyer.to_i.times do %>
             <i class="fa fa-star"></i>
             <% end %>
-            <span><%= @user.rating_buyer %>/5</span></p>
+            <span><%= @user.rating_buyer %>/5.0</span></p>
             <p>ITEMS AT LIONSALE</p>
             <%= link_to "Items Selling/Sold", items_path(user_id:@user.id),class:"button is-link is-inverted" %>
             <% if logged_in? and current_user?(@user) %>
@@ -82,9 +82,7 @@
       <% if logged_in? and current_user?(@user) %>
       <div class="buttons">
       <p class="control">
-        <%= button_to(edit_user_path(@user), method: :get, :class => "button is-info is-rounded") do %>
-          <span class="icon is-small"><i class="fa fa-edit"></i></span><span>Edit My Profile</span>
-        <% end %>
+        <%= link_to '<span class="icon is-small"><i class="fa fa-edit"></i></span><span>Edit My Profile</span>'.html_safe, edit_user_path(@user), :class => "button is-info is-rounded" %>
       </p>
       <p class="control">
         <%= button_to(user_path(@user), method: :delete, :class => "button is-danger is-rounded",data: {confirm: "Are you sure you want to delete this account?" }) do %>
