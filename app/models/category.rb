@@ -11,7 +11,7 @@ class Category < ApplicationRecord
       r = r.push(curr)
       curr = curr.parent_category
     end
-    return r
+    return r.reverse()
   end
 
   def get_sub_categories(r)

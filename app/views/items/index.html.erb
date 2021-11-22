@@ -9,7 +9,7 @@
       <ul>
       <% @category_list.each do |cat| %>
         <% if cat.equal?(@category_list.last) %>
-        <li><%= link_to cat.name, items_path(category_id:cat.id), class: "is-active" %></li>
+        <li class="is-active"><%= link_to cat.name, items_path(category_id:cat.id) %></li>
         <% else %>
         <li><%= link_to cat.name, items_path(category_id:cat.id)%></li>
         <% end %>
