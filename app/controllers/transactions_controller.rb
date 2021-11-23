@@ -3,7 +3,8 @@ class TransactionsController < ApplicationController
 
   # GET /transactions or /transactions.json
   def index
-    @transactions = Transaction.where(seller:current_user).or(Transaction.where(buyer:current_user))
+    @transactions_as_seller = Transaction.where(seller:current_user)
+    @transactions_as_buyer = Transaction.where(buyer:current_user)
   end
 
   # GET /transactions/1 or /transactions/1.json
