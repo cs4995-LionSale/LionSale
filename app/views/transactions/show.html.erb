@@ -9,7 +9,7 @@
           <div class="swiper" id="item_swiper">
             <div class="swiper-wrapper">
             <% @transaction.item.photos.each do |image| %>
-            <div class="swiper-slide image is-4by3"><%= image_tag(image, class:"img-fluid") %></div>
+            <div class="swiper-slide image is-16by9"><%= image_tag(image, class:"img-fluid") %></div>
             <% end %>
             </div>
             <div class="swiper-pagination" id="item_swiper_pagination"></div>
@@ -35,7 +35,7 @@
         });
         </script>
       <% else %>
-        <div class="image is-4by3">
+        <div class="image is-16by9">
             <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
         </div>
       <% end %>
@@ -121,7 +121,7 @@
                       $("#confirm_deal_buyer").click(function () {
                           $(this).addClass("is-disabled")
                           $.ajax({
-                            url: edit_transaction_path('<%= @transaction.id %>'),
+                            url: window.Routes.edit_transaction_path('<%= @transaction.id %>'),
                             type: 'PUT',
                             data: {
                               "buyer_rating": myRate,
@@ -193,7 +193,7 @@
                       $("#confirm_deal_seller").click(function () {
                           $(this).addClass("is-disabled")
                           $.ajax({
-                            url: edit_transaction_path('<%= @transaction.id %>'),
+                            url: window.Routes.edit_transaction_path('<%= @transaction.id %>'),
                             type: 'PUT',
                             data: {
                               "seller_rating": myRate,

@@ -1,33 +1,112 @@
-<p id="notice"><%= notice %></p>
+<meta name='turbolinks-cache-control' content='no-cache'>
+<% content_for :page_title do %>Find some items<% end %>
+<% content_for :page_description do %>Item index page<% end %>
+<% content_for :content do %>
+<meta name='turbolinks-cache-control' content='no-cache'>
+<section class="section">
+  <div class="container">
+    <div class="columns" id="mail-app">
+        <div class="column is-6 messages hero is-fullheight" id="message-feed">
+            <% @message_groups.each_with_index do |message_group, group_index| %>
+            <div class="inbox-messages" id="inbox-messages-<%= group_index %>">
+                  <p class="title is-6">
+                    Messages about <%= message_group[:item].title %>
+                  </p>
+                <% message_group[:messages].each_with_index do |message, msg_index| %>
+                <div class="card msg-card" id="msg-card-<%= message.id %>">
+                    <header class="card-header msg-header">
+                        <p class="msg-from card-header-title">From: <%= message.from.username %></p>
+                    </header>
+                    <div class="card-content">
+                        <p class="msg-from content"><small>To: <%= message.to.username %></small></p>
+                        <p class="msg-timestamp content"><small><%= message.created_at.strftime("%l:%M %p - %b %e %Y") %></small></p>
+                    </div>
+                </div>
+                <% end %>
+            </div>
+            <% end %>
+        </div>
+        <div class="column is-6 message hero is-fullheight is-hidden" id="message-pane">
+            <div class="box message-preview">
+                <div class="top">
+                    <div class="avatar">
+                        <img id="from_avatar" src="https://placehold.it/128x128">
+                    </div>
+                    <div class="address">
+                        <div class="name" id="from_username">John Smith</div>
+                        <div class="email" id="from_email">someone@gmail.com</div>
+                    </div>
+                    <hr>
+                    <div class="avatar">
+                        <img id="to_avatar" src="https://placehold.it/128x128">
+                    </div>
+                    <div class="address">
+                        <div class="name" id="to_username">John Smith</div>
+                        <div class="email" id="to_email">someone@gmail.com</div>
+                    </div>
+                    <hr>
+                    <div class="content">
+                    </div>
+                </div>
+                  <div class="swiper" hidden id="message_swiper">
+                      <div class="swiper-wrapper photos_preview">
+                      </div>
+                      <div class="swiper-pagination" id="message_swiper_pagination"></div>
+                      <div class="swiper-button-prev"id="message_swiper_prev"></div>
+                      <div class="swiper-button-next" id="message_swiper_next"></div>
+                  </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</section>
+<script>
+const swiper = new Swiper('#message_swiper', {
+        // Optional parameters
+        direction: 'horizontal',
+        loop: false,
 
-<h1>Messages</h1>
+        // If we need pagination
+        pagination: {
+          el: '#message_swiper_pagination',
+        },
 
-<table>
-  <thead>
-    <tr>
-      <th>From</th>
-      <th>To</th>
-      <th>Item</th>
-      <th>Content</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+        // Navigation arrows
+        navigation: {
+          nextEl: '#message_swiper_next',
+          prevEl: '#message_swiper_prev',
+        },
+        observer: true
+      });
+$(".card").click(function () {
+  var id = $(this).attr('id').split('-')[2];
+  $.ajax({
+    type:"GET",
+    url:window.Routes.message_path(id,{format: 'json'}),
+    dataType:"json",
+    success:function(result){
+      $('#message-pane').removeClass('is-hidden');
+      $(this).removeClass('active');
+      $('#msg-card_' + id).addClass('active');
+      $('#from_avatar').attr("src",result.from.avatar_url);
+      $('#from_username').text(result.from.username);
+      $('#from_email').text(result.from.email);
+      $('#to_avatar').attr("src",result.to.avatar_url);
+      $('#to_username').text(result.to.username);
+      $('#to_email').text(result.to.email);
+      $('.message .content').html(result.content);
+      $('#message_swiper').prop("hidden");
+      $('div.photos_preview').empty();
+      for (const key in result.attachments) {
+        $('#message_swiper').removeAttr('hidden');
+        $($.parseHTML('<div>')).attr("class","swiper-slide image is-16by9").append($($.parseHTML('<img>')).attr('src', result.attachments[key]['url']).attr("class","img-fluid")).appendTo('div.photos_preview');
+      }
+      
+    }
+  })
+});
+</script>
 
-  <tbody>
-    <% @messages.each do |message| %>
-      <tr>
-        <td><%= message.from_id %></td>
-        <td><%= message.to_id %></td>
-        <td><%= message.item_id %></td>
-        <td><%= message.content %></td>
-        <td><%= link_to 'Show', message %></td>
-        <td><%= link_to 'Edit', edit_message_path(message) %></td>
-        <td><%= link_to 'Destroy', message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<br>
-
-<%= link_to 'New Message', new_message_path %>
+<% end %>
+<%= render template: "layouts/application" %>

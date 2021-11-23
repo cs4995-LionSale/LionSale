@@ -3,7 +3,7 @@ class MessagesController < ApplicationController
 
   # GET /messages or /messages.json
   def index
-    @messages = Message.all
+    @message_groups = Message.all.group_by { |d| d[:item_id] }.map{|k,v| {'item': Item.find_by_id(k),'messages': v} }
   end
 
   # GET /messages/1 or /messages/1.json
@@ -13,6 +13,8 @@ class MessagesController < ApplicationController
   # GET /messages/new
   def new
     @message = Message.new
+    @item = Item.find_by_id(params[:item_id])
+    @prev_messages = Message.where(item:@item)
   end
 
   # GET /messages/1/edit
