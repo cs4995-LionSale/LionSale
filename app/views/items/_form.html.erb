@@ -159,9 +159,9 @@
   </div>
   <div>
   <% if item.photos.attached? %>
-  <div class="swiper" id="preview_swiper">
+  <div class="swiper swiper-in-form" id="preview_swiper">
   <% else %>
-  <div class="swiper" hidden id="preview_swiper">
+  <div class="swiper swiper-in-form" hidden id="preview_swiper">
   <% end %>
       <div class="swiper-wrapper photos_preview">
       <% if item.photos.attached? %>
@@ -222,7 +222,7 @@ $(function() {
                   var reader = new FileReader();
 
                   reader.onload = function(event) {
-                      $($.parseHTML('<div>')).attr("class","swiper-slide image is-4by3").append($($.parseHTML('<img>')).attr('src', event.target.result).attr("class","img-fluid")).appendTo(placeToInsertImagePreview);
+                      $($.parseHTML('<div>')).attr("class","swiper-slide image is-16by9").append($($.parseHTML('<img>')).attr('src', event.target.result).attr("class","img-fluid")).appendTo(placeToInsertImagePreview);
                   }
 
                   reader.readAsDataURL(input.files[i]);

@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-users = User.create([
+users = User.create!([
     {
         email: 'admin@example.com',
         username: 'admin',
@@ -78,10 +78,10 @@ users[4].avatar.attach(
     io: File.open('db/seeds/1f605m.png'),
     filename: '1f605m.png'
 )
-root_category = Category.create({
+root_category = Category.create!({
     name: "All"
 })
-lv1_categories = Category.create([
+lv1_categories = Category.create!([
     {
         name: "Books",
         parent_category:root_category
@@ -95,7 +95,7 @@ lv1_categories = Category.create([
         parent_category:root_category
     }
 ])
-lv2_categories = Category.create([
+lv2_categories = Category.create!([
     {
         name: "Potions",
         parent_category:lv1_categories[1]
@@ -105,7 +105,7 @@ lv2_categories = Category.create([
         parent_category:lv1_categories[1]
     }
 ])
-items = Item.create([
+items = Item.create!([
     {
         title:"1000 YEARS OF LONELINESS",
         description:"<p>The beginning of the Springvale Hunter's tragic fantasy journey. Where did misfortune first befall him? What marks the start and finish of the 1000-year journey of loneliness? Let this first volume of 1000 Years of Loneliness be your guide through the fantastical fog that is the life of Gothson.</p>",
@@ -192,7 +192,7 @@ items[4].photos.attach(
     io: File.open('db/seeds/5_amos_bow-1.png'),
     filename: '5_amos_bow-1.png' 
 )
-transactions = Transaction.create([
+transactions = Transaction.create!([
     {
         item:items[3],
         seller:users[2],
@@ -233,3 +233,21 @@ transactions = Transaction.create([
         seller_rating: nil
     }
 ])
+messages = Message.create!([
+    {
+        from:users[3],
+        to:users[2],
+        item:items[3],
+        content:"Can I buy this one?"
+    },
+    {
+        from:users[2],
+        to:users[3],
+        item:items[3],
+        content:"For sure!"
+    },
+])
+messages[1].attachments.attach(
+    io: File.open('db/seeds/messages-1.png'),
+    filename: 'messages-1.png' 
+)

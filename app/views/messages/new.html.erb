@@ -1,5 +1,163 @@
-<h1>New Message</h1>
+<meta name='turbolinks-cache-control' content='no-cache'>
+<% content_for :page_title do %>Find some items<% end %>
+<% content_for :page_description do %>Item index page<% end %>
+<% content_for :content do %>
+<meta name='turbolinks-cache-control' content='no-cache'>
+<section class="section">
+  <div class="container">
+    <p class="title is-4">Send a new message about <%= @item.title %></p>
+    <article class="media">
+    <figure class="media-left">
+        <p class="image is-64x64">
+            <% if logged_in? and current_user.avatar.attached? %>
+            <%= image_tag(current_user.avatar) %>
+            <% else %>
+            <img src="https://bulma.io/images/placeholders/64x64.png" alt="Placeholder image">
+            <% end %>
+        </p>
+    </figure>
+    <%= form_with(model: @message,class:"black",HTML:{ enctype:"multipart/form-data" }) do |form| %>
+        <div class="media-content">
+            <div class="field is-horizontal">
+                <div class="field-body">
+                    <div class="control">
+                    <%= form.ckeditor :content, value:'Send a kind message ...' %>
+                    </div>
+                    <% if @message.errors[:content].any? %>
+                    <div class="help is-danger">
+                    <ul>
+                        <% @message.errors[:content].each do |error| %>
+                        <li><%= error %></li>
+                        <% end %>
+                    </ul>
+                    </div>
+                    <% end %>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-body">
+                    <div class="file has-name">
+                        <label class="file-label">
+                        <%= form.file_field :attachments, multiple: true, direct_upload: true, class:"file-input" %>
+                        <span class="file-cta">
+                            <span class="file-icon">
+                            <i class="fa fa-upload"></i>
+                            </span>
+                        </span>
+                        <span class="file-name" id="filename">
+                            Add Attachments…
+                        </span>
+                        </label>
+                        
+                        <% if @message.errors[:attachments].any? %>
+                        <div class="help is-danger">
+                        <ul>
+                            <% @message.errors[:attachments].each do |error| %>
+                            <li><%= error %></li>
+                            <% end %>
+                        </ul>
+                        </div>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal actions">
+                <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                    <%= form.button :submit, class: 'button is-block is-primary is-large is-link ph4 mt2' do %>
+                        <span class="icon is-small"><i class="fa fa-plus"></i></span><span>Send!</span>
+                    <% end %>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="swiper swiper-in-form" hidden id="message_swiper">
+                <div class="swiper-wrapper photos_preview">
+                </div>
+                <div class="swiper-pagination" id="message_swiper_pagination"></div>
+                <div class="swiper-button-prev"id="message_swiper_prev"></div>
+                <div class="swiper-button-next" id="message_swiper_next"></div>
+            </div>
+        </div>
+        <script>
+            const swiper = new Swiper('#message_swiper', {
+                    // Optional parameters
+                    direction: 'horizontal',
+                    loop: false,
 
-<%= render 'form', message: @message %>
+                    // If we need pagination
+                    pagination: {
+                    el: '#message_swiper_pagination',
+                    },
 
-<%= link_to 'Back', messages_path %>
+                    // Navigation arrows
+                    navigation: {
+                    nextEl: '#message_swiper_next',
+                    prevEl: '#message_swiper_prev',
+                    },
+                    observer: true
+                });
+            $(function() {
+                // Multiple images preview in browser
+                var imagesPreview = function(input, placeToInsertImagePreview) {
+
+                    if (input.files) {
+                        var filesAmount = input.files.length;
+
+                        for (i = 0; i < filesAmount; i++) {
+                            var reader = new FileReader();
+
+                            reader.onload = function(event) {
+                                $($.parseHTML('<div>')).attr("class","swiper-slide image is-16by9").append($($.parseHTML('<img>')).attr('src', event.target.result).attr("class","img-fluid")).appendTo(placeToInsertImagePreview);
+                            }
+
+                            reader.readAsDataURL(input.files[i]);
+                        }
+                    }
+
+                };
+                $('#message_attachments').on('change', function() {
+                    imagesPreview(this, 'div.photos_preview');
+                    var file = $('#message_attachments')[0];
+                    $('#message_swiper').removeAttr("hidden");
+                    var filehint = "";
+                    if ( file.files.length > 0) {
+                        for (let index = 0; index < file.files.length; index++) {
+                        filehint = filehint + "," + file.files[index].name;
+                        
+                        }
+                        $('#filename')[0].innerHTML = filehint + " or Choose files";
+                    }
+                        
+                });
+            });
+        </script>
+    <% end %>
+    <hr >
+    </article>
+    <% if not @prev_messages.empty? %>
+    <p class="title is-6">Previous Messages about <%= @item.title %></p>
+    <% @prev_messages.each do |msg| %>
+    <article class="media">
+        <figure class="media-left">
+            <p class="image is-64x64">
+               <%= image_tag(msg.from.avatar) %>
+            </p>
+        </figure>
+        <div class="media-content">
+            <div class="content">
+            <p class="black" >
+                <strong>From: <%= msg.from.username %></strong> <small>To: <%= msg.to.username %></small> <small><%= msg.created_at.strftime("%l:%M %p - %b %e %Y") %></small>
+                <br>
+                <%= raw msg.content %>
+            </p>
+            </div>
+        </div>
+    </article>
+    <% end %>
+    <% end %>
+  </div>
+</section>
+<% end %>
+<%= render template: "layouts/application" %>
