@@ -14,6 +14,7 @@ class MessagesController < ApplicationController
   def new
     @message = Message.new
     @item = Item.find_by_id(params[:item_id])
+    @to = User.find_by_id(params[:to_id])
     @prev_messages = Message.where(item:@item)
   end
 

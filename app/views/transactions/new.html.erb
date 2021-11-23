@@ -61,6 +61,7 @@
             </div>
             <% end %>
             </div> -->
+            <%= hidden_field_tag(:item_id, @item.id) %>
             <div class="field is-horizontal">
                 <div class="field-label is-normal f6" style="flex-grow: 0.6">
                 <%= form.label :expected_deal_time, "When to deal?", class: "label tl" %>
