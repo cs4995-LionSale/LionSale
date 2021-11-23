@@ -87,26 +87,26 @@
             
             <% if @transaction.status == 110 and current_user == @transaction.seller %>
             <p class="control">
-            <%= button_to(transaction_path(@transaction,status:120), method: :patch, class:"button is-primary",data: {confirm: "Are you sure you want to approve purchase reuqest?" }) do %>
-              <span class="icon is-small"><i class="fa fa-check"></i></span><span>Approve purchase reuqest</span>
+            <%= button_to(transaction_path(@transaction,status:120), method: :patch, class:"button is-primary",data: {confirm: "Are you sure you want to approve purchase request?" }) do %>
+              <span class="icon is-small"><i class="fa fa-check"></i></span><span>Approve Purchase Request</span>
             <% end %>
             </p>
             <p class="control">
-            <%= button_to(transaction_path(@transaction,status:122), method: :patch, class:"button is-danger",data: {confirm: "Are you sure you want to decline purchase reuqest?" }) do %>
-              <span class="icon is-small"><i class="fa fa-times"></i></span><span>Decline purchase reuqest</span>
+            <%= button_to(transaction_path(@transaction,status:122), method: :patch, class:"button is-danger",data: {confirm: "Are you sure you want to decline purchase request?" }) do %>
+              <span class="icon is-small"><i class="fa fa-times"></i></span><span>Decline Purchase Request</span>
             <% end %>
             </p>
             <% end %>
             <% if @transaction.status == 110 and current_user == @transaction.buyer %>
             <p class="control">
-            <%= button_to(transaction_path(@transaction,status:112), method: :patch, class:"button is-danger",data: {confirm: "Are you sure you want to cancel purchase reuqest?" }) do %>
-              <span class="icon is-small"><i class="fa fa-times"></i></span><span>Cancel purchase reuqest</span>
+            <%= button_to(transaction_path(@transaction,status:112), method: :patch, class:"button is-danger",data: {confirm: "Are you sure you want to cancel purchase request?" }) do %>
+              <span class="icon is-small"><i class="fa fa-times"></i></span><span>Cancel Purchase Request</span>
             <% end %>
             </p>
             <% end %>
             <% if @transaction.status == 200 and current_user == @transaction.buyer %>
             <div class="well">
-              <div>Rate the deal</div>
+              <p class="title is-6" >Rate the Deal</p>
               <span id="star1" data-score="1" class="star fa fa-star-o" title="Very bad"></span>
               <span id="star2"  data-score="2" class="star fa fa-star-o" title="Not good"></span>
               <span id="star3" data-score="3" class="star fa fa-star-o" title="Just so so"></span>
@@ -169,20 +169,20 @@
             <% if Time.now > @transaction.expected_deal_time %>
             <p class="control">
             <%= button_to(transaction_path(@transaction,status:213), method: :patch, class:"button is-danger",data: {confirm: "Are you sure you want to decline to confirm the deal?" }) do %>
-              <span class="icon is-small"><i class="fa fa-times"></i></span><span>Decline to confirm deal</span>
+              <span class="icon is-small"><i class="fa fa-times"></i></span><span>Decline to Confirm Deal</span>
             <% end %>
             </p>
             <% else %>
             <p class="control">
             <%= button_to(transaction_path(@transaction,status:212), method: :patch, class:"button is-danger",data: {confirm: "Are you sure you want to cancel the deal?" }) do %>
-              <span class="icon is-small"><i class="fa fa-times"></i></span><span>Cancel deal</span>
+              <span class="icon is-small"><i class="fa fa-times"></i></span><span>Cancel Deal</span>
             <% end %>
             </p>
             <% end %>
             <% end %>
             <% if @transaction.status == 210 and current_user == @transaction.seller %>
             <div class="well">
-              <div>Rate the deal</div>
+              <p class="title is-6" >Rate the Deal</p>
               <span id="star1" data-score="1" class="star fa fa-star-o" title="Very bad"></span>
               <span id="star2"  data-score="2" class="star fa fa-star-o" title="Not good"></span>
               <span id="star3" data-score="3" class="star fa fa-star-o" title="Just so so"></span>
@@ -245,13 +245,13 @@
             <% if Time.now > @transaction.expected_deal_time %>
             <p class="control">
             <%= button_to(transaction_path(@transaction,status:223), method: :patch, class:"button is-danger",data: {confirm: "Are you sure you want to decline to confirm the deal?" }) do %>
-            <span class="icon is-small"><i class="fa fa-times"></i></span><span>Decline to confirm deal</span>
+            <span class="icon is-small"><i class="fa fa-times"></i></span><span>Decline to Confirm Deal</span>
             <% end %>
             </p>
             <% else %>
             <p class="control">
             <%= button_to(transaction_path(@transaction,status:222), method: :patch, class:"button is-danger",data: {confirm: "Are you sure you want to cancel the deal?" }) do %>
-              <span class="icon is-small"><i class="fa fa-times"></i></span><span>Cancel deal</span>
+              <span class="icon is-small"><i class="fa fa-times"></i></span><span>Cancel Deal</span>
             <% end %>
             </p>
             <% end %>

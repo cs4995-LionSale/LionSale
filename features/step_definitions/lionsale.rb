@@ -35,12 +35,12 @@ Then /^I logout$/ do
 end
 
 Then /^I go to update profile$/ do 
-  click_link('Edit My Profile')
+  click_link('Edit my Profile')
 end
 
 Then /^I update$/ do 
 
-  click_button('Edit My Profile')
+  click_button('Edit my Profile')
 end
 
 Then /^I put in new email as "([^"]*)"$/ do |email|

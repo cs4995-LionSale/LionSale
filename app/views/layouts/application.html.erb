@@ -38,7 +38,7 @@
         <div class="navbar-start">
           <%= link_to "Home", home_path, :class => "navbar-item" %>
           <%= link_to "Items", items_path, :class => "navbar-item" %>
-          <%= link_to "Categroies", categories_path, :class => "navbar-item" %>
+          <%= link_to "Categories", categories_path, :class => "navbar-item" %>
           <%= link_to "About", about_path, :class => "navbar-item" %>
         </div>
         <div class="navbar-end">
@@ -51,8 +51,8 @@
               <%= link_to "My Transactions", transactions_path, :class => "navbar-item", :id => 'nav-transaction-link' %>
               <%= link_to "My Mailbox", messages_path, :class => "navbar-item", :id => 'nav-mailbox-link' %>
               <hr class="navbar-divider">
-              <%= link_to "Sell an item", new_item_path, :class => "navbar-item", :id => 'nav-new-item-link' %>
-              <%= link_to "Edit My Profile", edit_user_path(current_user), :class => "navbar-item", :id => 'nav-edit-profile-link' %>
+              <%= link_to "Sell an Item", new_item_path, :class => "navbar-item", :id => 'nav-new-item-link' %>
+              <%= link_to "Edit my Profile", edit_user_path(current_user), :class => "navbar-item", :id => 'nav-edit-profile-link' %>
               <div class="navbar-item">
               <%= button_to "Logout", logout_path, method: :delete, :class => " button is-primary", :id => 'nav-logout-link' %>
               </div>

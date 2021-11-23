@@ -48,25 +48,25 @@
           <dd class="f4 ml0">
             <%= link_to @item.seller.username, user_path(@item.seller), :class => "no-underline hover-underline"%>
           </dd>
-          <dt class="f6 mt2 dark-gray">Description</dt>
+          <dt class="f6 mt2 dark-gray">Description:</dt>
           <dd class="f4 ml0 black">
           <div class="description-text ck-content">
             <%= raw @item.description %>
           </div>
           </dd>
-          <dt class="f6 mt2 dark-gray">Category</dt>
+          <dt class="f6 mt2 dark-gray">Category:</dt>
           <dd class="f4 ml0">
             <%= link_to @item.category.name, items_path(category_id:@item.category), :class => "no-underline hover-underline"%>
           </dd>
-          <dt class="f6 mt2 dark-gray">On shelf since: </dt>
+          <dt class="f6 mt2 dark-gray">On shelf since:</dt>
           <dd class="f4 ml0 black">
             <%= @item.created_at.strftime("%l:%M %p - %b %e %Y")%>
           </dd>
-          <dt class="f6 mt2 dark-gray">Status updated at: </dt>
+          <dt class="f6 mt2 dark-gray">Status updated at:</dt>
           <dd class="f4 ml0 black">
             <%= @item.updated_at.strftime("%l:%M %p - %b %e %Y")%>
           </dd>
-          <dt class="f6 mt2 dark-gray">Status</dt>
+          <dt class="f6 mt2 dark-gray">Status:</dt>
           <dd class="f4 ml0 black">
           <%= render 'item_status', status:@item.status %>
           <% if @item.status == 0%>
@@ -85,11 +85,11 @@
           <div class="field is-grouped">
             <% if @item.status == 0 %>
             <p class="control">
-            <%= link_to '<span class="icon is-small"><i class="fa fa-shopping-cart"></i></span><span>Request to buy</span>'.html_safe, new_transaction_path(buyer_id:current_user.id,item_id:@item.id),class:"button is-warning"%>
+            <%= link_to '<span class="icon is-small"><i class="fa fa-shopping-cart"></i></span><span>Request to Buy</span>'.html_safe, new_transaction_path(buyer_id:current_user.id,item_id:@item.id),class:"button is-warning"%>
             </p>
             <% end %>
             <p class="control">
-            <%= link_to '<span class="icon is-small"><i class="fa fa-paper-plane"></i></span><span>Message seller</span>'.html_safe, new_message_path(from_id:current_user.id,to_id:@item.seller.id,item_id:@item.id),class:"button is-primary"%>
+            <%= link_to '<span class="icon is-small"><i class="fa fa-paper-plane"></i></span><span>Message Seller</span>'.html_safe, new_message_path(from_id:current_user.id,to_id:@item.seller.id,item_id:@item.id),class:"button is-primary"%>
             </p>
             <p class="control">
               <%= link_to '<span class="icon is-small"><i class="fa fa-heart"></i></span><span>Like</span>'.html_safe, "#",class:"button is-danger"%>
@@ -98,7 +98,7 @@
         <% else %>  
           <div class="field is-grouped">
             <p class="control">
-            <%= link_to '<span class="icon is-small"><i class="fa fa-edit"></i></span><span>Edit this item</span>'.html_safe, edit_item_path(@item), class:"button is-link" %>
+            <%= link_to '<span class="icon is-small"><i class="fa fa-edit"></i></span><span>Edit this Item</span>'.html_safe, edit_item_path(@item), class:"button is-link" %>
             </p>
             <p class="control">
             <%= link_to '<span class="icon is-small"><i class="fa fa-paper-plane"></i></span><span>Related Message<s/span>'.html_safe, messages_path(item_id:@item.id),class:"button is-primary"%>
@@ -106,7 +106,7 @@
             <% if @item.status == 0 or @item.status == 20 %>
             <p class="control">
             <%= button_to(item_path(@item), method: :delete, class:"button is-danger",data: {confirm: "Are you sure you want to close the selling of this item?" }) do %>
-              <span class="icon is-small"><i class="fa fa-trash"></i></span><span>Close selling</span>
+              <span class="icon is-small"><i class="fa fa-trash"></i></span><span>Close Selling</span>
             </p>
             <% end %>
           </div>

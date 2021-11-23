@@ -18,7 +18,7 @@
     </div> -->
   <div class="field is-horizontal">
     <div class="field-label is-normal f6" style="flex-grow: 0.6">
-      <%= form.label :title, "Item title", class: "label tl" %>
+      <%= form.label :title, "Item Title", class: "label tl" %>
     </div>
     <div class="field-body">
       <div class="field is-narrow">
@@ -81,7 +81,7 @@
   </div>
   <div class="field is-horizontal">
     <div class="field-label is-normal f6" style="flex-grow: 0.6">
-      <%= form.label :price, "Price per item", class: "label tl" %>
+      <%= form.label :price, "Price/Item", class: "label tl" %>
     </div>
     <div class="field-body">
       <div class="field is-narrow">
@@ -183,11 +183,7 @@
       <div class="field">
         <div class="control">
           <%= form.button :submit, class: 'button is-block is-primary is-large is-link ph4 mt2' do %>
-          <% if is_new %>
           <span class="icon is-small"><i class="fa fa-plus"></i></span><span>Sell it!</span>
-          <% else %>
-          <span class="icon is-small"><i class="fa fa-edit"></i></span><span>Edit it!</span>
-          <% end %>
           <% end %>
         </div>
       </div>
