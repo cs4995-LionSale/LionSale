@@ -17,6 +17,8 @@
         </p>
     </figure>
     <%= form_with(model: @message,class:"black",HTML:{ enctype:"multipart/form-data" }) do |form| %>
+        <%= hidden_field_tag(:item_id, @item.id) %>
+        <%= hidden_field_tag(:to_id, @to.id) %>
         <div class="media-content">
             <div class="field is-horizontal">
                 <div class="field-body">
