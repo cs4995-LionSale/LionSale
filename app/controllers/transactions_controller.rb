@@ -49,7 +49,7 @@ class TransactionsController < ApplicationController
 
 
       if current_user == @transaction.seller # current user is seller
-        if (@transaction.status == 110) # buyer successfully create purchase request
+        if @transaction.status == 110 # buyer successfully create purchase request
           @transaction.status = params[:status]
           @transaction.save
           if (@transaction.status == 120) # seller agrees the purchase request
@@ -63,6 +63,17 @@ class TransactionsController < ApplicationController
             flash[:fail] = "Seller rejects the purchase request"
             render 'show'
           end
+        elsif @transaction.status == 210 # buyer successfully confirm deal
+          @transaction.status = params[:status]
+          @transaction.save
+          if @transaction.status == 220 # seller confirms buyer's deal confirm 
+            flash[:success] = "Transaction is successfully confirmed by seller"
+            @transaction.status = 0
+            @transaction.save
+          else #transaction.status == 222, seller cancels buyer's deal confirm
+            flash[:fail] = "Transaction is cancelled by seller"
+          end
+          render 'show'
         else # @transaction.status is 112 due to buyer's cancellation
           flash[:fail] = "Buyer cancells deal request"
           render 'show'
