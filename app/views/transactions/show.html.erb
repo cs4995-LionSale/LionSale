@@ -128,7 +128,7 @@
                       $("#confirm_deal_buyer").click(function () {
                           $(this).addClass("is-disabled")
                           $.ajax({
-                            url: window.Routes.edit_transaction_path('<%= @transaction.id %>'),
+                            url: window.Routes.transaction_path('<%= @transaction.id %>'),
                             type: 'PUT',
                             data: {
                               "buyer_rating": myRate,
@@ -204,7 +204,7 @@
                       $("#confirm_deal_seller").click(function () {
                           $(this).addClass("is-disabled")
                           $.ajax({
-                            url: window.Routes.edit_transaction_path('<%= @transaction.id %>'),
+                            url: window.Routes.transaction_path('<%= @transaction.id %>'),
                             type: 'PUT',
                             data: {
                               "seller_rating": myRate,

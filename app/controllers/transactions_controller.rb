@@ -70,27 +70,36 @@ class TransactionsController < ApplicationController
       else # current user is buyer
         @item = Item.find(@transaction.item_id)
         if @transaction.status == 200 # seller agrees the purchase request and wait for deal confirm
-          if @item.quantity >= transaction_params[:quantity] # item stock is sufficient 
-            # detail transaction logic here  
-            
-            if @item.change_stock(-1 * transaction_params[:quantity]) # decrease transaction's quantity from item's stock and save
-              flash[:success] = "Transaction is successfully updated by buyer"
-            else 
-              flash[:fail] = "Error occurs when buyer changes item's stock"
-              @transaction.status = 311
+          @transaction.status = params[:status]
+          @transaction.save
+          if @transaction.status == 201 # buyer confirm deal
+            if @item.stock >= @transaction.quantity # item stock is sufficient 
+              # detail transaction logic here  
+              if @item.change_stock(-1 * @transaction.quantity) # decrease transaction's quantity from item's stock and save
+                flash[:success] = "Transaction is successfully updated by buyer"
+                @transaction.status = 210
+                @transaction.save
+              else 
+                flash[:fail] = "Error occurs when buyer changes item's stock"
+                @transaction.status = 211
+                @transaction.save
+              end
+            else
+              flash[:fail] = "Item in stock is insufficient, please choose a smaller quantity"
+              @transaction.status = 211
+              @transaction.save
             end
-            @transaction.save
             render 'show'
-          else
-            flash[:fail] = "Item in stock is insufficient, please choose a smaller quantity"
-            @transaction.status = 211
+
+          else # @transaction.status = 212, buyer cancels deal
+            flash[:fail] = "Buyer cancels the deal confirmation"
             render 'show'
           end
+          
         else # @transaction.status is 121, seller rejects the purchase request, deal ends
           flash[:fail] = "Seller declines your purchase request"
           render 'show'
         end
-
       end
 
   end
