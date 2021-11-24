@@ -12,16 +12,14 @@ class Item < ApplicationRecord
   validates :description, length: { maximum: 65535 }
   validates :price, presence: true
   
-  
   def change_stock(quantity)
-    if (stock == 0) #in that case number should be positive to add stock, and status should be set to allow sell
-      status = 0
+    if (self.stock == 0) #in that case number should be positive to add stock, and status should be set to allow sell
+      self.status = 0
     end  
-    stock += quantity
-    if (stock == 0) # change status of item if out of stock
-      status = 20
+    self.stock += quantity
+    if (self.stock == 0) # change status of item if out of stock
+      self.status = 20
     end
-
-    save()
+    return self.save
   end
 end
