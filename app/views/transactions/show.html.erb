@@ -55,7 +55,11 @@
           <% if @transaction.status == 0%>
           <dt class="f6 dark-gray">Deal Time</dt>
           <dd class="f4 ml0">
-            <%= @transaction.real_deal_time.strftime("%l:%M %p - %b %e %Y")%>
+              <% if @transaction.real_deal_time %>
+              <%= @transaction.real_deal_time.strftime("%l:%M %p - %b %e %Y") %>
+              <% else %>
+              N/A
+              <% end %>
           </dd>
           <% else %>
           <dt class="f6 dark-gray">Expected deal Time</dt>
