@@ -41,11 +41,11 @@ Scenario: Check category of items
     Then I should see "Ikea chair"
     Then I goto categories page
     Then I go to Potions category
-    Then I should see "My sofa"
+    Then I should not see "My sofa"
     Then I should see "Ikea chair"
     Then I goto categories page
     Then I go to Weapons category
-    Then I should see "My sofa"
+    Then I should not see "My sofa"
     Then I should not see "Ikea chair"
     
 Scenario: Edit my items and then delete
@@ -66,7 +66,7 @@ Scenario: Edit my items and then delete
     Then I delete item
     Then I should be on the home page for "alex"
     Then I goto items page
-    Then I should not see "My sofa"
+    Then I should see "Closed by seller."
 
 
 

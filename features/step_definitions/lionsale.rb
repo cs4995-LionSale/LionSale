@@ -68,14 +68,10 @@ Then /^I go to login$/ do
 end
 
 Then /^I delete user$/ do
-  accept_confirm do
+  # accept_confirm do
     click_button("Delete this Account")
-  end
+  # end
 end
-
-
-
-
 
 
 Then /^I edit item$/ do
@@ -89,9 +85,9 @@ end
 
 Then /^I delete item$/ do
   click_link('Detail', :match=>:first)
-  accept_confirm do
+  # accept_confirm do
     click_button("Close Selling")
-  end
+  # end
 end
 
 Then /^I goto update item$/ do
@@ -116,7 +112,6 @@ Then /^I should see "([^"]*)"$/ do |text|
 end
 
 Then /^I should not see "([^"]*)"$/ do |text|
-  page.save_and_open_screenshot()
   page.has_content?(text).should eq false
 end
 

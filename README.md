@@ -10,7 +10,7 @@ CS W4995 S03 ESaaS Group Project
 ## Instruction to run and test locally
 
 ### To run
-0. Clone our project from tag name "proj-iter1"
+0. Clone our project
 1. Install ruby version 3.0.2
 2. At the root path of the project, run `bundle`
 3. Run `yarn`
@@ -57,3 +57,5 @@ Please refer `./features` directory for details
 We have added Recaptcha for security reasons, but we are not covering them in our tests because it will be ignored and thus cannot be tested in cucumber. 
 
 Further, we have finished more front-end programming than the back-end code can cover, so we are not testing some of the front-end features until the back end functions are integrated 
+
+Due to minor issues with cucumber, in certain machines delete user/item might run into error. If so, simply go to linosale.rb and uncomment the lines under "I delete item" and "I delete user", then the tests should pass. 
