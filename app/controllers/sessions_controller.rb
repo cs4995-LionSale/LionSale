@@ -1,4 +1,8 @@
 class SessionsController < ApplicationController
+  def new
+    @show_checkbox_recaptcha = false
+  end
+
   def create
     success = verify_recaptcha(action: 'login', minimum_score: 0.5, secret_key: ENV['RECAPTCHA_SECRET_KEY_V3'])
     checkbox_success = verify_recaptcha unless success 
