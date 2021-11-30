@@ -73,18 +73,22 @@ class TransactionsController < ApplicationController
             @transaction.real_deal_time = Time.now
             @transaction.status = 0
             @transaction.save
-            # byebug
           else #transaction.status == 222, seller cancels buyer's deal confirm
             flash[:fail] = "Transaction is cancelled by seller"
           end
           render 'show'
         else # @transaction.status is 112 due to buyer's cancellation
-          flash[:fail] = "Buyer cancells deal request"
+          flash[:fail] = "Buyer cancells purchase request"
           render 'show'
         end
       else # current user is buyer
         @item = Item.find(@transaction.item_id)
-        if @transaction.status == 200 # seller agrees the purchase request and wait for deal confirm
+        if @transaction.status == 110   # purchase request is waiting for response, the only button for buyer now is cancel it          
+          @transaction.status = params[:status]
+          @transaction.save
+          flash[:success] = "Purchase request is cancelled by buyer"
+          render 'show'
+        elsif @transaction.status == 200 # seller agrees the purchase request and wait for deal confirm
           @transaction.status = params[:status]
           @transaction.updated_at = Time.now
           @transaction.save
@@ -107,13 +111,14 @@ class TransactionsController < ApplicationController
             end
             render 'show'
 
-          else # @transaction.status = 213, buyer declines to confirm deal
-            flash[:fail] = "Buyer declines the deal confirmation"
+          else # @transaction.status = 212, buyer cancels deal
+            flash[:fail] = "Buyer cancels the deal confirmation"
             render 'show'
           end
           
         else # @transaction.status is 121, seller rejects the purchase request, deal ends
           flash[:fail] = "Seller declines your purchase request"
+          byebug
           render 'show'
         end
       end
@@ -121,13 +126,13 @@ class TransactionsController < ApplicationController
   end
 
   # DELETE /transactions/1 or /transactions/1.json
-  def destroy
-    destroyedTransaction = Transaction.find(params[:id])
-    destroyedTransaction.status = 112
-    destroyedTransaction.save
-    flash[:success] = "Transaction has been canceled"
-    redirect_to @item
-  end
+  # def destroy
+  #   destroyedTransaction = Transaction.find(params[:id])
+  #   destroyedTransaction.status = 112
+  #   destroyedTransaction.save
+  #   flash[:success] = "Transaction has been canceled"
+  #   redirect_to @item
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.
