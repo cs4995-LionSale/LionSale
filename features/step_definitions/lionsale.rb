@@ -68,11 +68,9 @@ Then /^I go to login$/ do
 end
 
 Then /^I delete user$/ do
-  
-  click_button("Delete This Account")
-  # page.save_and_open_screenshot()
-
-  page.driver.browser.switch_to.alert.accept
+  accept_confirm do
+    click_button("Delete this Account")
+  end
 end
 
 
@@ -81,17 +79,19 @@ end
 
 
 Then /^I edit item$/ do
-  click_button("Edit it!")
+  click_button("Sell it!")
 end
 
 Then /^I update item$/ do
   click_link('Detail', :match=>:first)
-  click_link("Edit this item")
+  click_link("Edit this Item")
 end
 
 Then /^I delete item$/ do
   click_link('Detail', :match=>:first)
-  click_button("Close selling")
+  accept_confirm do
+    click_button("Close Selling")
+  end
 end
 
 Then /^I goto update item$/ do
@@ -107,7 +107,7 @@ Then /^I goto categories page$/ do
   click_link("Categories")
 end
 
-Then /^I goto (.*) category$/ do |text|
+Then /^I go to (.*) category$/ do |text|
   click_link(text)
 end
 
@@ -122,7 +122,7 @@ end
 
 Then /^I sell item$/ do 
   page.find('#nav-dropdown').click
-  click_link('Sell an item')
+  click_link('Sell an Item')
   
 end
   

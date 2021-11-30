@@ -11,7 +11,7 @@ Scenario: Post first item
     Then I putin itemtitle "My sofa"
     Then I putin itemprice 1
     Then I putin itemquant 1
-    Then I putin itemcat 'All'
+    Then I putin itemcat All
     Then I sell it
 
 Scenario: Post second item
@@ -22,7 +22,7 @@ Scenario: Post second item
     Then I putin itemtitle "Ikea chair"
     Then I putin itemprice 3
     Then I putin itemquant 2
-    Then I putin itemcat 'Potions'
+    Then I putin itemcat Potions
     Then I sell it
 
 Scenario: List items
@@ -36,12 +36,15 @@ Scenario: Check category of items
     Given I have login as "alex@columbia.edu"
     Then I should be on the home page for "alex"
     Then I goto categories page
+    Then I go to All category
     Then I should see "My sofa"
     Then I should see "Ikea chair"
-    Then I go to 'Potions' category
+    Then I goto categories page
+    Then I go to Potions category
     Then I should see "My sofa"
     Then I should see "Ikea chair"
-    Then I go to 'Weapons' category
+    Then I goto categories page
+    Then I go to Weapons category
     Then I should see "My sofa"
     Then I should not see "Ikea chair"
     
