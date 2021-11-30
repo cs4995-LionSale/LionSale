@@ -70,9 +70,10 @@ class TransactionsController < ApplicationController
           @transaction.save
           if @transaction.status == 220 # seller confirms buyer's deal confirm 
             flash[:success] = "Transaction is successfully confirmed by seller"
-            @Transaction.real_deal_time = Time.now
+            @transaction.real_deal_time = Time.now
             @transaction.status = 0
             @transaction.save
+            # byebug
           else #transaction.status == 222, seller cancels buyer's deal confirm
             flash[:fail] = "Transaction is cancelled by seller"
           end
@@ -106,8 +107,8 @@ class TransactionsController < ApplicationController
             end
             render 'show'
 
-          else # @transaction.status = 212, buyer cancels deal
-            flash[:fail] = "Buyer cancels the deal confirmation"
+          else # @transaction.status = 213, buyer declines to confirm deal
+            flash[:fail] = "Buyer declines the deal confirmation"
             render 'show'
           end
           
