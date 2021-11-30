@@ -12,6 +12,7 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
+    @show_checkbox_recaptcha = true
   end
 
   # GET /users/1/edit
@@ -21,7 +22,7 @@ class UsersController < ApplicationController
   # POST /users or /users.json
   def create
     @user = User.new(user_params)
-    success = verify_recaptcha(action: 'login', minimum_score: 0.5, secret_key: ENV['RECAPTCHA_SECRET_KEY_V3'])
+    success = verify_recaptcha(action: 'register', minimum_score: 0.5, secret_key: ENV['RECAPTCHA_SECRET_KEY_V3'])
     checkbox_success = verify_recaptcha unless success
     if success || checkbox_success
       if @user.save

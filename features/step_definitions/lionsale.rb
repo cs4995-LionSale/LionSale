@@ -72,7 +72,7 @@ Then /^I delete user$/ do
   click_button("Delete This Account")
   # page.save_and_open_screenshot()
 
-  # page.driver.browser.switch_to.alert.accept
+  page.driver.browser.switch_to.alert.accept
 end
 
 
