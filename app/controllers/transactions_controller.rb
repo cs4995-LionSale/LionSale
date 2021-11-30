@@ -33,6 +33,8 @@ class TransactionsController < ApplicationController
     @transaction.status = 110
     @transaction.quantity = transaction_params[:quantity]
     @transaction.deal_price = @transaction.quantity * @item.price
+    @transaction.created_at = Time.now
+    @transaction.expected_deal_time = transaction_params[:expected_deal_time]
     @transaction.save
     flash[:success] = "Transaction successfully created!"
     render 'show'
@@ -46,11 +48,10 @@ class TransactionsController < ApplicationController
     #   :quantity => transaction_params[:quantity])
       
 
-
-
       if current_user == @transaction.seller # current user is seller
         if @transaction.status == 110 # buyer successfully create purchase request
           @transaction.status = params[:status]
+          @transaction.updated_at = Time.now
           @transaction.save
           if (@transaction.status == 120) # seller agrees the purchase request
             @transaction.status = 200 # system passes seller's agreement of purchase request, wait for deal confirm
@@ -65,9 +66,11 @@ class TransactionsController < ApplicationController
           end
         elsif @transaction.status == 210 # buyer successfully confirm deal
           @transaction.status = params[:status]
+          @transaction.updated_at = Time.now
           @transaction.save
           if @transaction.status == 220 # seller confirms buyer's deal confirm 
             flash[:success] = "Transaction is successfully confirmed by seller"
+            @Transaction.real_deal_time = Time.now
             @transaction.status = 0
             @transaction.save
           else #transaction.status == 222, seller cancels buyer's deal confirm
@@ -82,6 +85,7 @@ class TransactionsController < ApplicationController
         @item = Item.find(@transaction.item_id)
         if @transaction.status == 200 # seller agrees the purchase request and wait for deal confirm
           @transaction.status = params[:status]
+          @transaction.updated_at = Time.now
           @transaction.save
           if @transaction.status == 201 # buyer confirm deal
             if @item.stock >= @transaction.quantity # item stock is sufficient 
