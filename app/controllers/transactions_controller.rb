@@ -33,7 +33,6 @@ class TransactionsController < ApplicationController
     @transaction.status = 110
     @transaction.quantity = transaction_params[:quantity]
     @transaction.deal_price = @transaction.quantity * @item.price
-    @transaction.created_at = Time.now
     @transaction.expected_deal_time = transaction_params[:expected_deal_time]
     @transaction.save
     flash[:success] = "Transaction successfully created!"
@@ -51,7 +50,6 @@ class TransactionsController < ApplicationController
       if current_user == @transaction.seller # current user is seller
         if @transaction.status == 110 # buyer successfully create purchase request
           @transaction.status = params[:status]
-          @transaction.updated_at = Time.now
           @transaction.save
           if (@transaction.status == 120) # seller agrees the purchase request
             @transaction.status = 200 # system passes seller's agreement of purchase request, wait for deal confirm
@@ -66,12 +64,12 @@ class TransactionsController < ApplicationController
           end
         elsif @transaction.status == 210 # buyer successfully confirm deal
           @transaction.status = params[:status]
-          @transaction.updated_at = Time.now
           @transaction.save
           if @transaction.status == 220 # seller confirms buyer's deal confirm 
             flash[:success] = "Transaction is successfully confirmed by seller"
             @transaction.real_deal_time = Time.now
             @transaction.status = 0
+            @transaction.seller_rating = params[:seller_rating]
             @transaction.save
           else #transaction.status == 222, seller cancels buyer's deal confirm
             flash[:fail] = "Transaction is cancelled by seller"
@@ -90,7 +88,6 @@ class TransactionsController < ApplicationController
           render 'show'
         elsif @transaction.status == 200 # seller agrees the purchase request and wait for deal confirm
           @transaction.status = params[:status]
-          @transaction.updated_at = Time.now
           @transaction.save
           if @transaction.status == 201 # buyer confirm deal
             if @item.stock >= @transaction.quantity # item stock is sufficient 
@@ -98,6 +95,7 @@ class TransactionsController < ApplicationController
               if @item.change_stock(-1 * @transaction.quantity) # decrease transaction's quantity from item's stock and save
                 flash[:success] = "Transaction is successfully updated by buyer"
                 @transaction.status = 210
+                @transaction.buyer_rating = params[:buyer_rating]
                 @transaction.save
               else 
                 flash[:fail] = "Error occurs when buyer changes item's stock"
