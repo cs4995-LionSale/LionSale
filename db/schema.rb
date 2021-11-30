@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_06_195917) do
+ActiveRecord::Schema.define(version: 2021_11_30_212044) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -46,6 +46,15 @@ ActiveRecord::Schema.define(version: 2021_11_06_195917) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["parent_category_id"], name: "index_categories_on_parent_category_id"
+  end
+
+  create_table "checkins", force: :cascade do |t|
+    t.integer "transcation_id", null: false
+    t.decimal "lat"
+    t.decimal "lng"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["transcation_id"], name: "index_checkins_on_transcation_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -110,12 +119,13 @@ ActiveRecord::Schema.define(version: 2021_11_06_195917) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "categories", "categories", column: "parent_category_id"
+  add_foreign_key "checkins", "transcations"
   add_foreign_key "items", "categories"
   add_foreign_key "items", "users", column: "seller_id"
+  add_foreign_key "messages", "items"
   add_foreign_key "messages", "users", column: "from_id"
-  add_foreign_key "messages", "users", column: "item_id"
   add_foreign_key "messages", "users", column: "to_id"
+  add_foreign_key "transactions", "items"
   add_foreign_key "transactions", "users", column: "buyer_id"
-  add_foreign_key "transactions", "users", column: "item_id"
   add_foreign_key "transactions", "users", column: "seller_id"
 end

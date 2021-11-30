@@ -21,6 +21,9 @@ gem 'new_ckeditor', '~> 0.1.2'
 gem 'bootstrap', '~> 5.1.0'
 gem 'flatpickr', '~> 4.6.6.0'
 gem "js-routes"
+gem 'pusher'
+gem 'figaro'
+
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'carrierwave', '~> 0.10.0'
 gem 'webpacker', '~> 5.0'
