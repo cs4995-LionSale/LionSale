@@ -61,25 +61,32 @@ class TransactionsController < ApplicationController
           else # seller rejects the purchase request
             @transaction.status = 121 # consequently seller rejects purchase request
             @transaction.save
-            flash[:fail] = "Seller rejects the purchase request"
+            flash[:danger] = "Seller rejects the purchase request"
             render 'show'
           end
         elsif @transaction.status == 210 # buyer successfully confirm deal
           @transaction.status = params[:status]
           @transaction.updated_at = Time.now
           @transaction.save
-          if @transaction.status == 220 # seller confirms buyer's deal confirm 
-            flash[:success] = "Transaction is successfully confirmed by seller"
-            @transaction.real_deal_time = Time.now
-            @transaction.status = 0
+          if Geocoder::Calculations.distance_between(@transaction.seller_checkin_latest, @transaction.buyer_checkin_latest,:units => :km) < 1 then
+            if @transaction.status == 220 # seller confirms buyer's deal confirm 
+              flash[:success] = "Transaction is successfully confirmed by seller"
+              @transaction.real_deal_time = Time.now
+              @transaction.status = 0
+              @transaction.save
+              # byebug
+            else #transaction.status == 222, seller cancels buyer's deal confirm
+              flash[:danger] = "Transaction is cancelled by seller"
+            end
+          else
+            flash[:danger] = "Please be closer to make a deal"
+            @transaction.status = 210
+            @transaction.updated_at = Time.now
             @transaction.save
-            # byebug
-          else #transaction.status == 222, seller cancels buyer's deal confirm
-            flash[:fail] = "Transaction is cancelled by seller"
           end
           render 'show'
         else # @transaction.status is 112 due to buyer's cancellation
-          flash[:fail] = "Buyer cancells deal request"
+          flash[:danger] = "Buyer cancells deal request"
           render 'show'
         end
       else # current user is buyer
@@ -89,31 +96,37 @@ class TransactionsController < ApplicationController
           @transaction.updated_at = Time.now
           @transaction.save
           if @transaction.status == 201 # buyer confirm deal
-            if @item.stock >= @transaction.quantity # item stock is sufficient 
-              # detail transaction logic here  
-              if @item.change_stock(-1 * @transaction.quantity) # decrease transaction's quantity from item's stock and save
-                flash[:success] = "Transaction is successfully updated by buyer"
-                @transaction.status = 210
-                @transaction.save
-              else 
-                flash[:fail] = "Error occurs when buyer changes item's stock"
+            if Geocoder::Calculations.distance_between(@transaction.seller_checkin_latest, @transaction.buyer_checkin_latest,:units => :km) < 1 then
+              if @item.stock >= @transaction.quantity # item stock is sufficient 
+                # detail transaction logic here  
+                if @item.change_stock(-1 * @transaction.quantity) # decrease transaction's quantity from item's stock and save
+                  flash[:success] = "Transaction is successfully updated by buyer"
+                  @transaction.status = 210
+                  @transaction.save
+                else 
+                  flash[:danger] = "Error occurs when buyer changes item's stock"
+                  @transaction.status = 211
+                  @transaction.save
+                end
+              else
+                flash[:danger] = "Item in stock is insufficient, please choose a smaller quantity"
                 @transaction.status = 211
                 @transaction.save
               end
             else
-              flash[:fail] = "Item in stock is insufficient, please choose a smaller quantity"
-              @transaction.status = 211
+              @transaction.status = 200
+              @transaction.updated_at = Time.now
               @transaction.save
+              flash[:danger] = "Please be closer to make a deal"
             end
             render 'show'
-
           else # @transaction.status = 213, buyer declines to confirm deal
-            flash[:fail] = "Buyer declines the deal confirmation"
+            flash[:danger] = "Buyer declines the deal confirmation"
             render 'show'
           end
           
         else # @transaction.status is 121, seller rejects the purchase request, deal ends
-          flash[:fail] = "Seller declines your purchase request"
+          flash[:danger] = "Seller declines your purchase request"
           render 'show'
         end
       end

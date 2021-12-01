@@ -23,7 +23,7 @@ gem 'flatpickr', '~> 4.6.6.0'
 gem "js-routes"
 gem 'pusher'
 gem 'figaro'
-
+gem 'geocoder'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'carrierwave', '~> 0.10.0'
 gem 'webpacker', '~> 5.0'

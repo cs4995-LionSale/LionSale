@@ -3,16 +3,16 @@ class CheckinsController < ApplicationController
 
   def create
     transcation = Transaction.find_by_id(checkin_params[:transaction_id])
-    if current_user == transcation.seller then
-      @checkin = transcation.seller_checkins.build(checkin_params)
-    else
-      @checkin = transcation.buyer_checkins.build(checkin_params)
-    end
-    render json: @checkin.as_json(only: [:lat, :lng, :transaction_id, :created_at]) if @checkin.save
+    @checkin = Checkin.create!({
+      transaction_id:checkin_params[:transaction_id],
+      user_id:current_user.id,
+      lat:checkin_params[:lat],
+      lng:checkin_params[:lng]
+    })
   end
   
   private
     def checkin_params
-      params.permit(:transaction_id, :lat, :lng)
+      params.permit(:transaction_id, :user_id, :lat, :lng)
     end
 end

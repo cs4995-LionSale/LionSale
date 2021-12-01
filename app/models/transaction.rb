@@ -4,14 +4,29 @@ class Transaction < ApplicationRecord
   belongs_to :seller, class_name: 'User', foreign_key: 'seller_id'
   belongs_to :buyer, class_name: 'User', foreign_key: 'buyer_id'
 
-  has_many :seller_checkins, class_name: 'Checkin', inverse_of: 'transcation', foreign_key: 'transaction_id'
-  has_many :buyer_checkins, class_name: 'Checkin', inverse_of: 'transcation', foreign_key: 'transaction_id'
-
   validate :valid_update_range?
 
   def valid_update_range?
     return unless self.created_at != nil && self.updated_at != nil
     return self.updated_at - self.created_at >= 0
+  end
+
+  def seller_checkins
+    Checkin.where("transaction_id = ? AND user_id = ?",self.id,self.seller.id).limit(30)
+  end
+
+  def buyer_checkins
+    Checkin.where("transaction_id = ? AND user_id = ?",self.id,self.buyer.id).limit(30)
+  end
+
+  def seller_checkin_latest
+    pos = Checkin.where("transaction_id = ? AND user_id = ?",self.id,self.seller.id).order("created_at").last
+    return [pos[:lat],pos[:lng]]
+  end
+
+  def buyer_checkin_latest
+    pos = Checkin.where("transaction_id = ? AND user_id = ?",self.id,self.buyer.id).order("created_at").last
+    return [pos[:lat],pos[:lng]]
   end
 
   def as_json(options={})
