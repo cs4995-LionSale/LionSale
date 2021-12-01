@@ -192,7 +192,7 @@ items[4].photos.attach(
     io: File.open('db/seeds/5_amos_bow-1.png'),
     filename: '5_amos_bow-1.png' 
 )
-transactions = Transaction.create([
+transactions = Transaction.create!([
     {
         item:items[3],
         seller:users[2],
@@ -233,7 +233,7 @@ transactions = Transaction.create([
         seller_rating: nil
     }
 ])
-messages = Message.create([
+messages = Message.create!([
     {
         from:users[3],
         to:users[2],
