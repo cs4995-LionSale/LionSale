@@ -40,7 +40,9 @@
         <strong><%= item.stock %></strong> items avaliable
         <% end %>
         </p>
+        <% if item.created_at %>
         <time>On shelf at: <%= item.created_at.strftime("%l:%M %p - %b %e %Y")%></time>
+        <% end %>
     </div>
     </div>
     <footer class="card-footer">

@@ -150,7 +150,7 @@
         <div class="media-content">
             <div class="content">
             <p class="black" >
-                <strong>From: <%= msg.from.username %></strong> <small>To: <%= msg.to.username %></small> <small><%= msg.created_at.strftime("%l:%M %p - %b %e %Y") %></small>
+                <strong>From: <%= msg.from.username %></strong> <small>To: <%= msg.to.username %></small> <% if msg.created_at %> <small><%= msg.created_at.strftime("%l:%M %p - %b %e %Y") %></small> <% end %>
                 <br>
                 <%= raw msg.content %>
             </p>
