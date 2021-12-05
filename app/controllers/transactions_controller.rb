@@ -35,91 +35,104 @@ class TransactionsController < ApplicationController
     @transaction.deal_price = @transaction.quantity * @item.price
     @transaction.expected_deal_time = transaction_params[:expected_deal_time]
     @transaction.save
-    flash[:success] = "Transaction successfully created!"
+    if @item.status == 0 && @item.stock >= @transaction.quantity 
+      @item.change_stock(-1 * @transaction.quantity, 0)  # stage 0 is at create transaction, stage 1 is at update transaction
+      flash[:success] = "Transaction successfully created!"  
+    else
+      flash[:fail] = "Transaction creation fails due to insufficient stock"
+    end
+    
     render 'show'
   end
 
   # PATCH/PUT /transactions/1 or /transactions/1.json
   def update
-    # @transaction.update(:item_id => transaction_params[:item_id], :seller_id => transaction_params[:seller_id], :buyer_id => transaction_params[:buyer_id], 
-    #   :expected_deal_time => transaction_params[:expected_deal_time], :real_deal_time => transaction_params[:real_deal_time], :deal_address => transaction_params[:deal_address], 
-    #   :deal_price => transaction_params[:deal_price], :status => transaction_params[:status], :seller_rating => transaction_params[:seller_rating], :buyer_rating => transaction_params[:buyer_rating], 
-    #   :quantity => transaction_params[:quantity])
-      
-
-      if current_user == @transaction.seller # current user is seller
-        if @transaction.status == 110 # buyer successfully create purchase request
-          @transaction.status = params[:status]
+    @item = Item.find(@transaction.item_id)
+    if current_user == @transaction.seller # current user is seller
+      if @transaction.status == 110 # buyer successfully create purchase request
+        @transaction.status = params[:status]
+        @transaction.save
+        if (@transaction.status == 120) # seller agrees the purchase request
+          @transaction.status = 200 # system passes seller's agreement of purchase request, wait for deal confirm
           @transaction.save
-          if (@transaction.status == 120) # seller agrees the purchase request
-            @transaction.status = 200 # system passes seller's agreement of purchase request, wait for deal confirm
-            @transaction.save
-            flash[:success] = "Seller agrees the purchase request"
-            render 'show'
-          else # seller rejects the purchase request
-            @transaction.status = 121 # consequently seller rejects purchase request
-            @transaction.save
-            flash[:fail] = "Seller rejects the purchase request"
-            render 'show'
-          end
-        elsif @transaction.status == 210 # buyer successfully confirm deal
-          @transaction.status = params[:status]
-          @transaction.save
-          if @transaction.status == 220 # seller confirms buyer's deal confirm 
-            flash[:success] = "Transaction is successfully confirmed by seller"
-            @transaction.real_deal_time = Time.now
-            @transaction.status = 0
-            @transaction.seller_rating = params[:seller_rating]
-            @transaction.save
-          else #transaction.status == 222, seller cancels buyer's deal confirm
-            flash[:fail] = "Transaction is cancelled by seller"
-          end
+          flash[:success] = "Seller agrees the purchase request"
           render 'show'
-        else # @transaction.status is 112 due to buyer's cancellation
-          flash[:fail] = "Buyer cancells purchase request"
+        else # seller rejects the purchase request
+          @transaction.status = 121 # consequently seller rejects purchase request
+          @transaction.save
+          @item.stock += @transaction.quantity
+          @item.status = @item.stock > 0 ? 0 : 20
+          @item.save
+          flash[:fail] = "Seller rejects the purchase request"
           render 'show'
         end
-      else # current user is buyer
-        @item = Item.find(@transaction.item_id)
-        if @transaction.status == 110   # purchase request is waiting for response, the only button for buyer now is cancel it          
-          @transaction.status = params[:status]
+      elsif @transaction.status == 210 # buyer successfully confirm deal
+        @transaction.status = params[:status]
+        @transaction.save
+        if @transaction.status == 220 # seller confirms buyer's deal confirm 
+          flash[:success] = "Transaction is successfully confirmed by seller"
+          @transaction.real_deal_time = Time.now
+          @transaction.status = 0
+          @transaction.seller_rating = params[:seller_rating]
           @transaction.save
-          flash[:success] = "Purchase request is cancelled by buyer"
-          render 'show'
-        elsif @transaction.status == 200 # seller agrees the purchase request and wait for deal confirm
-          @transaction.status = params[:status]
-          @transaction.save
-          if @transaction.status == 201 # buyer confirm deal
-            if @item.stock >= @transaction.quantity # item stock is sufficient 
-              # detail transaction logic here  
-              if @item.change_stock(-1 * @transaction.quantity) # decrease transaction's quantity from item's stock and save
-                flash[:success] = "Transaction is successfully updated by buyer"
-                @transaction.status = 210
-                @transaction.buyer_rating = params[:buyer_rating]
-                @transaction.save
-              else 
-                flash[:fail] = "Error occurs when buyer changes item's stock"
-                @transaction.status = 211
-                @transaction.save
-              end
-            else
-              flash[:fail] = "Item in stock is insufficient, please choose a smaller quantity"
+        else #transaction.status == 222, seller cancels buyer's deal confirm
+          @item.stock += @transaction.quantity
+          @item.status = @item.stock > 0 ? 0 : 20
+          @item.save
+          flash[:fail] = "Transaction is cancelled by seller"
+        end
+        render 'show'
+      else # @transaction.status is 112 due to buyer's cancellation
+        flash[:fail] = "Buyer cancells purchase request"
+        render 'show'
+      end
+    else # current user is buyer
+      if @transaction.status == 110   # purchase request is waiting for response, the only button for buyer now is cancel it          
+        @transaction.status = params[:status]
+        @transaction.save
+        @item.stock += @transaction.quantity
+        @item.status = @item.stock > 0 ? 0 : 20
+        @item.save
+        flash[:success] = "Purchase request is cancelled by buyer"
+        render 'show'
+      elsif @transaction.status == 200 # seller agrees the purchase request and wait for deal confirm
+        @transaction.status = params[:status]
+        @transaction.save
+        if @transaction.status == 201 # buyer confirm deal
+          if @item.stock >= @transaction.quantity # item stock is sufficient 
+            # decrease transaction's quantity from item's stock and save, @item.change_stock(-1 * @transaction.quantity, 0), 
+            # stage 0 is at create transaction, stage 1 is at update transaction 
+            if @item.change_stock(-1 * @transaction.quantity, 1) 
+              flash[:success] = "Transaction is successfully updated by buyer"
+              @transaction.status = 210
+              @transaction.buyer_rating = params[:buyer_rating]
+              @transaction.save
+            else 
+              flash[:fail] = "Error occurs when buyer changes confirms deal"
               @transaction.status = 211
               @transaction.save
             end
-            render 'show'
-
-          else # @transaction.status = 212, buyer cancels deal
-            flash[:fail] = "Buyer cancels the deal confirmation"
-            render 'show'
+          else
+            flash[:fail] = "Item in stock is insufficient, please choose a smaller quantity"
+            @transaction.status = 211
+            @transaction.save
           end
-          
-        else # @transaction.status is 121, seller rejects the purchase request, deal ends
-          flash[:fail] = "Seller declines your purchase request"
-          byebug
+          render 'show'
+
+        else # @transaction.status = 212, buyer cancels deal
+          @item.stock += @transaction.quantity
+          @item.status = @item.stock > 0 ? 0 : 20
+          @item.save
+          flash[:fail] = "Buyer cancels the deal confirmation"
           render 'show'
         end
+        
+      else # @transaction.status is 121, seller rejects the purchase request, deal ends
+        flash[:fail] = "Seller declines your purchase request"
+        byebug
+        render 'show'
       end
+    end
 
   end
 
