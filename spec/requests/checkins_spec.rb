@@ -1,15 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe "Checkins", type: :request do
-  let(:valid_attributes) {
-    # skip("Add a hash of attributes valid for your model")
-    {
-      transaction_id:1,
-      user_id:1,
-      lat:1,
-      lng:1      
-    }
-  }
+  # let(:valid_attributes) {
+  #   # skip("Add a hash of attributes valid for your model")
+  #   {
+  #     transaction_id:1,
+  #     lat:1,
+  #     lng:1      
+  #   }
+  # }
   let(:uvalid_attributes) {
     # skip("Add a hash of attributes valid for your model")
     {
@@ -31,8 +30,12 @@ RSpec.describe "Checkins", type: :request do
       post login_url(), params: { email: "email@columbia.edu", password: "Password Digest",remember_me:"0" }
       
       # post login_url(), params: { email: User.find(1).email, password: User.find(1).password,remember_me:"0" }
-        
-      post checkins_url, params: {checkin_params:valid_attributes}
+      # puts(Transaction.find_by_id(1).deal_address)
+      post checkins_url, params: {
+        transaction_id:1,
+        lat:1,
+        lng:1      
+      }
       # puts(response.body)
       expect(response).to be_successful
     end

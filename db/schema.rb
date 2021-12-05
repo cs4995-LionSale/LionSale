@@ -49,12 +49,14 @@ ActiveRecord::Schema.define(version: 2021_12_05_002543) do
   end
 
   create_table "checkins", force: :cascade do |t|
-    t.integer "transcation_id", null: false
+    t.integer "transaction_id", null: false
+    t.integer "user_id", null: false
     t.decimal "lat"
     t.decimal "lng"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["transcation_id"], name: "index_checkins_on_transcation_id"
+    t.index ["transaction_id"], name: "index_checkins_on_transaction_id"
+    t.index ["user_id"], name: "index_checkins_on_user_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -129,15 +131,16 @@ ActiveRecord::Schema.define(version: 2021_12_05_002543) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "categories", "categories", column: "parent_category_id"
-  add_foreign_key "checkins", "transcations"
+  add_foreign_key "checkins", "transactions"
+  add_foreign_key "checkins", "users"
   add_foreign_key "items", "categories"
   add_foreign_key "items", "users", column: "seller_id"
   add_foreign_key "likeditems", "items"
   add_foreign_key "likeditems", "users"
+  add_foreign_key "messages", "items"
   add_foreign_key "messages", "users", column: "from_id"
-  add_foreign_key "messages", "users", column: "item_id"
   add_foreign_key "messages", "users", column: "to_id"
+  add_foreign_key "transactions", "items"
   add_foreign_key "transactions", "users", column: "buyer_id"
-  add_foreign_key "transactions", "users", column: "item_id"
   add_foreign_key "transactions", "users", column: "seller_id"
 end

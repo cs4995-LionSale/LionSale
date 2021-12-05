@@ -30,10 +30,10 @@ RSpec.describe "Likeditems", type: :request do
       #   seller_id: 6,
       #   price: 11,
       #   category_id: 1} }
-      puts(Item.find(1).title)
+      # puts(Item.find(1).title)
 
       post "/likeditems", params: {likeditem: valid_attributes}
-      expect(response).to have_http_status(:success)
+      expect(response).to have_http_status(:redirect)
     end
   end
 
@@ -49,7 +49,7 @@ RSpec.describe "Likeditems", type: :request do
 
       post "/likeditems", params: {likeditem: valid_attributes}
       delete "/likeditems/1", params: {item_id: 1}
-      expect(response).to have_http_status(:success)
+      expect(response).to have_http_status(:redirect)
     end
   end
 
