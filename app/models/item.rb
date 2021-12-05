@@ -12,14 +12,28 @@ class Item < ApplicationRecord
   validates :description, length: { maximum: 65535 }
   validates :price, presence: true
   
-  def change_stock(quantity)
-    if (self.stock == 0) #in that case number should be positive to add stock, and status should be set to allow sell
-      self.status = 0
-    end  
-    self.stock += quantity
-    if (self.stock == 0) # change status of item if out of stock
-      self.status = 20
+  def change_stock(quantity, stage)
+    if stage == 0  # create transaction stage 
+      if self.stock + quantity == 0
+        self.status = 10
+      end
+      self.stock += quantity
+    else  
+      # confirm transaction stage, since transaction's stock has been decreased at creat stage,
+      # at current stage, just check if the remain item stock is non negative, if not, the transaction
+      # can not be finished and its quantity should be returned to item stock
+      if self.stock == 0
+        self.status = 20
+      elsif self.stock < 0  
+        # this occurs when other buyer create transaction at the same time and finishes earlier
+        # the current transaction can not be finished, the quantity should be returned to stock
+        self.stock -= quantity
+        self.status = self.stock > 0 ? 0 : 20
+        self.save
+        return false
+      end     
     end
+
     return self.save
   end
 end
