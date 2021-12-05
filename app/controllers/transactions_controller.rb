@@ -99,27 +99,21 @@ class TransactionsController < ApplicationController
         @transaction.status = params[:status]
         @transaction.save
         if @transaction.status == 201 # buyer confirm deal
-          if @item.stock >= @transaction.quantity # item stock is sufficient 
             # decrease transaction's quantity from item's stock and save, @item.change_stock(-1 * @transaction.quantity, 0), 
             # stage 0 is at create transaction, stage 1 is at update transaction 
-            if @item.change_stock(-1 * @transaction.quantity, 1) 
-              flash[:success] = "Transaction is successfully updated by buyer"
-              @transaction.status = 210
-              @transaction.buyer_rating = params[:buyer_rating]
-              @transaction.save
-            else 
-              flash[:fail] = "Error occurs when buyer changes confirms deal"
-              @transaction.status = 211
-              @transaction.save
-            end
-          else
-            flash[:fail] = "Item in stock is insufficient, please choose a smaller quantity"
+          if @item.change_stock(-1 * @transaction.quantity, 1) 
+            flash[:success] = "Transaction is successfully updated by buyer"
+            @transaction.status = 210
+            @transaction.buyer_rating = params[:buyer_rating]
+            @transaction.save
+          else 
+            flash[:fail] = "Error occurs when buyer changes confirms deal"
             @transaction.status = 211
             @transaction.save
           end
           render 'show'
 
-        else # @transaction.status = 212, buyer cancels deal
+        else # @transaction.status = 213, buyer cancels deal confirmation
           @item.stock += @transaction.quantity
           @item.status = @item.stock > 0 ? 0 : 20
           @item.save
@@ -129,7 +123,6 @@ class TransactionsController < ApplicationController
         
       else # @transaction.status is 121, seller rejects the purchase request, deal ends
         flash[:fail] = "Seller declines your purchase request"
-        byebug
         render 'show'
       end
     end
