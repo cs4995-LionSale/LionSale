@@ -26,14 +26,14 @@ class LikeditemsController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_likeditem
-      @likeditem = Likeditem.find(params[:id])
-    end
+  # private
+  #   # Use callbacks to share common setup or constraints between actions.
+  #   def set_likeditem
+  #     @likeditem = Likeditem.find(params[:id])
+  #   end
 
-    # Only allow a list of trusted parameters through.
-    def likeditem_params
-      params.require(:likeditem).permit(:item_id)    
-    end
+  #   # Only allow a list of trusted parameters through.
+  #   def likeditem_params
+  #     params.require(:likeditem).permit(:item_id)    
+  #   end
 end
