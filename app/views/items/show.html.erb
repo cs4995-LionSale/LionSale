@@ -100,7 +100,6 @@
             <%= link_to '<span class="icon is-small"><i class="fa fa-paper-plane"></i></span><span>Message Seller</span>'.html_safe, new_message_path(from_id:current_user.id,to_id:@item.seller.id,item_id:@item.id),class:"button is-primary"%>
             </p>
             <p class="control">
-            <% debugger %>
             <% if @item.is_liked?(current_user) %>
             <%= button_to(likeditem_path(item_id:@item.id), method: :delete, class:"button is-danger",data: {confirm: "Are you sure you don't want to like this item anymore?" }) do %>
               <span class="icon is-small"><i class="fa fa-heart"></i></span><span>Cancel Like</span>
