@@ -33,7 +33,7 @@ RSpec.describe "/transactions", type: :request do
   let(:transaction_valid_attributes) {
     # skip("Add a hash of attributes valid for your model")
     {      
-      item_id: 3, 
+      item_id: 1, 
       seller_id: 1, 
       buyer_id: 2, 
       expected_deal_time: Time.now + 2.days,
@@ -90,49 +90,89 @@ RSpec.describe "/transactions", type: :request do
         post transactions_url, params: { item_id:3,transaction: transaction_valid_attributes }
       }.to change(Transaction, :count).by(1)
     end
+
+    it "creates a new Transaction" do
+      user = User.create! valid_attributes
+      post login_url(), params: { email: "email@columbia.edu", password: "Password Digest",remember_me:"0" }
+      expect {
+        post transactions_url, params: { item_id:1,transaction: transaction_valid_attributes }
+      }.to change(Transaction, :count).by(1)
+    end
   end
 
   describe "PATCH /update" do
     context "with valid parameters" do
       it "updates the requested transaction" do
-        # user = User.create! valid_attributes
         post login_url(), params: { email: User.find(1).email, password: User.find(1).password,remember_me:"0" }
-        post items_url, params: { item: {title: "book",
-                  description: "CS book",
-                  seller_id: 6,
-                  price: 11,
-                  category_id: 1} }
-        # puts("dddddd")
-        # puts(Item.where(title: "book")[0].id)
-        # puts(User.where(title: "book")[0].id)
-        # puts(Item.find(1).seller_id)
-        # puts("dddddd")
-        new_attributes = {          
-            item_id: 1, 
-            seller_id: 1, 
-            buyer_id: 2, 
-            expected_deal_time: Time.now + 2.days,
-            real_deal_time: nil,
-            deal_address: "157 Amber Ave., Mondstadt",
-            deal_price: 19.99,
-            status: 200,
-            buyer_rating: nil,
-            seller_rating: nil,
-            quantity: 1          
-        }
-        
-        post transactions_url, params: { item_id:1,transaction: new_attributes }
-        # puts(Transaction.find(1).seller.id)
-        # puts(User.find(1).email)
-        # put transaction_path(1), params: { status: 120 }
-        # expect(response).to be_successful
-      
-
-        # transaction = Transaction.create! valid_attributes
-        # patch transaction_url(transaction), params: { transaction: new_attributes }
-        # transaction.reload
-        # skip("Add assertions for updated state")
       end
+
+      it "updates when current user is seller" do
+        post login_url(), params: { email: "hu_tao@example.com", password: "HuTaoPassword",remember_me:"0" }
+        
+        # patch "/transactions/1", params: {transaction: new_attributes }
+        patch "/transactions/1", params: {status: 120,seller_rating:5,buyer_rating:5}
+        expect(response).to be_successful
+      end
+
+      it "updates when current user is buyer" do
+        #user 3 id 4
+        #buyer 200 - 201
+        post login_url(), params: { email: "amber@example.com", password: "AmberPassword",remember_me:"0" }
+
+        patch "/transactions/1", params: {status: 201,seller_rating:5,buyer_rating:5}
+        expect(response).to be_successful
+      end
+
+      it "updates when current user is buyer" do
+        #user 3 id 4
+        #buyer 200 - 213
+        post login_url(), params: { email: "amber@example.com", password: "AmberPassword",remember_me:"0" }
+        patch "/transactions/1", params: {status: 213,seller_rating:5,buyer_rating:5}
+        expect(response).to be_successful
+      end
+
+      it "updates when current user is buyer" do
+        #213
+        post login_url(), params: { email: "amber@example.com", password: "AmberPassword",remember_me:"0" }
+        patch "/transactions/4", params: {status: 201,seller_rating:5,buyer_rating:5}
+        expect(response).to be_successful
+      end
+
+      it "updates when current user is seller" do
+        #seller 110-120
+        post login_url(), params: { email: "hu_tao@example.com", password: "HuTaoPassword",remember_me:"0" }
+        patch "/transactions/5", params: {status: 120,seller_rating:5,buyer_rating:5}
+        expect(response).to be_successful
+      end
+
+      it "updates when current user is seller" do
+        #seller 110-121
+        post login_url(), params: { email: "hu_tao@example.com", password: "HuTaoPassword",remember_me:"0" }
+        patch "/transactions/5", params: {status: 121,seller_rating:5,buyer_rating:5}
+        expect(response).to be_successful
+      end
+
+      it "updates when current user is buyer" do
+        #buyer 110-121
+        post login_url(), params: { email: "amber@example.com", password: "AmberPassword",remember_me:"0" }
+        patch "/transactions/5", params: {status: 121,seller_rating:5,buyer_rating:5}
+        expect(response).to be_successful
+      end
+
+      it "updates when current user is seller" do
+        #seller 210-220
+        post login_url(), params: { email: "hu_tao@example.com", password: "HuTaoPassword",remember_me:"0" }
+        patch "/transactions/6", params: {status: 220,seller_rating:5,buyer_rating:5}
+        expect(response).to be_successful
+      end
+
+      it "updates when current user is seller" do
+        #seller 210-222
+        post login_url(), params: { email: "hu_tao@example.com", password: "HuTaoPassword",remember_me:"0" }
+        patch "/transactions/6", params: {status: 222,seller_rating:5,buyer_rating:5}
+        expect(response).to be_successful
+      end
+
 
       # it "redirects to the transaction" do
       #   transaction = Transaction.create! valid_attributes

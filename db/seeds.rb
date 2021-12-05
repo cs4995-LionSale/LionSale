@@ -231,6 +231,45 @@ transactions = Transaction.create!([
         status: 122,
         buyer_rating: nil,
         seller_rating: nil
+    },
+    {
+        item:items[0],
+        seller:users[2],
+        buyer:users[3],
+        expected_deal_time: Time.now - 200.days,
+        real_deal_time: Time.now - 199.days,
+        deal_address: "amsterdam",
+        deal_price: 0.99,
+        quantity: 1,
+        status: 213,
+        buyer_rating: nil,
+        seller_rating: nil
+    },
+    {
+        item:items[3],
+        seller:users[2],
+        buyer:users[3],
+        expected_deal_time: Time.now - 200.days,
+        real_deal_time: Time.now - 199.days,
+        deal_address: "amsterdam",
+        deal_price: 0.99,
+        quantity: 1,
+        status: 110,
+        buyer_rating: nil,
+        seller_rating: nil
+    },
+    {
+        item:items[3],
+        seller:users[2],
+        buyer:users[3],
+        expected_deal_time: Time.now - 200.days,
+        real_deal_time: Time.now - 199.days,
+        deal_address: "amsterdam",
+        deal_price: 0.99,
+        quantity: 1,
+        status: 210,
+        buyer_rating: nil,
+        seller_rating: nil
     }
 ])
 messages = Message.create!([

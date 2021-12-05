@@ -21,12 +21,12 @@ class Transaction < ApplicationRecord
 
   def seller_checkin_latest
     pos = Checkin.where("transaction_id = ? AND user_id = ?",self.id,self.seller.id).order("created_at").last
-    return [pos[:lat],pos[:lng]]
+    return pos ? [pos[:lat],pos[:lng]] : nil
   end
 
   def buyer_checkin_latest
     pos = Checkin.where("transaction_id = ? AND user_id = ?",self.id,self.buyer.id).order("created_at").last
-    return [pos[:lat],pos[:lng]]
+    return pos ? [pos[:lat],pos[:lng]] : nil
   end
 
   def as_json(options={})
