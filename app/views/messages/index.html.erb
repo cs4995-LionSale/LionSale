@@ -57,13 +57,16 @@
                       <div class="swiper-button-prev"id="message_swiper_prev"></div>
                       <div class="swiper-button-next" id="message_swiper_next"></div>
                   </div>
+                  <p class="control">
+                    <a href="#" class="button is-primary" id="reply_button" hidden ><span class="icon is-small"><i class="fa fa-paper-plane"></i></span><span>Reply</span></a>
+                  </p>
             </div>
         </div>
     </div>
   </div>
 </section>
 <script>
-const swiper = new Swiper('#message_swiper', {
+let swiper = new Swiper('#message_swiper', {
         // Optional parameters
         direction: 'horizontal',
         loop: false,
@@ -87,6 +90,7 @@ $(".card").click(function () {
     url:window.Routes.message_path(id,{format: 'json'}),
     dataType:"json",
     success:function(result){
+      console.log(result)
       $('#message-pane').removeClass('is-hidden');
       $(this).removeClass('active');
       $('#msg-card_' + id).addClass('active');
@@ -96,14 +100,18 @@ $(".card").click(function () {
       $('#to_avatar').attr("src",result.to.avatar_url);
       $('#to_username').text(result.to.username);
       $('#to_email').text(result.to.email);
+      $('#reply_button').attr("hidden",true);
+      if (result.to.to_id == parseInt('<%= current_user.id %>')) {
+         $('#reply_button').removeAttr('hidden');
+         $('#reply_button').attr("href", window.Routes.new_message_path({from_id:'<%= current_user.id %>',to_id:result.from.from_id,item_id:result.item.item_id}));
+      }
       $('.message .content').html(result.content);
-      $('#message_swiper').prop("hidden");
+      $('#message_swiper').attr("hidden",true);
       $('div.photos_preview').empty();
       for (const key in result.attachments) {
         $('#message_swiper').removeAttr('hidden');
         $($.parseHTML('<div>')).attr("class","swiper-slide image is-16by9").append($($.parseHTML('<img>')).attr('src', result.attachments[key]['url']).attr("class","img-fluid")).appendTo('div.photos_preview');
       }
-      
     }
   })
 });

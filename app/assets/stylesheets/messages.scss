@@ -2,7 +2,28 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
+  .messages {
+    overflow-y: scroll;
+    height: 60vh
+  }
 
+  .messages::-webkit-scrollbar-track {
+    border: 1px solid transparent;
+    padding: 2px 0;
+    background-color: transparent;
+  }
+  
+  .messages::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  .messages::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba(127,128,255,.3);
+    background-color: #66ccff;
+    border: 1px solid #66ccff;
+  }
+  
   .message {
     background-color: transparent !important;
   }
@@ -72,3 +93,4 @@
   .media {
     margin: 2%;
   }
+  
