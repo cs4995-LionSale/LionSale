@@ -525,6 +525,22 @@ export const categories_path = __jsr.r({"format":{}}, [2,[7,"/"],[2,[6,"categori
 
 /**
  * Generates rails route to
+ * /checkins(.:format)
+ * @param {object | undefined} options
+ * @returns {string} route path
+ */
+export const checkins_path = __jsr.r({"format":{}}, [2,[7,"/"],[2,[6,"checkins"],[1,[2,[8,"."],[3,"format"]]]]]);
+
+/**
+ * Generates rails route to
+ * /checkins/create(.:format)
+ * @param {object | undefined} options
+ * @returns {string} route path
+ */
+export const checkins_create_path = __jsr.r({"format":{}}, [2,[7,"/"],[2,[6,"checkins"],[2,[7,"/"],[2,[6,"create"],[1,[2,[8,"."],[3,"format"]]]]]]]);
+
+/**
+ * Generates rails route to
  * /items/:id/edit(.:format)
  * @param {any} id
  * @param {object | undefined} options

@@ -6,39 +6,145 @@
   <div class="container">
       <div class="columns">
       <div class="column is-6">
-        <% if @transaction.item.photos.attached? %>
-          <div class="swiper" id="item_swiper">
-            <div class="swiper-wrapper">
-            <% @transaction.item.photos.each do |image| %>
-            <div class="swiper-slide image is-16by9"><%= image_tag(image, class:"img-fluid") %></div>
-            <% end %>
-            </div>
-            <div class="swiper-pagination" id="item_swiper_pagination"></div>
-            <div class="swiper-button-prev"id="item_swiper_prev"></div>
-            <div class="swiper-button-next" id="item_swiper_next"></div>
-          </div>
+      <% if @transaction.status == 200 or @transaction.status == 210 %>
+        <div id="map"></div>
         <script>
-        const swiper = new Swiper('#item_swiper', {
-          // Optional parameters
-          direction: 'horizontal',
-          loop: true,
+        $(document).ready(function() {
+            const transaction_id = '<%= @transaction.id %>';
+            let startingPoint = {};
+            const updateCurrentLocation = function(checkinData, id) {
+              const token = $('meta[name="csrf-token"]').attr('content');
+              $.ajax({
+                url: window.Routes.checkins_path(),
+                type: 'post',
+                beforeSend: function(xhr) {
+                  xhr.setRequestHeader('X-CSRF-Token', token);
+                },
+                data: {
+                  transaction_id: transaction_id,
+                  lat: checkinData.lat,
+                  lng: checkinData.lng
+                },
+                success: function(response) {
+                  setTimeout(getCurrentLocation, 60000);
+                }
+              });
+            };
 
-          // If we need pagination
-          pagination: {
-            el: '#item_swiper_pagination',
-          },
-
-          // Navigation arrows
-          navigation: {
-            nextEl: '#item_swiper_next',
-            prevEl: '#item_swiper_prev',
-          },
-        });
+            const getCurrentLocation = function() {
+              navigator.geolocation.getCurrentPosition(function(position) {
+                const data = {
+                  lat: position.coords.latitude,
+                  lng: position.coords.longitude
+                };
+                return updateCurrentLocation(data, transaction_id);
+              });
+            };
+            const makeNum = function(arr) {
+              arr.forEach(function(arr) {
+                arr.lat = Number(arr.lat);
+                arr.lng = Number(arr.lng);
+              });
+              return arr;
+            };
+            
+            const initMap = function() {
+              navigator.geolocation.getCurrentPosition(function(position) {
+                startingPoint = {
+                  lat: position.coords.latitude,
+                  lng: position.coords.longitude
+                };
+                const map = new google.maps.Map(document.getElementById('map'), {
+                  zoom: 18,
+                  center: startingPoint
+                });
+              });
+              getCurrentLocation();
+            };
+            const updateMap = function(sellerCheckin,buyerCheckin) {
+              const lastSellerCheckin = sellerCheckin[sellerCheckin.length - 1];
+              const lastBuyerCheckin = buyerCheckin[buyerCheckin.length - 1];
+              let center = {
+                lat: startingPoint.lat,
+                lng: startingPoint.lng
+              };
+              let map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 18,
+                center: center
+              });
+              let sellerMarker = new google.maps.Marker({
+                position: lastSellerCheckin,
+                label: "S",
+                map: map
+              });
+              let buyerMarker = new google.maps.Marker({
+                position: lastBuyerCheckin,
+                label: "B",
+                map: map
+              });
+              let sellerFlightPath = new google.maps.Polyline({
+                path: sellerCheckin,
+                strokeColor: '#FF0000',
+                strokeOpacity: 1.0,
+                strokeWeight: 2
+              });
+              sellerFlightPath.setMap(map);
+              let buyerFlightPath = new google.maps.Polyline({
+                path: buyerCheckin,
+                strokeColor: '#0000FF',
+                strokeOpacity: 1.0,
+                strokeWeight: 2
+              });
+              buyerFlightPath.setMap(map);           
+            };
+            
+            initMap();
+            pusher = new Pusher('<%= ENV["PUSHER_KEY"] %>', {
+              cluster: '<%= ENV["PUSHER_CLUSTER"] %>',
+              encrypted: true
+            });
+            channel = pusher.subscribe('location');
+            channel.bind('new', function(data) {
+              console.log(data);
+              updateMap(makeNum(data.seller_checkins),makeNum(data.buyer_checkins));
+            })
+          });
         </script>
       <% else %>
-        <div class="image is-16by9">
-            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
-        </div>
+        <% if @transaction.item.photos.attached? %>
+            <div class="swiper" id="item_swiper">
+              <div class="swiper-wrapper">
+              <% @transaction.item.photos.each do |image| %>
+              <div class="swiper-slide image is-16by9"><%= image_tag(image, class:"img-fluid") %></div>
+              <% end %>
+              </div>
+              <div class="swiper-pagination" id="item_swiper_pagination"></div>
+              <div class="swiper-button-prev"id="item_swiper_prev"></div>
+              <div class="swiper-button-next" id="item_swiper_next"></div>
+            </div>
+          <script>
+          const swiper = new Swiper('#item_swiper', {
+            // Optional parameters
+            direction: 'horizontal',
+            loop: true,
+
+            // If we need pagination
+            pagination: {
+              el: '#item_swiper_pagination',
+            },
+
+            // Navigation arrows
+            navigation: {
+              nextEl: '#item_swiper_next',
+              prevEl: '#item_swiper_prev',
+            },
+          });
+          </script>
+        <% else %>
+          <div class="image is-16by9">
+              <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+          </div>
+        <% end %>
       <% end %>
       </div>
       <div class="column">
@@ -137,17 +243,25 @@
                       });
                       $("#confirm_deal_buyer").click(function () {
                           $(this).addClass("is-disabled")
-                          $.ajax({
-                            url: window.Routes.transaction_path('<%= @transaction.id %>'),
-                            type: 'PUT',
-                            data: {
-                              "buyer_rating": myRate,
-                              "status":201
-                            },
-                            success: function(data) {
-                              alert('Deal confirmed.');
-                            }
+                          navigator.geolocation.getCurrentPosition(function(position) {
+                            const point = {
+                              lat: position.coords.latitude,
+                              lng: position.coords.longitude
+                            };
+                            $.ajax({
+                              url: window.Routes.transaction_path('<%= @transaction.id %>'),
+                              type: 'PUT',
+                              data: {
+                                "buyer_rating": myRate,
+                                "status":201,
+                                
+                              },
+                              success: function(data) {
+                                location.reload();
+                              }
+                            });
                           });
+                          
                       });
                   });
                   
@@ -221,7 +335,7 @@
                               "status":220
                             },
                             success: function(data) {
-                              alert('Deal confirmed.');
+                              location.reload();
                             }
                           });
                       });

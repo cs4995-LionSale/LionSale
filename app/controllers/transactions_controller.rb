@@ -70,11 +70,17 @@ class TransactionsController < ApplicationController
         @transaction.status = params[:status]
         @transaction.save
         if @transaction.status == 220 # seller confirms buyer's deal confirm 
-          flash[:success] = "Transaction is successfully confirmed by seller"
-          @transaction.real_deal_time = Time.now
-          @transaction.status = 0
-          @transaction.seller_rating = params[:seller_rating]
-          @transaction.save
+          if Geocoder::Calculations.distance_between(@transaction.seller_checkin_latest, @transaction.buyer_checkin_latest,:units => :km) < 1 then
+            flash[:success] = "Transaction is successfully confirmed by seller"
+            @transaction.real_deal_time = Time.now
+            @transaction.status = 0
+            @transaction.seller_rating = params[:seller_rating]
+            @transaction.save
+          else
+            flash[:danger] = "Please be closer to make a deal"
+            @transaction.status = 210
+            @transaction.save
+          end
         else #transaction.status == 222, seller cancels buyer's deal confirm
           @item.stock += @transaction.quantity
           @item.status = @item.stock > 0 ? 0 : 20
@@ -99,16 +105,22 @@ class TransactionsController < ApplicationController
         @transaction.status = params[:status]
         @transaction.save
         if @transaction.status == 201 # buyer confirm deal
+          if Geocoder::Calculations.distance_between(@transaction.seller_checkin_latest, @transaction.buyer_checkin_latest,:units => :km) < 1 then
             # decrease transaction's quantity from item's stock and save, @item.change_stock(-1 * @transaction.quantity, 0), 
             # stage 0 is at create transaction, stage 1 is at update transaction 
-          if @item.change_stock(-1 * @transaction.quantity, 1) 
-            flash[:success] = "Transaction is successfully updated by buyer"
-            @transaction.status = 210
-            @transaction.buyer_rating = params[:buyer_rating]
-            @transaction.save
-          else 
-            flash[:fail] = "Error occurs when buyer changes confirms deal"
-            @transaction.status = 211
+            if @item.change_stock(-1 * @transaction.quantity, 1) 
+              flash[:success] = "Transaction is successfully updated by buyer"
+              @transaction.status = 210
+              @transaction.buyer_rating = params[:buyer_rating]
+              @transaction.save
+            else 
+              flash[:fail] = "Error occurs when buyer changes confirms deal"
+              @transaction.status = 211
+              @transaction.save
+            end
+          else
+            flash[:danger] = "Please be closer to make a deal"
+            @transaction.status = 200
             @transaction.save
           end
           render 'show'

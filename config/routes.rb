@@ -4,8 +4,9 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :edit, :update, :destroy]
   resources :transactions, only: [:index, :new, :create, :show, :update, :destroy]
   resources :categories, only: [:index]
-  resources :checkins, only: [:create]
+  resources :checkins, only: [ :create]
   resources :likeditems, only: [:create,:destroy]
+
   root 'static_pages#home'
   get 'home' => 'static_pages#home'
   get 'about' => 'static_pages#about'
