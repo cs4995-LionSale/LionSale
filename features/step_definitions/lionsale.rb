@@ -89,6 +89,15 @@ Then /^I should be on the profile (.*)$/ do |page_name|
   end
 end
 
+Then /^I should be on the items (.*)$/ do |page_name|
+  current_path = URI.parse(current_url).path
+  if current_path.respond_to? :should
+    current_path.should == '/items'
+  else
+    assert_equal about_path(), current_path
+  end
+end
+
 Given /^I have filled info and signed up as "([^"]*)"$/ do |email|
   visit(signup_path)
   fill_in('user_email', :with => email)
@@ -184,10 +193,11 @@ Then /^I goto update item$/ do
 end
 
 Then /^I goto my transactions$/ do
-  # page.find('#nav-dropdown').click
-  # Capybara.ignore_hidden_elements = false
-  find("#nav-transaction-link", visible: false).click
-  # Capybara.ignore_hidden_elements = true
+  page.find('#nav-dropdown').click
+  sleep 1
+  Capybara.ignore_hidden_elements = false
+  find("#nav-transaction-link").click
+  Capybara.ignore_hidden_elements = true
   
 end
 
@@ -208,8 +218,15 @@ Then /^I should see "([^"]*)"$/ do |text|
 end
 
 Then /^I should not see "([^"]*)"$/ do |text|
-  # page.save_and_open_screenshot
   page.has_content?(text).should eq false
+end
+
+Then /^I sleep$/ do
+  sleep 1
+end
+
+Then /^I screenshot$/ do
+  page.save_and_open_screenshot
 end
 
 Then /^I sell item$/ do 

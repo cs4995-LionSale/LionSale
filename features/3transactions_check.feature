@@ -33,15 +33,15 @@ Scenario: Create and check Transaction requests
     Then I should see "100 100st."
     Then I should see "Purchase request sent. Waiting for response."
 
-Scenario: Cancel and recreate requests
-    Given I have login as "cat@columbia.edu"
-    Then I should be on the third home page for "Cat"
-    Then I goto items page
-    Then I goto my transactions
-    Then I check details
-    Then I cancel transaction
-    Then I goto my transactions
-    Then I should not see "Purchase request sent. Waiting for response."
+# Scenario: Cancel and recreate requests
+#     Given I have login as "cat@columbia.edu"
+#     Then I should be on the third home page for "Cat"
+#     Then I goto items page
+#     Then I goto my transactions
+#     Then I check details
+#     Then I cancel transaction
+#     Then I goto my transactions
+#     Then I should not see "Purchase request sent. Waiting for response."
 
 Scenario: Seller confirmation
     Given I have login as "alex@columbia.edu"
@@ -63,6 +63,7 @@ Scenario: Buyer confirmation
     Then I goto items page
     Then I goto my transactions
     Then I check details
+    Then I screenshot
     Then I should see "Waiting for deal confirmation..."
     Then I confirm deal
     Then I goto my transactions
