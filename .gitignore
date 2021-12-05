@@ -102,3 +102,5 @@ iron-inkwell-332219-9f71c4cf80e7.json
 
 # Ignore application configuration
 /config/application.yml
+features/support/env.rb
+db/schema.rb

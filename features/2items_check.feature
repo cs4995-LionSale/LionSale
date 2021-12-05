@@ -29,7 +29,10 @@ Scenario: List items
     Given I have login as "alex@columbia.edu"
     Then I should be on the home page for "alex"
     Then I goto items page
+    Then I should be on the items page
+    Then I sleep
     Then I should see "My sofa"
+    
     Then I should see "Ikea chair"
 
 Scenario: Check category of items
