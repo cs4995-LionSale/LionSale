@@ -1,16 +1,54 @@
 require 'rails_helper'
 
 RSpec.describe "Likeditems", type: :request do
-  describe "GET /create" do
+  let(:valid_attributes) {
+    # skip("Add a hash of attributes valid for your model")
+    {
+      item_id:1,   
+    }
+  }
+  let(:uvalid_attributes) {
+    # skip("Add a hash of attributes valid for your model")
+    {
+      email: "email@columbia.edu",
+      username: "Username",
+      password: "Password Digest",
+      password_confirmation: "Password Digest",
+      address: "Address",
+      rating_seller: 2.5,
+      rating_buyer: 3.5,
+      permission: 4
+    }
+  }
+
+  describe "POST /create" do
     it "returns http success" do
-      get "/likeditem/create"
+      user = User.create! uvalid_attributes
+      post login_url(), params: { email: "email@columbia.edu", password: "Password Digest",remember_me:"0" }
+      # post items_url, params: { item: {title: "book",
+      #   description: "CS book",
+      #   seller_id: 6,
+      #   price: 11,
+      #   category_id: 1} }
+      puts(Item.find(1).title)
+
+      post "/likeditems", params: {likeditem: valid_attributes}
       expect(response).to have_http_status(:success)
     end
   end
 
-  describe "GET /destroy" do
+  describe "DELETE /destroy" do
     it "returns http success" do
-      get "/likeditem/destroy"
+      user = User.create! uvalid_attributes
+      post login_url(), params: { email: "email@columbia.edu", password: "Password Digest",remember_me:"0" }
+      post items_url, params: { item: {title: "book",
+        description: "CS book",
+        seller_id: 6,
+        price: 11,
+        category_id: 1} }
+
+      post "/likeditems", params: {likeditem: valid_attributes}
+      delete "/likeditems/1", params: {item_id: 1}
       expect(response).to have_http_status(:success)
     end
   end

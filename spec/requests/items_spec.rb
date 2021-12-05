@@ -126,12 +126,12 @@ RSpec.describe "/items", type: :request do
   #   end
   # end
 
-  # describe "GET /new" do
-  #   it "renders a successful response" do
-  #     get new_item_url
-  #     expect(response).to be_successful
-  #   end
-  # end
+  describe "GET /new" do
+    it "renders a successful response" do
+      get new_item_url
+      expect(response).to be_successful
+    end
+  end
 
   
 
@@ -143,27 +143,38 @@ RSpec.describe "/items", type: :request do
   #   end
   # end
 
-  # describe "POST /create" do
-  #   context "with valid parameters" do
-  #     it "creates a new Item" do
-  #       user = User.create! uvalid_attributes
-  #       # user.items_sold.build({title: "book",
-  #       #   description: "CS book",
-  #       #   price: 11,
-  #       #   category_id: 1})
-  #       # log_in(user)
-  #       post items_url, params: { item_params: {title: "book",
-  #         description: "CS book",
-  #         price: 11,
-  #         category_id: 1} }
-  #       expect(response).to redirect_to(login_url)
-  #     end
+  describe "POST /create" do
+    context "with valid parameters" do
+      it "creates a new Item" do
+        user = User.create! uvalid_attributes
+        # user.items_sold.build({title: "book",
+        #   description: "CS book",
+        #   price: 11,
+        #   category_id: 1})
+        # log_in(user)
+        # user = User.create! valid_attributes
+        post login_url(), params: { email: "email@columbia.edu", password: "Password Digest",remember_me:"0" }
+      
+        # post login_url(), params: { email: User.find(1).email, password: User.find(1).password,remember_me:"0" }
+        post items_url, params: { item: {title: "book",
+          description: "CS book",
+          seller_id:1,
+          price: 11,
+          category_id: 1,
+          stock:10,
+          status:10,
+          created_at:"20200101", 
+          updated_at:"20200101",
+          } }
+        # puts(response.body)
+        expect(response).to redirect_to(user_url(user))
+      end
 
-  #     # it "redirects to the created item" do
-  #     #   post items_url, params: { item: valid_attributes }
-  #     #   expect(response).to redirect_to(user_url(user))
-  #     # end
-  #   end
+      # it "redirects to the created item" do
+      #   post items_url, params: { item: valid_attributes }
+      #   expect(response).to redirect_to(user_url(user))
+      # end
+    end
 
     # context "with invalid parameters" do
     #   it "does not create a new Item" do
@@ -177,7 +188,7 @@ RSpec.describe "/items", type: :request do
     #     expect(response).to be_successful
     #   end
     # end
-  # end
+  end
 
   # describe "PATCH /update" do
   #   context "with valid parameters" do

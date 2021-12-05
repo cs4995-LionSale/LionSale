@@ -1,10 +1,40 @@
 require 'rails_helper'
 
 RSpec.describe "Checkins", type: :request do
-  describe "GET /create" do
+  let(:valid_attributes) {
+    # skip("Add a hash of attributes valid for your model")
+    {
+      transaction_id:1,
+      user_id:1,
+      lat:1,
+      lng:1      
+    }
+  }
+  let(:uvalid_attributes) {
+    # skip("Add a hash of attributes valid for your model")
+    {
+      email: "email@columbia.edu",
+      username: "Username",
+      password: "Password Digest",
+      password_confirmation: "Password Digest",
+      address: "Address",
+      rating_seller: 2.5,
+      rating_buyer: 3.5,
+      permission: 4
+    }
+  }
+
+  describe "POST /create" do
     it "returns http success" do
-      get "/checkins/create"
-      expect(response).to have_http_status(:success)
+      # post "/checkins", params: { transaction_id: 1 }
+      user = User.create! uvalid_attributes
+      post login_url(), params: { email: "email@columbia.edu", password: "Password Digest",remember_me:"0" }
+      
+      # post login_url(), params: { email: User.find(1).email, password: User.find(1).password,remember_me:"0" }
+        
+      post checkins_url, params: {checkin_params:valid_attributes}
+      # puts(response.body)
+      expect(response).to be_successful
     end
   end
 
