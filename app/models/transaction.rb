@@ -8,15 +8,15 @@ class Transaction < ApplicationRecord
   validate :valid_update_range?
 
   def valid_update_range?
-    return self.expected_deal_time - Time.Now >= 0
+    return self.expected_deal_time - Time.now >= 0
   end
 
   def seller_checkins
-    Checkin.where("transaction_id = ? AND user_id = ?",self.id,self.seller.id).limit(30)
+    Checkin.where("transaction_id = ? AND user_id = ?",self.id,self.seller.id).order("created_at").limit(30)
   end
 
   def buyer_checkins
-    Checkin.where("transaction_id = ? AND user_id = ?",self.id,self.buyer.id).limit(30)
+    Checkin.where("transaction_id = ? AND user_id = ?",self.id,self.buyer.id).order("created_at").limit(30)
   end
 
   def seller_checkin_latest
