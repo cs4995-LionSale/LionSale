@@ -1,4 +1,3 @@
-<meta name='turbolinks-cache-control' content='no-cache'>
 <% content_for :page_title do %>Find some Items<% end %>
 <% content_for :page_description do %>Item index page<% end %>
 <% content_for :content do %>
@@ -17,8 +16,8 @@
         </p>
     </figure>
     <%= form_with(model: @message,class:"black",HTML:{ enctype:"multipart/form-data" }) do |form| %>
-        <%= hidden_field_tag(:item_id, @item.id) %>
-        <%= hidden_field_tag(:to_id, @to.id) %>
+        <%= form.hidden_field(:item_id, value:@item.id) %>
+        <%= form.hidden_field(:to_id, value:@to.id) %>        
         <div class="media-content">
             <div class="field is-horizontal">
                 <div class="field-body">

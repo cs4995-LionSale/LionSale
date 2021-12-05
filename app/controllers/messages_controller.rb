@@ -3,7 +3,13 @@ class MessagesController < ApplicationController
 
   # GET /messages or /messages.json
   def index
-    @message_groups = Message.all.group_by { |d| d[:item_id] }.map{|k,v| {'item': Item.find_by_id(k),'messages': v} }
+    @messages = Message.where(from: current_user).or(Message.where(to: current_user))
+    if params[:item_id] != nil then
+      @item = Item.find_by_id(params[:item_id])
+      @message_groups = @messages.where(item: @item).group_by { |d| d[:item_id] }.map{|k,v| {'item': Item.find_by_id(k),'messages': v} }
+    else
+      @message_groups = @messages.group_by { |d| d[:item_id] }.map{|k,v| {'item': Item.find_by_id(k),'messages': v} }
+    end
   end
 
   # GET /messages/1 or /messages/1.json
@@ -12,26 +18,30 @@ class MessagesController < ApplicationController
 
   # GET /messages/new
   def new
+    @item = Item.find(params[:item_id])
     @message = Message.new
-    @item = Item.find_by_id(params[:item_id])
     @to = User.find_by_id(params[:to_id])
-    @prev_messages = Message.where(item:@item)
+    @prev_messages = Message.where(item: @item)
+    render 'new' 
   end
-
 
   # POST /messages or /messages.json
   def create
-    @message = Message.new(message_params)
-
-    respond_to do |format|
-      if @message.save
-        format.html { redirect_to @message, notice: "Message was successfully created." }
-        format.json { render :show, status: :created, location: @message }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @message.errors, status: :unprocessable_entity }
-      end
+    @item = Item.find(message_params[:item_id])
+    @message = Message.new
+    @message.item = @item
+    @message.from = current_user
+    @message.to = User.find_by_id(message_params[:to_id])
+    @message.content = message_params[:content]
+    if @message.save then
+      @message_groups = (Message.where(from: current_user).or(Message.where(to: current_user))).group_by { |d| d[:item_id] }.map{|k,v| {'item': Item.find_by_id(k),'messages': v} }
+      render 'index'  
+    else
+      flash[:fail] = "The message is not sent successfully"
+      @to = User.find_by_id(params[:to_id])
+      render 'new'
     end
+    
   end
 
 

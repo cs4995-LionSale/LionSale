@@ -5,8 +5,8 @@ class CreateLikeditems < ActiveRecord::Migration[6.1]
       t.references :item, null: false, foreign_key: { to_table: :items }
 
       t.timestamps
-    end
 
-    add_index :likeditems, [:user, :item], unique: true
+      t.index [:user_id, :item_id], unique: true
+    end
   end
 end

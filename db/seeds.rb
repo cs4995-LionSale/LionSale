@@ -91,18 +91,26 @@ lv1_categories = Category.create!([
         parent_category:root_category
     },
     {
-        name: "Weapons",
+        name: "Furniture",
+        parent_category:root_category
+    },
+    {
+        name: "Digital Devices",
+        parent_category:root_category
+    },
+    {
+        name: "Others",
         parent_category:root_category
     }
 ])
 lv2_categories = Category.create!([
     {
-        name: "Potions",
-        parent_category:lv1_categories[1]
+        name: "Textbook",
+        parent_category:lv1_categories[0]
     },
     {
-        name: "Others",
-        parent_category:lv1_categories[1]
+        name: "Other book",
+        parent_category:lv1_categories[0]
     }
 ])
 items = Item.create!([
