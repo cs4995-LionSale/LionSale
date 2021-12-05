@@ -46,10 +46,12 @@
               <strong>Address:</strong>
               <%= @user.address %>
             </p>
+            <% if @user.created_at %>
             <p>
               <strong>Joined at:</strong>
               <%= @user.created_at.strftime("%B %Y") %>
             </p>
+            <% end %>
         </div>
         <nav class="level profile-level">
           <div class="level-item has-text-centered profile-level-item">
@@ -73,7 +75,7 @@
           <div class="level-item has-text-centered profile-level-item">
             <div>
               <p class="heading profile-level-heading">Items liked</p>
-              <p class="title">???</p>
+              <p class="title"><%= @user.items_liked.count %></p>
             </div>
           </div>
         </nav>

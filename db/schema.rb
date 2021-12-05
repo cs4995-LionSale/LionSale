@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_30_212044) do
+ActiveRecord::Schema.define(version: 2021_12_05_002543) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -74,6 +74,16 @@ ActiveRecord::Schema.define(version: 2021_11_30_212044) do
     t.index ["seller_id"], name: "index_items_on_seller_id"
   end
 
+  create_table "likeditems", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "item_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index "\"user\", \"item\"", name: "index_likeditems_on_user_and_item", unique: true
+    t.index ["item_id"], name: "index_likeditems_on_item_id"
+    t.index ["user_id"], name: "index_likeditems_on_user_id"
+  end
+
   create_table "messages", force: :cascade do |t|
     t.integer "from_id", null: false
     t.integer "to_id", null: false
@@ -125,6 +135,8 @@ ActiveRecord::Schema.define(version: 2021_11_30_212044) do
   add_foreign_key "checkins", "users"
   add_foreign_key "items", "categories"
   add_foreign_key "items", "users", column: "seller_id"
+  add_foreign_key "likeditems", "items"
+  add_foreign_key "likeditems", "users"
   add_foreign_key "messages", "items"
   add_foreign_key "messages", "users", column: "from_id"
   add_foreign_key "messages", "users", column: "to_id"

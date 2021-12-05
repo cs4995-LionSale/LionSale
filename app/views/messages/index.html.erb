@@ -19,7 +19,9 @@
                     </header>
                     <div class="card-content">
                         <p class="msg-from content"><small>To: <%= message.to.username %></small></p>
+                        <% if message.created_at %>
                         <p class="msg-timestamp content"><small><%= message.created_at.strftime("%l:%M %p - %b %e %Y") %></small></p>
+                        <% end %>
                     </div>
                 </div>
                 <% end %>

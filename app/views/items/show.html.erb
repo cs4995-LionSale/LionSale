@@ -58,20 +58,28 @@
           <dd class="f4 ml0">
             <%= link_to @item.category.name, items_path(category_id:@item.category), :class => "no-underline hover-underline"%>
           </dd>
+          <% if @item.created_at %>
           <dt class="f6 mt2 dark-gray">On shelf since:</dt>
           <dd class="f4 ml0 black">
             <%= @item.created_at.strftime("%l:%M %p - %b %e %Y")%>
           </dd>
+          <% end %>
+          <% if @item.updated_at %>
           <dt class="f6 mt2 dark-gray">Status updated at:</dt>
           <dd class="f4 ml0 black">
             <%= @item.updated_at.strftime("%l:%M %p - %b %e %Y")%>
           </dd>
+          <% end %>
           <dt class="f6 mt2 dark-gray">Status:</dt>
           <dd class="f4 ml0 black">
           <%= render 'item_status', status:@item.status %>
           <% if @item.status == 0%>
           <strong><%= @item.stock %></strong> avaliable
           <% end %>
+          </dd>
+          <dt class="f6 mt2 dark-gray">Liked by</dt>
+          <dd class="f4 ml0">
+            <%= @item.users_liked.count %>
           </dd>
           <dt class="f5 mt2 dark-gray">Price:</dt>
           <dd class="f3 ml0 black">
@@ -92,7 +100,16 @@
             <%= link_to '<span class="icon is-small"><i class="fa fa-paper-plane"></i></span><span>Message Seller</span>'.html_safe, new_message_path(from_id:current_user.id,to_id:@item.seller.id,item_id:@item.id),class:"button is-primary"%>
             </p>
             <p class="control">
-              <%= link_to '<span class="icon is-small"><i class="fa fa-heart"></i></span><span>Like</span>'.html_safe, "#",class:"button is-danger"%>
+            <% debugger %>
+            <% if @item.is_liked?(current_user) %>
+            <%= button_to(likeditem_path(item_id:@item.id), method: :delete, class:"button is-danger",data: {confirm: "Are you sure you don't want to like this item anymore?" }) do %>
+              <span class="icon is-small"><i class="fa fa-heart"></i></span><span>Cancel Like</span>
+            <% end %>
+            <% else %>
+              <%= button_to(likeditems_path(item_id:@item.id), class:"button is-danger") do %>
+                <span class="icon is-small"><i class="fa fa-heart"></i></span><span>Like</span>
+              <% end %>
+            <% end %>
             </p>
           </div>
         <% else %>  

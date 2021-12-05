@@ -170,7 +170,11 @@
           <% else %>
           <dt class="f6 dark-gray">Expected deal Time</dt>
           <dd class="f4 ml0">
-            <%= @transaction.expected_deal_time.strftime("%l:%M %p - %b %e %Y")%>
+            <% if @transaction.expected_deal_time %>
+              <%= @transaction.expected_deal_time.strftime("%l:%M %p - %b %e %Y") %>
+              <% else %>
+              N/A
+              <% end %>
           </dd>
           <% end %>
           <dt class="f6 mt2 dark-gray">Deal address</dt>
@@ -181,10 +185,12 @@
           <dd class="f4 ml0 black">
             $ <%= @transaction.deal_price %>
           </dd>
+          <% if @transaction.updated_at %>
           <dt class="f6 mt2 dark-gray">Status updated at: </dt>
           <dd class="f4 ml0 black">
             <%= @transaction.updated_at.strftime("%l:%M %p - %b %e %Y")%>
           </dd>
+          <% end %>
           <dt class="f6 mt2 dark-gray">Status</dt>
           <dd class="f4 ml0 black">
           <%= render 'transaction_status', status:@transaction.status %>
