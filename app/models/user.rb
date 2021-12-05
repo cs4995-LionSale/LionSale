@@ -18,6 +18,7 @@ class User < ApplicationRecord
     has_many :transactions_as_seller, class_name: 'Transaction', inverse_of: 'seller', foreign_key: 'seller_id'
     has_many :transactions_as_buyer, class_name: 'Transaction', inverse_of: 'buyer', foreign_key: 'buyer_id'
     has_many :items_sold, class_name: 'Item', inverse_of: 'seller', foreign_key: 'seller_id', dependent: :destroy
+    has_many :items_liked, class_name: 'Likeditem', inverse_of: 'user', foreign_key: 'user_id', dependent: :destroy
     def items_sold_num 
       count = 0
       return items_sold.where(status:20).count

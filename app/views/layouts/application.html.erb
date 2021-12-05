@@ -48,6 +48,7 @@
             <div class="navbar-dropdown is-right">
               <%= link_to "Profile", user_path(current_user), :class => "navbar-item", :id => 'nav-profile-link' %>
               <%= link_to "My Items", items_path(user_id:current_user.id), :class => "navbar-item", :id => 'nav-item-link' %>
+              <%= link_to "Liked Items", items_path(show_liked:1), :class => "navbar-item", :id => 'nav-item-link' %>
               <%= link_to "My Transactions", transactions_path, :class => "navbar-item", :id => 'nav-transaction-link' %>
               <%= link_to "My Mailbox", messages_path, :class => "navbar-item", :id => 'nav-mailbox-link' %>
               <hr class="navbar-divider">
