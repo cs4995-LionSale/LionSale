@@ -7,6 +7,6 @@ class Transaction < ApplicationRecord
   validate :valid_update_range?
 
   def valid_update_range?
-    return self.expected_deal_time - Time.now >= 0
+    return self.expected_deal_time - Time.Now >= 0
   end
 end
