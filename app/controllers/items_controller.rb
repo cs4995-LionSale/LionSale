@@ -21,6 +21,8 @@ class ItemsController < ApplicationController
       else
         @items = Item.all
       end
+    elsif params[:show_liked] then
+      @items = current_user.items_liked.map(&:item).flatten
     else
       @items = Item.all
     end

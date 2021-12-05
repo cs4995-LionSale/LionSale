@@ -5,6 +5,7 @@ class Item < ApplicationRecord
   belongs_to :category, class_name: 'Category', foreign_key: 'category_id'
   has_many :related_messages, class_name: 'Message', inverse_of: 'item', foreign_key: 'item_id'
   has_many :transactions, class_name: 'Transaction', inverse_of: 'item', foreign_key: 'item_id'
+  has_many :users_liked, class_name: 'Likeditem', inverse_of: 'item', foreign_key: 'item_id', dependent: :destroy
   has_many_attached :photos
   validates :seller_id, presence: true 
   validates :category_id, presence: true 
@@ -21,5 +22,9 @@ class Item < ApplicationRecord
       self.status = 20
     end
     return self.save
+  end
+
+  def is_liked?(user)
+    self.users_liked.exists?(user_id:user.id)
   end
 end

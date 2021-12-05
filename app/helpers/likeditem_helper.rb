@@ -1,0 +1,2 @@
+module LikeditemHelper
+end
