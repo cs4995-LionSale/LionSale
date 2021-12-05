@@ -58,4 +58,3 @@ We have added Recaptcha for security reasons, but we are not covering them in ou
 
 Further, we have finished more front-end programming than the back-end code can cover, so we are not testing some of the front-end features until the back end functions are integrated 
 
-Due to minor issues with cucumber, in certain machines delete user/item might run into error. If so, simply go to linosale.rb and uncomment the lines under "I delete item" and "I delete user", then the tests should pass. 

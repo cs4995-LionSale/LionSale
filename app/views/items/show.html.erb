@@ -58,14 +58,18 @@
           <dd class="f4 ml0">
             <%= link_to @item.category.name, items_path(category_id:@item.category), :class => "no-underline hover-underline"%>
           </dd>
+          <% if @item.created_at %>
           <dt class="f6 mt2 dark-gray">On shelf since:</dt>
           <dd class="f4 ml0 black">
             <%= @item.created_at.strftime("%l:%M %p - %b %e %Y")%>
           </dd>
+          <% end %>
+          <% if @item.updated_at %>
           <dt class="f6 mt2 dark-gray">Status updated at:</dt>
           <dd class="f4 ml0 black">
             <%= @item.updated_at.strftime("%l:%M %p - %b %e %Y")%>
           </dd>
+          <% end %>
           <dt class="f6 mt2 dark-gray">Status:</dt>
           <dd class="f4 ml0 black">
           <%= render 'item_status', status:@item.status %>
