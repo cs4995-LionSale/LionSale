@@ -278,7 +278,20 @@ transactions = Transaction.create!([
         status: 210,
         buyer_rating: nil,
         seller_rating: nil
-    }
+    },
+    {
+        item:items[1],
+        seller:users[1],
+        buyer:users[2],
+        expected_deal_time: Time.now - 2.days,
+        real_deal_time: Time.now - 1.day,
+        deal_address: "233 Hu Tao Ave., Liyue",
+        deal_price: 0.99,
+        quantity: 10,
+        status: 200,
+        buyer_rating: 5,
+        seller_rating: 4
+    },
 ])
 messages = Message.create!([
     {
