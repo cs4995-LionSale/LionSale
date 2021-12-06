@@ -13,6 +13,6 @@ class CheckinsController < ApplicationController
   
   private
     def checkin_params
-      params.permit(:transaction_id, :lat, :lng)
+      params.permit(:transaction_id,:user_id, :lat, :lng)
     end
 end

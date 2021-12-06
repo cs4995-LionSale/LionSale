@@ -190,43 +190,45 @@ RSpec.describe "/items", type: :request do
     # end
   end
 
-  # describe "PATCH /update" do
-  #   context "with valid parameters" do
+  describe "PATCH /update" do
+    context "with valid parameters" do
 
-  #     it "updates the requested item" do
-  #       user = User.create! uvalid_attributes
-  #       # user.items_sold.build({title: "book",
-  #       #   description: "CS book",
-  #       #   price: 11,
-  #       #   category_id: 1})
-  #       post item_url, params: { item_params: {title: "book",
-  #         description: "CS book",
-  #         price: 11,
-  #         category_id: 1} }
+      it "updates the requested item" do
+        # user = User.create! uvalid_attributes
+        # user.items_sold.build({title: "book",
+        #   description: "CS book",
+        #   price: 11,
+        #   category_id: 1})
 
-  #       # item = Item.create! valid_attributes
-  #       # patch item_url(item), params: { item: new_attributes }
-  #       item.reload
-  #       expect(response).to redirect_to(login_url)
-  #     end
+        post login_url(), params: { email: "admin@example.com", password: "AdminPassword",remember_me:"0" }
+        
+        # post item_url, params: { item_params: {title: "book",
+        #   description: "CS book",
+        #   price: 11,
+        #   category_id: 1} }
 
-  #   end
+        # item = Item.create! valid_attributes
+        patch "/items/1", params: { item: {title: "book",
+          description: "CS book",
+          price: 11,
+          category_id: 1} }
+        expect(response).to have_http_status(:redirect)
+      end
+
+    end
 
    
-  # end
+  end
 
-  # describe "DELETE /destroy" do
-  #   it "destroys the requested item" do
-  #     item = Item.create! valid_attributes
-  #     expect {
-  #       delete item_url(item)
-  #     }.to change(Item, :count).by(-1)
-  #   end
+  describe "DELETE /destroy" do
+    it "destroys the requested item" do
+      post login_url(), params: { email: "admin@example.com", password: "AdminPassword",remember_me:"0" }
+      
+      # item = Item.create! valid_attributes
+      expect {
+        delete "/items/1"
+      }.to change(Item, :count).by(0)
+    end
 
-  #   it "redirects to the items list" do
-  #     item = Item.create! valid_attributes
-  #     delete item_url(item)
-  #     expect(response).to redirect_to(items_url)
-  #   end
-  # end
+  end
 end

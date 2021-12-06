@@ -13,7 +13,7 @@ class TransactionsController < ApplicationController
 
   # GET /transactions/new
   def new
-    @item = Item.find_by_id(params[:item_id])
+    @item = Item.find_by_id(params[:item_id].to_i)
     @transaction = Transaction.new
     # session[:item_id] = @item.id
     # session[:buyer_id] = params[:buyer_id]
@@ -25,7 +25,7 @@ class TransactionsController < ApplicationController
 
   # POST /transactions or /transactions.json
   def create
-    @item = Item.find_by_id(params[:item_id])
+    @item = Item.find_by_id(transaction_params[:item_id])
     #@transaction = Transaction.new
     @transaction = @item.transactions.build(transaction_params)
     @transaction.buyer = current_user
@@ -56,6 +56,7 @@ class TransactionsController < ApplicationController
           @transaction.status = 200 # system passes seller's agreement of purchase request, wait for deal confirm
           @transaction.save
           flash[:success] = "Seller agrees the purchase request"
+          
           render 'show'
         else # seller rejects the purchase request
           @transaction.status = 121 # consequently seller rejects purchase request
@@ -104,6 +105,7 @@ class TransactionsController < ApplicationController
       elsif @transaction.status == 200 # seller agrees the purchase request and wait for deal confirm
         @transaction.status = params[:status]
         @transaction.save
+        
         if @transaction.status == 201 # buyer confirm deal
           if Geocoder::Calculations.distance_between(@transaction.seller_checkin_latest, @transaction.buyer_checkin_latest,:units => :km) < 1 then
             # decrease transaction's quantity from item's stock and save, @item.change_stock(-1 * @transaction.quantity, 0), 
@@ -143,7 +145,7 @@ class TransactionsController < ApplicationController
 
   # DELETE /transactions/1 or /transactions/1.json
   # def destroy
-  #   destroyedTransaction = Transaction.find(params[:id])
+  #   destroyedTransaction = Transaction.find_by_id(params[:id].to_i)
   #   destroyedTransaction.status = 112
   #   destroyedTransaction.save
   #   flash[:success] = "Transaction has been canceled"
@@ -153,7 +155,7 @@ class TransactionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_transaction
-      @transaction = Transaction.find(params[:id])
+      @transaction = Transaction.find_by_id(params[:id].to_i)
     end
 
     # Only allow a list of trusted parameters through.
