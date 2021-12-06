@@ -33,15 +33,34 @@ Scenario: Create and check Transaction requests
     Then I should see "100 100st."
     Then I should see "Purchase request sent. Waiting for response."
 
-# Scenario: Cancel and recreate requests
-#     Given I have login as "cat@columbia.edu"
-#     Then I should be on the third home page for "Cat"
+# Scenario: Create request 2
+#     Given I have login as "dog@columbia.edu"
+#     Then I should be on the fourth home page for "dog"
 #     Then I goto items page
+#     Then I buy item
+#     Then I should be on the transactions page
 #     Then I goto my transactions
+#     Then I should see "Some book"
+#     Then I should see "6.0"
+#     Then I should see "alex"
+#     Then I should see "100 100st."
+#     Then I should see "Purchase request sent. Waiting for response."
 #     Then I check details
-#     Then I cancel transaction
-#     Then I goto my transactions
-#     Then I should not see "Purchase request sent. Waiting for response."
+#     Then I should see "Some book"
+#     Then I should see "6.0"
+#     Then I should see "alex"
+#     Then I should see "100 100st."
+#     Then I should see "Purchase request sent. Waiting for response."
+
+# Scenario: Cancel  requests
+    # Given I have login as "dog@columbia.edu"
+    # Then I should be on the fourth home page for "dog"
+    # Then I goto items page
+    # Then I goto my transactions
+    # Then I check details
+    # Then I cancel transaction
+    # Then I goto my transactions
+    # Then I should not see "Purchase request sent. Waiting for response."
 
 Scenario: Seller confirmation
     Given I have login as "alex@columbia.edu"
@@ -63,10 +82,24 @@ Scenario: Buyer confirmation
     Then I goto items page
     Then I goto my transactions
     Then I check details
-    Then I screenshot
     Then I should see "Waiting for deal confirmation..."
     Then I confirm deal
+    Then I screenshot
     Then I goto my transactions
-    # Then I should see ""
-    
+    Then I should see "Waiting for deal confirmation..."
+
+Scenario: Final confirmation
+    Given I have login as "alex@columbia.edu"
+    Then I should be on the home page for "Alex"
+    Then I goto items page
+    Then I goto my transactions
+    Then I screenshot
+    Then I should see "Some book"
+    Then I should see "6.0"
+    Then I should see "alex"
+    Then I should see "100 100st."
+    Then I check details
+    Then I screrailsenshot
+    Then I confirm deal
+    Then I screenshot
 

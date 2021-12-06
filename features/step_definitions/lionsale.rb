@@ -44,6 +44,15 @@ Then /^I should be on the third home page for (.*)$/ do |name|
   end
 end
 
+Then /^I should be on the fourth home page for (.*)$/ do |name|
+  current_path = URI.parse(current_url).path
+  if current_path.respond_to? :should 
+    current_path.should == user_path(9)
+  else
+    assert_equal users_path(Users.all.select{ |u| u.username == name }), current_path
+  end
+end
+
 Then /^I should be on the register (.*)$/ do |page_name|
   current_path = URI.parse(current_url).path
   if current_path.respond_to? :should
@@ -203,6 +212,7 @@ end
 
 Then /^I goto items page$/ do
   click_link("Items")
+  sleep 1
 end
 
 Then /^I goto categories page$/ do
@@ -261,7 +271,7 @@ Then /^I buy item$/ do
 end
 
 Then /^I check details$/ do
-  click_link("Details") 
+  click_link("Details", :match=>:first) 
 end
 
 Then /^I cancel transaction$/ do

@@ -16,6 +16,10 @@ Scenario: create user success C
 Given I have filled info and signed up as "cat@columbia.edu"
 Then I should be on the third home page for "cat"
 
+Scenario: create user success D
+Given I have filled info and signed up as "dog@columbia.edu"
+Then I should be on the fourth home page for "dog"
+
 Scenario: cannot create same user twice
 Given I have filled info and signed up as "alex@columbia.edu"
   Then I should be on the register page
