@@ -1,7 +1,7 @@
 class LikeditemsController < ApplicationController
   before_action :logged_in_user, only: [:create, :destroy]
   def create
-    item = Item.find_by_id(params[:item_id])
+    item = Item.find_by_id(params[:item_id].to_i)
     if item then
       @likeditem = Likeditem.new(user:current_user,item:item)
       if @likeditem.save then
@@ -18,7 +18,7 @@ class LikeditemsController < ApplicationController
   end
 
   def destroy
-    @likeditem = Likeditem.destroy_by(user_id:current_user.id,item_id:params[:item_id])
+    @likeditem = Likeditem.destroy_by(user_id:current_user.id,item_id:params[:item_id].to_i)
     if @likeditem.length > 0 then
       redirect_to @likeditem[0].item
     else

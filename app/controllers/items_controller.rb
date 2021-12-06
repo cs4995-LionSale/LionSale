@@ -7,14 +7,14 @@ class ItemsController < ApplicationController
   def index
     @category_list = []
     if params[:user_id]
-      usr = User.find_by_id(params[:user_id])
+      usr = User.find_by_id(params[:user_id].to_i)
       if usr
-        @items = Item.where(seller_id:params[:user_id])
+        @items = Item.where(seller_id:params[:user_id].to_i)
       else
         @items = Item.all
       end
     elsif params[:category_id]
-      cat = Category.find_by_id(params[:category_id])
+      cat = Category.find_by_id(params[:category_id].to_i)
       if cat
         @items = Item.where(category:cat.get_sub_categories([]))
         @category_list = cat.get_category_path

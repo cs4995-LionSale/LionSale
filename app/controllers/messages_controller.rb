@@ -5,7 +5,7 @@ class MessagesController < ApplicationController
   def index
     @messages = Message.where(from: current_user).or(Message.where(to: current_user))
     if params[:item_id] != nil then
-      @item = Item.find_by_id(params[:item_id])
+      @item = Item.find_by_id(params[:item_id].to_i)
       @message_groups = @messages.where(item: @item).group_by { |d| d[:item_id] }.map{|k,v| {'item': Item.find_by_id(k),'messages': v} }
     else
       @message_groups = @messages.group_by { |d| d[:item_id] }.map{|k,v| {'item': Item.find_by_id(k),'messages': v} }
@@ -18,9 +18,9 @@ class MessagesController < ApplicationController
 
   # GET /messages/new
   def new
-    @item = Item.find(params[:item_id])
+    @item = Item.find_by_id(params[:item_id].to_i)
     @message = Message.new
-    @to = User.find_by_id(params[:to_id])
+    @to = User.find_by_id(params[:to_id].to_i)
     @prev_messages = Message.where(item: @item)
     render 'new' 
   end
@@ -38,7 +38,7 @@ class MessagesController < ApplicationController
       render 'index'  
     else
       flash[:fail] = "The message is not sent successfully"
-      @to = User.find_by_id(params[:to_id])
+      @to = User.find_by_id(params[:to_id].to_i)
       render 'new'
     end
     
