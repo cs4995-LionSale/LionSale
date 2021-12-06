@@ -13,7 +13,7 @@ class TransactionsController < ApplicationController
 
   # GET /transactions/new
   def new
-    @item = Item.find(params[:item_id])
+    @item = Item.find_by_id(params[:item_id])
     @transaction = Transaction.new
     # session[:item_id] = @item.id
     # session[:buyer_id] = params[:buyer_id]
@@ -25,7 +25,7 @@ class TransactionsController < ApplicationController
 
   # POST /transactions or /transactions.json
   def create
-    @item = Item.find(params[:item_id])
+    @item = Item.find_by_id(params[:item_id])
     #@transaction = Transaction.new
     @transaction = @item.transactions.build(transaction_params)
     @transaction.buyer = current_user
@@ -47,7 +47,7 @@ class TransactionsController < ApplicationController
 
   # PATCH/PUT /transactions/1 or /transactions/1.json
   def update
-    @item = Item.find(@transaction.item_id)
+    @item = Item.find_by_id(@transaction.item_id)
     if current_user == @transaction.seller # current user is seller
       if @transaction.status == 110 # buyer successfully create purchase request
         @transaction.status = params[:status]
