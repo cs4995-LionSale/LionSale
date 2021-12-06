@@ -27,7 +27,7 @@ class MessagesController < ApplicationController
 
   # POST /messages or /messages.json
   def create
-    @item = Item.find(message_params[:item_id])
+    @item = Item.find_by_id(message_params[:item_id])
     @message = Message.new
     @message.item = @item
     @message.from = current_user
