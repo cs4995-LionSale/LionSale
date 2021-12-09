@@ -221,6 +221,7 @@
             </p>
             <% end %>
             <% if @transaction.status == 200 and current_user == @transaction.buyer %>
+            <% if @transaction.seller_checkin_latest and @transaction.buyer_checkin_latest %>
             <div class="well">
               <p class="title is-6" >Rate the Deal</p>
               <span id="star1" data-score="1" class="star fa fa-star-o" title="Very bad"></span>
@@ -290,6 +291,7 @@
               <span class="icon is-small"><i class="fa fa-check"></i></span><span>Confirm Deal</span>
             <% end %>
             </p>
+            <% end %>
             <% if Time.now > @transaction.expected_deal_time %>
             <p class="control">
             <%= button_to(transaction_path(@transaction,status:213), method: :patch, class:"button is-danger",data: {confirm: "Are you sure you want to decline to confirm the deal?" }) do %>
@@ -305,6 +307,7 @@
             <% end %>
             <% end %>
             <% if @transaction.status == 210 and current_user == @transaction.seller %>
+            <% if @transaction.seller_checkin_latest and @transaction.buyer_checkin_latest %>
             <div class="well">
               <p class="title is-6" >Rate the Deal</p>
               <span id="star1" data-score="1" class="star fa fa-star-o" title="Very bad"></span>
@@ -366,6 +369,7 @@
               <span class="icon is-small"><i class="fa fa-check"></i></span><span>Confirm Deal</span>
             <% end %>
             </p>
+            <% end %>
             <% if Time.now > @transaction.expected_deal_time %>
             <p class="control">
             <%= button_to(transaction_path(@transaction,status:223), method: :patch, class:"button is-danger",data: {confirm: "Are you sure you want to decline to confirm the deal?" }) do %>

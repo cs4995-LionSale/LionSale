@@ -71,7 +71,7 @@ class TransactionsController < ApplicationController
         @transaction.status = params[:status]
         @transaction.save
         if @transaction.status == 220 # seller confirms buyer's deal confirm 
-          if Geocoder::Calculations.distance_between(@transaction.seller_checkin_latest, @transaction.buyer_checkin_latest,:units => :km) < 1 then
+          if @transaction.seller_checkin_latest and @transaction.buyer_checkin_latest and Geocoder::Calculations.distance_between(@transaction.seller_checkin_latest, @transaction.buyer_checkin_latest,:units => :km) < 1 then
             flash[:success] = "Transaction is successfully confirmed by seller"
             @transaction.real_deal_time = Time.now
             @transaction.status = 0
@@ -107,7 +107,7 @@ class TransactionsController < ApplicationController
         @transaction.save
         
         if @transaction.status == 201 # buyer confirm deal
-          if Geocoder::Calculations.distance_between(@transaction.seller_checkin_latest, @transaction.buyer_checkin_latest,:units => :km) < 1 then
+          if @transaction.seller_checkin_latest and @transaction.buyer_checkin_latest and Geocoder::Calculations.distance_between(@transaction.seller_checkin_latest, @transaction.buyer_checkin_latest,:units => :km) < 1 then
             # decrease transaction's quantity from item's stock and save, @item.change_stock(-1 * @transaction.quantity, 0), 
             # stage 0 is at create transaction, stage 1 is at update transaction 
             if @item.change_stock(-1 * @transaction.quantity, 1) 
