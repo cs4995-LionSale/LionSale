@@ -22,7 +22,7 @@ Scenario: Post second item
     Then I putin itemtitle "Ikea chair"
     Then I putin itemprice 3
     Then I putin itemquant 2
-    Then I putin itemcat Potions
+    Then I putin itemcat Books
     Then I sell it
 
 Scenario: List items
@@ -43,11 +43,11 @@ Scenario: Check category of items
     Then I should see "My sofa"
     Then I should see "Ikea chair"
     Then I goto categories page
-    Then I go to Potions category
+    Then I go to Books category
     Then I should not see "My sofa"
     Then I should see "Ikea chair"
     Then I goto categories page
-    Then I go to Weapons category
+    Then I go to Furniture category
     Then I should not see "My sofa"
     Then I should not see "Ikea chair"
     

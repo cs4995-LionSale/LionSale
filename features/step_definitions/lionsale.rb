@@ -282,7 +282,6 @@ Then /^I cancel transaction$/ do
 end
 
 Then /^I confirm transaction$/ do
-
   accept_confirm do
   click_button("Approve Purchase Request")
   end
