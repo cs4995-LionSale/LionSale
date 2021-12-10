@@ -291,17 +291,16 @@ Then /^I cancel transaction$/ do
   accept_confirm do
   click_button("Cancel Purchase Request")
   end
-  # page.save_and_open_screenshot
 end
 
 Then /^I confirm transaction$/ do
   accept_confirm do
   click_button("Approve Purchase Request")
-  end
-  # page.save_and_open_screenshot
+  end  
 end
 
 Then /^I confirm deal$/ do
+  sleep 100
   accept_confirm do
   click_button("Confirm Deal")
   sleep 1
@@ -324,7 +323,8 @@ Then /^I check my messages$/ do
   Capybara.ignore_hidden_elements = false
   find("#nav-mailbox-link").click
   Capybara.ignore_hidden_elements = true
-  page.find("#inbox-messages-0").click
+  # page.find( 'div.card msg-card').click
+  page.find('#msg-card-3').click
 end
 
 

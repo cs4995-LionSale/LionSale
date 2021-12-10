@@ -73,21 +73,25 @@ Scenario: Seller confirmation
     Then I should see "alex"
     Then I should see "100 100st."
     Then I check details
+    Then I do geolocation
     Then I confirm transaction
     Then I should not see "Approve Purchase Request"
     Then I should see "Waiting for deal confirmation..."
 
 Scenario: Buyer confirmation
     Given I have login as "cat@columbia.edu"
+    Then I do geolocation
+    Given I have login as "alex@columbia.edu"
+    Then I do geolocation
+    Given I have login as "cat@columbia.edu"
     Then I should be on the third home page for "Cat"
     Then I goto items page
     Then I goto my transactions
     Then I check details
+    Then I do geolocation
     Then I should see "Waiting for deal confirmation..."
-        Then I screenshot
-
     Then I confirm deal
-    Then I screenshot
+    # Then I screenshot
     Then I goto my transactions
     Then I should see "Waiting for deal confirmation..."
 
@@ -95,13 +99,12 @@ Scenario: Final confirmation
     Given I have login as "alex@columbia.edu"
     Then I should be on the home page for "Alex"
     Then I goto items page
+    Then I do geolocation
     Then I goto my transactions
     Then I should see "Some book"
     Then I should see "6.0"
     Then I should see "alex"
     Then I should see "100 100st."
     Then I check details
-        Then I screenshot
-
     Then I confirm deal
 
