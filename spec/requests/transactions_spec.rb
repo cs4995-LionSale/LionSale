@@ -60,7 +60,6 @@ RSpec.describe "/transactions", type: :request do
 
   describe "GET /show" do
     it "renders a successful response" do
-      # transaction = Transaction.create! valid_attributes
       get transactions_url(), params: {id:1}
       expect(response).to be_successful
     end
@@ -68,19 +67,10 @@ RSpec.describe "/transactions", type: :request do
 
   describe "GET /new" do
     it "renders a successful response" do
-      # transaction = Transaction.create! valid_attributes
       get new_transaction_url(), params: {item_id:1}
       expect(response).to be_successful
     end
   end
-
-  # describe "GET /edit" do
-  #   it "render a successful response" do
-  #     transaction = Transaction.create! valid_attributes
-  #     get edit_transaction_url(transaction)
-  #     expect(response).to be_successful
-  #   end
-  # end
 
   describe "POST /create" do
     it "creates a new Transaction" do
@@ -142,9 +132,6 @@ RSpec.describe "/transactions", type: :request do
         expect(response).to be_successful
       end
 
-
-
-
       it "updates when current user is buyer" do
         #user 3 id 4
         #buyer 200 - 201
@@ -163,10 +150,6 @@ RSpec.describe "/transactions", type: :request do
         patch "/transactions/7", params: {status: 201,seller_rating:5,buyer_rating:5}
         expect(response).to be_successful
       end
-
-
-
-
 
       it "updates when current user is buyer" do
         #user 3 id 4
@@ -235,41 +218,9 @@ RSpec.describe "/transactions", type: :request do
         patch "/transactions/6", params: {status: 222,seller_rating:5,buyer_rating:5}
         expect(response).to be_successful
       end
-
-
-      # it "redirects to the transaction" do
-      #   transaction = Transaction.create! valid_attributes
-      #   patch transaction_url(transaction), params: { transaction: new_attributes }
-      #   transaction.reload
-      #   expect(response).to redirect_to(transaction_url(transaction))
-      # end
     end
 
-    # context "with invalid parameters" do
-    #   it "renders a successful response (i.e. to display the 'edit' template)" do
-    #     transaction = Transaction.create! valid_attributes
-    #     patch transaction_url(transaction), params: { transaction: invalid_attributes }
-    #     expect(response).to be_successful
-    #   end
-    # end
   end
 
-  # describe "DELETE /destroy" do
-  #   it "destroys the requested transaction" do
-  #     user = User.create! valid_attributes
-  #     post login_url(), params: { email: "email@columbia.edu", password: "Password Digest",remember_me:"0" }
-  #     # expect {
-  #     #   post transactions_url, params: { item_id:1,transaction: transaction_valid_attributes }
-  #     # }.to change(Transaction, :count).by(1)
 
-  #     delete transactions_url(), params: {id:1}
-  #     expect(response).to be_successful
-  #   end
-
-    # it "redirects to the transactions list" do
-    #   transaction = Transaction.create! valid_attributes
-    #   delete transaction_url(transaction)
-    #   expect(response).to redirect_to(transactions_url)
-    # end
-  # end
 end

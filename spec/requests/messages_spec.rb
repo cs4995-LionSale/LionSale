@@ -31,28 +31,20 @@ RSpec.describe "/messages", type: :request do
   describe "GET /index" do
     it "renders a successful response" do
       post login_url(), params: { email: "hu_tao@example.com", password: "HuTaoPassword",remember_me:"0" }
-    #   Message.create! valid_attributes
+
       get messages_url
       expect(response).to be_successful
     end
 
     it "renders a successful response" do
         post login_url(), params: { email: "hu_tao@example.com", password: "HuTaoPassword",remember_me:"0" }
-      #   Message.create! valid_attributes
+
         get messages_url, params: {item_id: 4}
         expect(response).to be_successful
     end
-
-
   end
 
-#   describe "GET /show" do
-#     it "renders a successful response" do
-#       message = Message.create! valid_attributes
-#       get message_url(message)
-#       expect(response).to be_successful
-#     end
-#   end
+
 
   describe "GET /new" do
     it "renders a successful response" do
@@ -72,25 +64,7 @@ RSpec.describe "/messages", type: :request do
           post messages_url, params: { message: valid_attributes }
         }.to change(Message, :count).by(1)
       end
-
-    #   it "redirects to the created message" do
-    #     post messages_url, params: { message: valid_attributes }
-    #     expect(response).to redirect_to(message_url(Message.last))
-    #   end
     end
-
-    # context "with invalid parameters" do
-    #   it "does not create a new Message" do
-    #     expect {
-    #       post messages_url, params: { message: invalid_attributes }
-    #     }.to change(Message, :count).by(0)
-    #   end
-
-    #   it "renders a successful response (i.e. to display the 'new' template)" do
-    #     post messages_url, params: { message: invalid_attributes }
-    #     expect(response).to be_successful
-    #   end
-    # end
   end
 
  

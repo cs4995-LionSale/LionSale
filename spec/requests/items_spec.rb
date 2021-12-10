@@ -21,7 +21,6 @@ RSpec.describe "/items", type: :request do
   # }
 
   let(:uvalid_attributes) {
-    # skip("Add a hash of attributes valid for your model")
     {
       email: "email@columbia.edu",
       username: "Username",
@@ -33,31 +32,6 @@ RSpec.describe "/items", type: :request do
       permission: 4
     }
   }
-  # let(:valid_attributes) {
-  #   # skip("Add a hash of attributes valid for your model")
-  #   # :title, :description, :seller_id, :price, :created_at, 
-  #   # :updated_at, :status, :category_id, :picture
-  #   {
-  #     title: "book",
-  #     description: "CS book",
-  #     # seller_id: user.id,
-  #     price: 11,
-  #     # status: 1,
-  #     category_id: 1,
-  #   }
-  # }
-
-  # let(:invalid_attributes) {
-  #   skip("Add a hash of attributes invalid for your model")
-  #   # {
-  #   #   title: "book",
-  #   #   description: "CS book",
-  #   #   seller: "dddd",
-  #   #   price: 11,
-  #   #   # status: 1,
-  #   #   category: 1,
-  #   # }
-  # }
 
   describe "GET /index" do
     it "without userid" do
@@ -66,7 +40,6 @@ RSpec.describe "/items", type: :request do
           description: "CS book",
           price: 11,
           category_id: 1})
-      # Item.create! valid_attributes
       get items_url
       expect(response).to be_successful
     end
@@ -76,7 +49,6 @@ RSpec.describe "/items", type: :request do
           description: "CS book",
           price: 11,
           category_id: 1})
-      # Item.create! valid_attributes
       get items_url, params: { user_id: user.id }
       expect(response).to be_successful
     end
@@ -86,7 +58,6 @@ RSpec.describe "/items", type: :request do
           description: "CS book",
           price: 11,
           category_id: 1})
-      # Item.create! valid_attributes
       get items_url, params: { user_id: 333 }
       expect(response).to be_successful
     end
@@ -96,7 +67,6 @@ RSpec.describe "/items", type: :request do
           description: "CS book",
           price: 11,
           category_id: 1})
-      # Item.create! valid_attributes
       category_id = 1
       get items_url, params: { category_id: category_id }
       expect(response).to be_successful
@@ -107,24 +77,14 @@ RSpec.describe "/items", type: :request do
           description: "CS book",
           price: 11,
           category_id: 1})
-      # Item.create! valid_attributes
       cate1 = Category.create!({:name => "A"})
       cate2 = Category.create!({:name => "B",:parent_category => cate1})
       cate3 = Category.create!({:name => "C",:parent_category => cate2})
-    
-      # category_id = 1
       get items_url, params: { category_id: cate2.id }
       expect(response).to be_successful
     end
   end
 
-  # describe "GET /show" do
-  #   it "renders a successful response" do
-  #     item = Item.create! valid_attributes
-  #     get item_url(item)
-  #     expect(response).to be_successful
-  #   end
-  # end
 
   describe "GET /new" do
     it "renders a successful response" do
@@ -134,28 +94,11 @@ RSpec.describe "/items", type: :request do
   end
 
   
-
-  # describe "GET /edit" do
-  #   it "render a successful response" do
-  #     item = Item.create! valid_attributes
-  #     get edit_item_url(item)
-  #     expect(response).to be_successful
-  #   end
-  # end
-
   describe "POST /create" do
     context "with valid parameters" do
       it "creates a new Item" do
         user = User.create! uvalid_attributes
-        # user.items_sold.build({title: "book",
-        #   description: "CS book",
-        #   price: 11,
-        #   category_id: 1})
-        # log_in(user)
-        # user = User.create! valid_attributes
         post login_url(), params: { email: "email@columbia.edu", password: "Password Digest",remember_me:"0" }
-      
-        # post login_url(), params: { email: User.find(1).email, password: User.find(1).password,remember_me:"0" }
         post items_url, params: { item: {title: "book",
           description: "CS book",
           seller_id:1,
@@ -166,69 +109,31 @@ RSpec.describe "/items", type: :request do
           created_at:"20200101", 
           updated_at:"20200101",
           } }
-        # puts(response.body)
         expect(response).to redirect_to(user_url(user))
       end
-
-      # it "redirects to the created item" do
-      #   post items_url, params: { item: valid_attributes }
-      #   expect(response).to redirect_to(user_url(user))
-      # end
     end
-
-    # context "with invalid parameters" do
-    #   it "does not create a new Item" do
-    #     expect {
-    #       post items_url, params: { item: invalid_attributes }
-    #     }.to change(Item, :count).by(0)
-    #   end
-
-    #   it "renders a successful response (i.e. to display the 'new' template)" do
-    #     post items_url, params: { item: invalid_attributes }
-    #     expect(response).to be_successful
-    #   end
-    # end
   end
 
   describe "PATCH /update" do
     context "with valid parameters" do
-
       it "updates the requested item" do
-        # user = User.create! uvalid_attributes
-        # user.items_sold.build({title: "book",
-        #   description: "CS book",
-        #   price: 11,
-        #   category_id: 1})
-
         post login_url(), params: { email: "admin@example.com", password: "AdminPassword",remember_me:"0" }
-        
-        # post item_url, params: { item_params: {title: "book",
-        #   description: "CS book",
-        #   price: 11,
-        #   category_id: 1} }
 
-        # item = Item.create! valid_attributes
         patch "/items/1", params: { item: {title: "book",
           description: "CS book",
           price: 11,
           category_id: 1} }
         expect(response).to have_http_status(:redirect)
       end
-
     end
-
-   
   end
 
   describe "DELETE /destroy" do
     it "destroys the requested item" do
       post login_url(), params: { email: "admin@example.com", password: "AdminPassword",remember_me:"0" }
-      
-      # item = Item.create! valid_attributes
       expect {
         delete "/items/1"
       }.to change(Item, :count).by(0)
     end
-
   end
 end
