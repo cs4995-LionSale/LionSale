@@ -231,6 +231,19 @@ Then /^I should not see "([^"]*)"$/ do |text|
   page.has_content?(text).should eq false
 end
 
+Then /^I do geolocation$/ do
+  # page
+  # .driver
+  # .browser
+  # .execute_cdp(
+  #   'Page.setGeolocationOverride',
+  #   accuracy: 100,
+  #   latitude: latitude.to_f,
+  #   longitude: longitude.to_f
+  # )
+  page.execute_script "navigator.geolocation.getCurrentPosition = function(success) { success({coords: {latitude: 50.455755, longitude: 30.511565}}); }"
+end
+
 Then /^I sleep$/ do
   sleep 1
 end
@@ -291,6 +304,32 @@ end
 Then /^I confirm deal$/ do
   accept_confirm do
   click_button("Confirm Deal")
+  sleep 1
   end
   # print(page.driver.browser.manage.logs.get(:browser).to_s)
 end
+
+Then /^I write message (.*)$/ do |text|
+  click_link("Contact", :match => :first)
+  fill_in('messagebox', :with => text)
+end
+
+Then /^I send message$/ do
+  click_button("Send!")
+end
+
+Then /^I check my messages$/ do
+  page.find('#nav-dropdown').click
+  sleep 1
+  Capybara.ignore_hidden_elements = false
+  find("#nav-mailbox-link").click
+  Capybara.ignore_hidden_elements = true
+end
+
+
+# Capybara.register_driver :selenium-webdriver do |app|      
+#   profile = Selenium::WebDriver::Chrome::Profile.new
+#   profile['geolocation.default_content_setting'] = 1
+#   config = { :browser => :chrome, :profile => profile }    
+#   Capybara::Selenium::Driver.new(app, config)
+# end

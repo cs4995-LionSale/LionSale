@@ -3,7 +3,6 @@ Feature: the user enters the LionSale app
   I want to check that the user can successfully register, log in and see the page.
   I also want to see and update my user profile in the web application
 
-
 Scenario: create user success A
 Given I have filled info and signed up as "alex@columbia.edu"
 Then I should be on the home page for "alex"
@@ -23,18 +22,6 @@ Then I should be on the fourth home page for "dog"
 Scenario: cannot create same user twice
 Given I have filled info and signed up as "alex@columbia.edu"
   Then I should be on the register page
-
-# Scenario: create long user failure
-#   Given I have filled info and signed up long as "alex@columbia.edu"
-#   Then I should be on the register page
-
-# Scenario: create bad email failure1
-# Given I have filled info and signed up long as "aaaaaaaaaaaxcolumbia.edu"
-#   Then I should be on the register page
-
-# Scenario: create bad email failure2
-# Given I have filled info and signed up long as "aaaaaaaaaaa@columbia@columbia.edu"
-#   Then I should be on the register page
 
 Scenario: login success1 
   Given I have login as "alex@columbia.edu"

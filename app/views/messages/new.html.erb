@@ -22,7 +22,7 @@
             <div class="field is-horizontal">
                 <div class="field-body">
                     <div class="control">
-                    <%= form.ckeditor :content, value:'Send a kind message ...' %>
+                    <%= form.ckeditor :content, value:'Send a kind message ...', id: 'messagebox' %>
                     </div>
                     <% if @message.errors[:content].any? %>
                     <div class="help is-danger">

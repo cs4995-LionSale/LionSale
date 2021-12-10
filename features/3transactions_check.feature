@@ -6,6 +6,7 @@ modified in certain conditions. Each transaction symbolize a buy-sell relationsh
 Scenario: Create item to sell
     Given I have login as "alex@columbia.edu"
     Then I should be on the home page for "alex"
+    Then I do geolocation
     Then I sell item
     Then I should be on the new item page
     Then I putin itemtitle "Some book"
@@ -83,11 +84,10 @@ Scenario: Buyer confirmation
     Then I goto my transactions
     Then I check details
     Then I should see "Waiting for deal confirmation..."
-    Then I screenshot
     Then I confirm deal
     Then I screenshot
     Then I goto my transactions
-    Then I should see "Waiting for deal confirmation..."
+    # Then I should see "Waiting for deal confirmation..."
 
 Scenario: Final confirmation
     Given I have login as "alex@columbia.edu"
