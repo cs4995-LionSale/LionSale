@@ -84,10 +84,12 @@ Scenario: Buyer confirmation
     Then I goto my transactions
     Then I check details
     Then I should see "Waiting for deal confirmation..."
+        Then I screenshot
+
     Then I confirm deal
     Then I screenshot
     Then I goto my transactions
-    # Then I should see "Waiting for deal confirmation..."
+    Then I should see "Waiting for deal confirmation..."
 
 Scenario: Final confirmation
     Given I have login as "alex@columbia.edu"
@@ -99,6 +101,7 @@ Scenario: Final confirmation
     Then I should see "alex"
     Then I should see "100 100st."
     Then I check details
+        Then I screenshot
+
     Then I confirm deal
-    Then I screenshot
 

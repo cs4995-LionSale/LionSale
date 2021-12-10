@@ -324,6 +324,7 @@ Then /^I check my messages$/ do
   Capybara.ignore_hidden_elements = false
   find("#nav-mailbox-link").click
   Capybara.ignore_hidden_elements = true
+  page.find("#inbox-messages-0").click
 end
 
 
