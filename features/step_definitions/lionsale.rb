@@ -241,7 +241,7 @@ Then /^I do geolocation$/ do
   #   latitude: latitude.to_f,
   #   longitude: longitude.to_f
   # )
-  page.execute_script "navigator.geolocation.getCurrentPosition = function(success) { success({coords: {latitude: 50.455755, longitude: 30.511565}}); }"
+  # page.execute_script "navigator.geolocation.getCurrentPosition = function(success) { success({coords: {latitude: 50.455755, longitude: 30.511565}}); }"
 end
 
 Then /^I sleep$/ do
@@ -300,7 +300,6 @@ Then /^I confirm transaction$/ do
 end
 
 Then /^I confirm deal$/ do
-  sleep 100
   accept_confirm do
   click_button("Confirm Deal")
   sleep 1

@@ -30,8 +30,8 @@ users = User.create!([
     {
         email: 'hu_tao@example.com',
         username: 'Hu Tao',
-        password: 'HuTaoPassword',
-        password_confirmation: 'HuTaoPassword',
+        password: 's3caaar3t',
+        password_confirmation: 's3caaar3t',
         address: '233 Hu Tao Ave., Liyue',
         rating_buyer: 4.5,
         rating_seller: 4.4,
@@ -40,8 +40,8 @@ users = User.create!([
     {
         email: 'amber@example.com',
         username: 'Amber',
-        password: 'AmberPassword',
-        password_confirmation: 'AmberPassword',
+        password: 's3caaar3t',
+        password_confirmation: 's3caaar3t',
         address: '157 Amber Ave., Mondstadt',
         rating_buyer: 4.5,
         rating_seller: 3.6,
@@ -50,12 +50,42 @@ users = User.create!([
     {
         email: 'deleted@example.com',
         username: 'Deleted',
-        password: 'DeletedPassword',
-        password_confirmation: 'DeletedPassword',
+        password: 's3caaar3t',
+        password_confirmation: 's3caaar3t',
         address: 'Deleted',
         rating_buyer: 4.5,
         rating_seller: 3.6,
         permission: -99
+    },
+    {
+        email: 'alex@example.com',
+        username: 'alex',
+        password: 's3caaar3t',
+        password_confirmation: 's3caaar3t',
+        address: '100 100st.',
+        rating_buyer: 4.5,
+        rating_seller: 3.6,
+        permission: 0
+    },
+    {
+        email: 'bob@example.com',
+        username: 'alex',
+        password: 's3caaar3t',
+        password_confirmation: 's3caaar3t',
+        address: '100 100st.',
+        rating_buyer: 4.5,
+        rating_seller: 3.6,
+        permission: 0
+    },
+    {
+        email: 'cat@example.com',
+        username: 'alex',
+        password: 's3caaar3t',
+        password_confirmation: 's3caaar3t',
+        address: '100 100st.',
+        rating_buyer: 4.5,
+        rating_seller: 3.6,
+        permission: 0
     },
 ])
 users[0].avatar.attach(
@@ -311,3 +341,23 @@ messages[1].attachments.attach(
     io: File.open('db/seeds/messages-1.png'),
     filename: 'messages-1.png' 
 )
+
+checkins = Checkin.create!([
+    {
+        transaction_id:1,
+        user_id:6,
+        lat:31.111,
+        lng:22.23,
+        created_at: Time.now,
+        updated_at:  Time.now
+
+    },
+    {
+        transaction_id:2,
+        user_id:8,
+        lat:31.111,
+        lng:22.23,
+        created_at: Time.now ,
+        updated_at: Time.now
+    },
+])
