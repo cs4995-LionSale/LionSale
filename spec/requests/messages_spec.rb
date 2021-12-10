@@ -44,6 +44,14 @@ RSpec.describe "/messages", type: :request do
     end
   end
 
+  describe "GET /show" do
+    it "renders a successful response" do
+      # get login_url(), params: {id:1}
+      get "/messages/1.json"
+      expect(response).to be_successful
+    end
+  end
+
 
 
   describe "GET /new" do
