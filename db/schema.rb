@@ -80,9 +80,7 @@ ActiveRecord::Schema.define(version: 2021_12_05_002543) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["item_id"], name: "index_likeditems_on_item_id"
-
-    t.index ["user_id", "item_id"], name: "index_likeditems_on_user_id_and_item_id", unique: true
-
+    t.index ["user_id"], name: "index_likeditems_on_user_id"
   end
 
   create_table "messages", force: :cascade do |t|
