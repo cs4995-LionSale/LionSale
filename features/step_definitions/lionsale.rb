@@ -80,24 +80,6 @@ Then /^I should be on the login (.*)$/ do |page_name|
   end
 end
 
-# Then /^I should be on the logout (.*)$/ do |page_name|
-#   current_path = URI.parse(current_url).path
-#   if current_path.respond_to? :should
-#     current_path.should == logout_path()
-#   else
-#     assert_equal logout_path(), current_path
-#   end
-# end
-
-# Then /^I should be on the profile (.*)$/ do |page_name|
-#   current_path = URI.parse(current_url).path
-#   if current_path.respond_to? :should
-#     current_path.should == about_path()
-#   else
-#     assert_equal about_path(), current_path
-#   end
-# end
-
 Then /^I should be on the items (.*)$/ do |page_name|
   current_path = URI.parse(current_url).path
   if current_path.respond_to? :should
@@ -236,7 +218,7 @@ Then /^I sleep$/ do
 end
 
 Then /^I screenshot$/ do
-  page.save_and_open_screenshot
+  # page.save_and_open_screenshot
 end
 
 Then /^I sell item$/ do 

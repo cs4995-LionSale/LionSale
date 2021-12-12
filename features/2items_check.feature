@@ -78,4 +78,4 @@ Scenario: Login before create item
     Then I putin itemquant 2
     Then I putin itemcat All
     Then I sell it
-    Then I should see "please log in"
+    Then I should see "Welcome to the LionSale"
