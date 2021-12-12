@@ -142,9 +142,11 @@
     <% @prev_messages.each do |msg| %>
     <article class="media">
         <figure class="media-left">
+        <% if msg.from.avatar.attached? %>
             <p class="image is-64x64">
                <%= image_tag(msg.from.avatar) %>
             </p>
+        <% end %>
         </figure>
         <div class="media-content">
             <div class="content">
