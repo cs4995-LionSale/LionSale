@@ -304,6 +304,8 @@ Then /^I confirm deal$/ do
   click_button("Confirm Deal")
   sleep 1
   end
+  sleep 10
+
   # print(page.driver.browser.manage.logs.get(:browser).to_s)
 end
 
