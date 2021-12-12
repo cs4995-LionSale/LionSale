@@ -1,7 +1,7 @@
 Then /^I should be on the home page for (.*)$/ do |name|
   current_path = URI.parse(current_url).path
   if current_path.respond_to? :should 
-    current_path.should == user_path(6)
+    current_path.should == user_path(9)
   else
     assert_equal users_path(Users.all.select{ |u| u.username == name }), current_path
   end
@@ -29,7 +29,7 @@ end
 Then /^I should be on the second home page for (.*)$/ do |name|
   current_path = URI.parse(current_url).path
   if current_path.respond_to? :should 
-    current_path.should == user_path(7)
+    current_path.should == user_path(10)
   else
     assert_equal users_path(Users.all.select{ |u| u.username == name }), current_path
   end
@@ -38,7 +38,7 @@ end
 Then /^I should be on the third home page for (.*)$/ do |name|
   current_path = URI.parse(current_url).path
   if current_path.respond_to? :should 
-    current_path.should == user_path(8)
+    current_path.should == user_path(11)
   else
     assert_equal users_path(Users.all.select{ |u| u.username == name }), current_path
   end
@@ -47,7 +47,7 @@ end
 Then /^I should be on the fourth home page for (.*)$/ do |name|
   current_path = URI.parse(current_url).path
   if current_path.respond_to? :should 
-    current_path.should == user_path(9)
+    current_path.should == user_path(12)
   else
     assert_equal users_path(Users.all.select{ |u| u.username == name }), current_path
   end
@@ -231,19 +231,6 @@ Then /^I should not see "([^"]*)"$/ do |text|
   page.has_content?(text).should eq false
 end
 
-Then /^I do geolocation$/ do
-  # page
-  # .driver
-  # .browser
-  # .execute_cdp(
-  #   'Page.setGeolocationOverride',
-  #   accuracy: 100,
-  #   latitude: latitude.to_f,
-  #   longitude: longitude.to_f
-  # )
-  # page.execute_script "navigator.geolocation.getCurrentPosition = function(success) { success({coords: {latitude: 50.455755, longitude: 30.511565}}); }"
-end
-
 Then /^I sleep$/ do
   sleep 1
 end
@@ -301,10 +288,11 @@ end
 
 Then /^I confirm deal$/ do
   accept_confirm do
+  sleep 5
   click_button("Confirm Deal")
-  sleep 1
+  sleep 5
   end
-  sleep 10
+  sleep 5
 
   # print(page.driver.browser.manage.logs.get(:browser).to_s)
 end
@@ -324,14 +312,6 @@ Then /^I check my messages$/ do
   Capybara.ignore_hidden_elements = false
   find("#nav-mailbox-link").click
   Capybara.ignore_hidden_elements = true
-  # page.find( 'div.card msg-card').click
   page.find('#msg-card-3').click
 end
 
-
-# Capybara.register_driver :selenium-webdriver do |app|      
-#   profile = Selenium::WebDriver::Chrome::Profile.new
-#   profile['geolocation.default_content_setting'] = 1
-#   config = { :browser => :chrome, :profile => profile }    
-#   Capybara::Selenium::Driver.new(app, config)
-# end
