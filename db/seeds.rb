@@ -189,6 +189,15 @@ items = Item.create!([
         stock:0,
         category:lv1_categories[2]
     },
+    {
+        title:"Some book",
+        description:"sofa",
+        seller:users[6],
+        price:6.0,
+        status:10,
+        stock:0,
+        category:lv1_categories[2]
+    },
 ])
 items[0].photos.attach(
     io: File.open('db/seeds/1000_Years_of_Loneliness.png'),
@@ -322,6 +331,19 @@ transactions = Transaction.create!([
         buyer_rating: 5,
         seller_rating: 4
     },
+    {
+        item:items[5],
+        seller:users[5],
+        buyer:users[7],
+        expected_deal_time: Time.now - 2.days,
+        real_deal_time: Time.now - 1.day,
+        deal_address: "100 100st.",
+        deal_price: 6.0,
+        quantity: 10,
+        status: 200,
+        buyer_rating: 5,
+        seller_rating: 4
+    },
 ])
 messages = Message.create!([
     {
@@ -344,19 +366,19 @@ messages[1].attachments.attach(
 
 checkins = Checkin.create!([
     {
-        transaction_id:1,
+        transaction_id:8,
         user_id:6,
-        lat:31.111,
-        lng:22.23,
+        lat:40.807537,
+        lng:-73.962570,
         created_at: Time.now,
         updated_at:  Time.now
 
     },
     {
-        transaction_id:2,
+        transaction_id:8,
         user_id:8,
-        lat:31.111,
-        lng:22.23,
+        lat:40.807537,
+        lng:-73.962570,
         created_at: Time.now ,
         updated_at: Time.now
     },
