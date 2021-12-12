@@ -46,6 +46,13 @@ CS W4995 S03 ESaaS Group Project
 + User can delete their own items. 
 + User cannot delete other users' items.
 + User can see the following statistics on their home page: items sold, items selling, items bought. 
++ User can create transactions for the items they want to buy. 
++ Transactions can proceed with layers of buyer/seller confirmation.
++ Transactions will not succeed if buyer/seller are too far from each other.
++ Transactions can be cancelled by buyer/seller. 
++ User can check their transaction records any time. 
++ User can send messages to other users regarding the products.
++ User can check their messages any time in the inbox. 
 
 Please refer `./features` directory for details
 
@@ -56,5 +63,4 @@ Please refer `./features` directory for details
 ## Notes
 We have added Recaptcha for security reasons, but we are not covering them in our tests because it will be ignored and thus cannot be tested in cucumber. 
 
-Further, we have finished more front-end programming than the back-end code can cover, so we are not testing some of the front-end features until the back end functions are integrated 
-
+Note that our cucumber seed has checkin location inside columbia university. To ensure the validity of our transactions, requests are only approved when the users are within 1km of each other. So please note theat the cucumber tests for transactions will only pass when the testing is conducted within/close to Columbia campus. 

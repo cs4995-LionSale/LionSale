@@ -26,7 +26,11 @@ Given I have filled info and signed up as "alex@columbia.edu"
 Scenario: login success1 
   Given I have login as "alex@columbia.edu"
   Then I should be on the home page for "Alex"
-  
+
+Scenario: Admin login
+  Given I want to admin login
+  Then I should see "admin"
+
 Scenario: update profile 1
   Given I have login as "bob@columbia.edu"
   Then I should be on the second home page for "Bob"
@@ -36,14 +40,6 @@ Scenario: update profile 1
   Then I put in new name as "Alex1"
   Then I update
   Then I should be on the second home page for "Alex1"
-
-# Scenario: login success2
-#   Given I am on the login page
-#   And I fill in "username" with "Alex"
-#   And I fill in "password" with "abc"
-#   And I press "Login"
-#   Then I should see "success"
-#   Then I should be on the profile page for "Alex"
 
 Scenario: login failure
   Given I have login as "ggg@columbia.edu"

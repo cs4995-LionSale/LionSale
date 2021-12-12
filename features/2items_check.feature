@@ -70,3 +70,12 @@ Scenario: Edit my items and then delete
     Then I should be on the home page for "alex"
     Then I goto items page
     Then I should see "Closed by seller."
+
+Scenario: Login before create item
+    Given I visit newitem page 
+    Then I putin itemtitle "Other book"
+    Then I putin itemprice 6
+    Then I putin itemquant 2
+    Then I putin itemcat All
+    Then I sell it
+    Then I should see "please log in"

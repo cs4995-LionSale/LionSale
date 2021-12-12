@@ -73,6 +73,8 @@ Scenario: Seller confirmation
     Then I should see "100 100st."
     Then I check details
     Then I should see "Waiting for response..."
+    Then I cancel transaction
+    Then I should see "Purchase request cancelled"
 
 Scenario: Buyer confirmation
     Given I have login as "cat@example.com"
@@ -81,11 +83,9 @@ Scenario: Buyer confirmation
     Then I check details
     Then I should see "Waiting for deal confirmation..."
     Then I confirm deal
-    # Then I screenshot
     Then I goto my transactions
     Then I should not see "Waiting for deal confirmation..."
     Then I should see "Deal confirmation sent"
-
 
 Scenario: Final confirmation
     Given I have login as "alex@example.com"
