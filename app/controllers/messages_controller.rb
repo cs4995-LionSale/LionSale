@@ -33,6 +33,11 @@ class MessagesController < ApplicationController
     @message.from = current_user
     @message.to = User.find_by_id(message_params[:to_id])
     @message.content = message_params[:content]
+    if message_params[:attachments]
+      message_params[:attachments].each do |attachment|
+        @message.attachments.attach(attachment)
+      end
+    end
     if @message.save then
       @message_groups = (Message.where(from: current_user).or(Message.where(to: current_user))).group_by { |d| d[:item_id] }.map{|k,v| {'item': Item.find_by_id(k),'messages': v} }
       render 'index'  
@@ -53,6 +58,6 @@ class MessagesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def message_params
-      params.require(:message).permit(:from_id, :to_id, :item_id, :content, :attachments)
+      params.require(:message).permit(:from_id, :to_id, :item_id, :content, attachments:[])
     end
 end
