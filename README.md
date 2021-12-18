@@ -61,6 +61,6 @@ Please refer `./features` directory for details
 + Github repo link: https://github.com/cs4995-LionSale/LionSale
 
 ## Notes
-We have added Recaptcha for security reasons, but we are not covering them in our tests because it will be ignored and thus cannot be tested in cucumber. 
+We have added Recaptcha for security reasons, but we are not covering them in our tests because it will be ignored and thus cannot be tested in cucumber. We also didn't test the "remember me" function, because it requires closing and reopening the browser, which is not covered by cucumber. 
 
 Note that our cucumber seed has checkin location inside columbia university. To ensure the validity of our transactions, requests are only approved when the users are within 1km of each other. So please note theat the cucumber tests for transactions will only pass when the testing is conducted within/close to Columbia campus. 
