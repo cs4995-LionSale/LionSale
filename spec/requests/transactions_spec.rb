@@ -97,7 +97,7 @@ RSpec.describe "/transactions", type: :request do
       end
 
       it "updates when current user is seller" do
-        post login_url(), params: { email: "hu_tao@example.com", password: "HuTaoPassword",remember_me:"0" }
+        post login_url(), params: { email: "hu_tao@example.com", password: "s3caaar3t",remember_me:"0" }
         
         # patch "/transactions/1", params: {transaction: new_attributes }
         patch "/transactions/1", params: {status: 120,seller_rating:5,buyer_rating:5}
@@ -107,7 +107,7 @@ RSpec.describe "/transactions", type: :request do
       it "updates when current user is buyer" do
         #user 3 id 4
         #buyer 200 - 201
-        post login_url(), params: { email: "amber@example.com", password: "AmberPassword",remember_me:"0" }
+        post login_url(), params: { email: "amber@example.com", password: "s3caaar3t",remember_me:"0" }
 
         patch "/transactions/1", params: {status: 201,seller_rating:5,buyer_rating:5}
         expect(response).to be_successful
@@ -116,13 +116,13 @@ RSpec.describe "/transactions", type: :request do
       it "updates when current user is buyer" do
         #user 3 id 4
         #buyer 200 - 201
-        post login_url(), params: { email: "hu_tao@example.com", password: "HuTaoPassword",remember_me:"0" }
+        post login_url(), params: { email: "hu_tao@example.com", password: "s3caaar3t",remember_me:"0" }
         post checkins_url, params: {
           transaction_id:1,
           lat:1,
           lng:1      
         }
-        post login_url(), params: { email: "amber@example.com", password: "AmberPassword",remember_me:"0" }
+        post login_url(), params: { email: "amber@example.com", password: "s3caaar3t",remember_me:"0" }
         post checkins_url, params: {
           transaction_id:1,
           lat:1,
@@ -141,7 +141,7 @@ RSpec.describe "/transactions", type: :request do
           lat:2,
           lng:1      
         }
-        post login_url(), params: { email: "hu_tao@example.com", password: "HuTaoPassword",remember_me:"0" }
+        post login_url(), params: { email: "hu_tao@example.com", password: "s3caaar3t",remember_me:"0" }
         post checkins_url, params: {
           transaction_id:7,
           lat:1,
@@ -168,14 +168,14 @@ RSpec.describe "/transactions", type: :request do
 
       it "updates when current user is seller" do
         #seller 110-120
-        post login_url(), params: { email: "hu_tao@example.com", password: "HuTaoPassword",remember_me:"0" }
+        post login_url(), params: { email: "hu_tao@example.com", password: "s3caaar3t",remember_me:"0" }
         patch "/transactions/5", params: {status: 120,seller_rating:5,buyer_rating:5}
         expect(response).to be_successful
       end
 
       it "updates when current user is seller" do
         #seller 110-121
-        post login_url(), params: { email: "hu_tao@example.com", password: "HuTaoPassword",remember_me:"0" }
+        post login_url(), params: { email: "hu_tao@example.com", password: "s3caaar3t",remember_me:"0" }
         patch "/transactions/5", params: {status: 121,seller_rating:5,buyer_rating:5}
         expect(response).to be_successful
       end
@@ -189,7 +189,7 @@ RSpec.describe "/transactions", type: :request do
 
       it "updates when current user is seller" do
         #seller 210-220
-        post login_url(), params: { email: "hu_tao@example.com", password: "HuTaoPassword",remember_me:"0" }
+        post login_url(), params: { email: "hu_tao@example.com", password: "s3caaar3t",remember_me:"0" }
         patch "/transactions/6", params: {status: 220,seller_rating:5,buyer_rating:5}
         expect(response).to be_successful
       end
@@ -202,7 +202,7 @@ RSpec.describe "/transactions", type: :request do
           lat:1,
           lng:1      
         }
-        post login_url(), params: { email: "hu_tao@example.com", password: "HuTaoPassword",remember_me:"0" }
+        post login_url(), params: { email: "hu_tao@example.com", password: "s3caaar3t",remember_me:"0" }
         post checkins_url, params: {
           transaction_id:6,
           lat:1,
@@ -214,7 +214,7 @@ RSpec.describe "/transactions", type: :request do
 
       it "updates when current user is seller" do
         #seller 210-222
-        post login_url(), params: { email: "hu_tao@example.com", password: "HuTaoPassword",remember_me:"0" }
+        post login_url(), params: { email: "hu_tao@example.com", password: "s3caaar3t",remember_me:"0" }
         patch "/transactions/6", params: {status: 222,seller_rating:5,buyer_rating:5}
         expect(response).to be_successful
       end

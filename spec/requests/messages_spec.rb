@@ -30,14 +30,14 @@ RSpec.describe "/messages", type: :request do
 
   describe "GET /index" do
     it "renders a successful response" do
-      post login_url(), params: { email: "hu_tao@example.com", password: "HuTaoPassword",remember_me:"0" }
+      post login_url(), params: { email: "hu_tao@example.com", password: "s3caaar3t",remember_me:"0" }
 
       get messages_url
       expect(response).to be_successful
     end
 
     it "renders a successful response" do
-        post login_url(), params: { email: "hu_tao@example.com", password: "HuTaoPassword",remember_me:"0" }
+        post login_url(), params: { email: "hu_tao@example.com", password: "s3caaar3t",remember_me:"0" }
 
         get messages_url, params: {item_id: 4}
         expect(response).to be_successful
@@ -56,7 +56,7 @@ RSpec.describe "/messages", type: :request do
 
   describe "GET /new" do
     it "renders a successful response" do
-      post login_url(), params: { email: "hu_tao@example.com", password: "HuTaoPassword",remember_me:"0" }
+      post login_url(), params: { email: "hu_tao@example.com", password: "s3caaar3t",remember_me:"0" }
     
       get new_message_url, params: {item_id: 2, to_id: 1}
       expect(response).to be_successful
@@ -66,7 +66,7 @@ RSpec.describe "/messages", type: :request do
   describe "POST /create" do
     context "with valid parameters" do
       it "creates a new Message" do
-        post login_url(), params: { email: "hu_tao@example.com", password: "HuTaoPassword",remember_me:"0" }
+        post login_url(), params: { email: "hu_tao@example.com", password: "s3caaar3t",remember_me:"0" }
     
         expect {
           post messages_url, params: { message: valid_attributes }
